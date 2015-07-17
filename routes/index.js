@@ -10,4 +10,7 @@ router.get('/demo', function(){
 	res.send('Demo');
 });
 
+router.get('/hahah', function(){
+	res.send('Hahahahah!!');
+});
 module.exports = router;
