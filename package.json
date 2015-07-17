@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.1",
   "description": "node.js hello world",
+  "script":{
+    "start": "node server.js"
+  },
   "author": "sakeven",
   "dependencies": {
     "express": "3.2.4",
