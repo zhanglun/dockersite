@@ -7,6 +7,7 @@ COPY . /usr/src/app
 
 RUN  npm uninstall
 RUN  npm cache clean
+
 RUN  npm install --production
 
 EXPOSE 80
