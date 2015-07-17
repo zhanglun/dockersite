@@ -1,4 +1,4 @@
-FROM node:0.8-onbuild
+FROM node
 
 # Build app
 RUN mkdir -p /usr/src/app  
