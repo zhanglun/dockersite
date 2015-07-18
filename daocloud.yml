@@ -8,6 +8,8 @@ env:
 
 install:
     - npm install -g mocha
+    - npm update -g npm
+
 
 script:
     - npm install
