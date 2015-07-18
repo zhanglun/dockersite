@@ -5,6 +5,7 @@ services:
 
 env:
     - MONGODB_INSTANCE_NAME = "test"
+    - PORT = "80"
 
 install:
     - npm install -g mocha
