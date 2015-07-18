@@ -5,8 +5,74 @@ var mongoose = require('mongoose');
 // Constants
 var PORT = 80;
 
+var routes = require('./routes/index');
+var users = require('./routes/users');
+
 // App
 var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+app.use(cookieParser('Grover.zhang@mingdao.com'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', routes);
+app.use('/users', users);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+app.use(errorHandler);
+
+function errorHandler(err, req, res, next) {
+        res.status(500);
+        res.render('error', {
+            error: err
+        });
+    }
+    // error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
+
+
+
+
+
 
 
 var port = process.env.MONGODB_PORT_27017_TCP_PORT;
@@ -19,43 +85,26 @@ var username = process.env.MONGODB_USERNAME;
 mongoose.connect('mongodb://' + username + ':' + password +'@' + addr + ':' + port + '/' + instance);
 var Records = mongoose.model('Records', { name: {type: String, default:'any'}, time: {type: Date, default: Date.now} });
 
-app.get('/', function (req, res) {
-  //res.send('Hello world\n');
 
-  var record = new Records({ name: req.ip });
-  record.save(function (err) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log('save');
-    }
-  });
-  Records.find(function (err, docs) {
-    if(err) {
-      console.log(err);
-    } else {
-      var out = '<table border="1" align="center" width="50%"> <thead> <tr> <th> IP </th>  <th> time </th></tr></thead> <tbody> ';
-      for (var i = 0,l = docs.length; i < l; i++){
-        out = out + '<tr> <th>' + docs[i].name + '</th> <th>' + moment(docs[i].date).format() + '</th></tr>';
-      }
-      out = out + '</tbody> </table>'
-      res.send(out);
-    }
-  });
 
-});
 
-app.get('/drop', function (req, res) {
-  Records.remove({}, function(err) {
-    if(err) {
-      console.log(err);
-      res.send('drop collection Records failed');
-    } else {
-      res.send('drop collection Records success');
-      console.log('drop collection Records success');
-    }
-  });
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(PORT);
-console.log('Running on http://localhost:' + PORT);
+console.log('Master Running on http://localhost:' + PORT);
