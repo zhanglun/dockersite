@@ -10,5 +10,5 @@ install:
 
 script:
     - npm install
-    - npm update -g npm
+    - npm update
     - mocha
