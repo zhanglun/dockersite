@@ -1,17 +1,14 @@
 image: daocloud/ci-node:0.12
-
 services:
     - mongodb
 
 env:
     - MONGODB_INSTANCE_NAME = "test"
-    - PORT = "80"
 
 install:
     - npm install -g mocha
-    - npm update -g npm
-
 
 script:
     - npm install
+    - npm update -g npm
     - mocha
