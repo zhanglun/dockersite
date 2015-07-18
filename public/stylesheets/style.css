@@ -1,0 +1,16 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.dot-line{
+    width:8px;
+    height:8px;
+    display: block;
+    background:red;
+    position: absolute;
+}
