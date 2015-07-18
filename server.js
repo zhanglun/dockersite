@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 var debug = require('debug')('express-demo:server');
 
 // Constants
-var PORT = 3000;
+var PORT = 80;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
