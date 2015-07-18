@@ -1,15 +1,3 @@
-FROM node
-
-# Build app
-RUN mkdir -p /usr/src/app  
-WORKDIR /usr/src/app  
-COPY . /usr/src/app
-
-RUN  npm uninstall
-RUN  npm cache clean
-
-RUN  npm install --production
+FROM node:0.8-onbuild
 
 EXPOSE 80
-
-CMD ["node","./bin/www"] 
