@@ -1,12 +1,18 @@
 var express = require('express');
 var moment = require('moment');
 var mongoose = require('mongoose');
+var path = require('path');
+console.log('path');
+console.log(path);
+var router = express.Router();
 
 // Constants
 var PORT = 80;
 
 // App
+
 var app = express();
+
 
 
 var port = process.env.MONGODB_PORT_27017_TCP_PORT;
