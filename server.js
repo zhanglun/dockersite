@@ -63,7 +63,7 @@ app.get('/drop', function (req, res) {
       console.log(err);
       res.send('drop collection Records failed');
     } else {
-      res.send('drop collection Records success');
+      res.send('drop collection Records success at:' + new Date());
       console.log('drop collection Records success');
     }
   });
