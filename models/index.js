@@ -4,7 +4,7 @@ process.env.CODE_ENV = process.argv.slice(2)[0];
 var env = process.env.CODE_ENV;
 
 if (env == 'dev') {
-	mongoose.connect('mongodb://localhost/site-dev');
+	mongoose.connect('mongodb://localhost/sitedev');
 } else {
     var port = process.env.MONGODB_PORT_27017_TCP_PORT;
     var addr = process.env.MONGODB_PORT_27017_TCP_ADDR;
