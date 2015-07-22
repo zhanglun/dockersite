@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var Movie = new Schema({
     name: String,
+    douban_id: String,
     duration: String,
     director: String,
     stars: [{

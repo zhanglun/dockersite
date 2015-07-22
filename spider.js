@@ -1,17 +1,17 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var BufferHelper = require('bufferhelper');
+var async = require('async');
 
 var db = require('./models');
 var Controller = require('./controls');
 
-var url = 'http://movie.douban.com/subject/10577869/';
+var url = 'http://movie.douban.com/subject/25810966/';
 
 
 function getPageData(url, callback) {
-    clearTimeout(timer);
+    var startTime = new Date();
     var timer = setTimeout(function() {
-
 
         var options = {
             url: url,
@@ -27,7 +27,9 @@ function getPageData(url, callback) {
                 'Host': 'movie.douban.com'
             }
         };
+
         request(url, function(err, res, body) {
+
             console.log(res.statusCode);
             if (!err && res.statusCode == 200) {
                 var bufferhelper = new BufferHelper();
@@ -37,83 +39,113 @@ function getPageData(url, callback) {
                 });
 
                 var current = {};
-                current.name = $('span[property="v:itemreviewed"]').html();
-                if (findExistData(current.name)) {
-                    console.log('已经存在了这条数据！');
-                    return false;
-                }
 
-                var moreLinks = $('.recommendations-bd dd').find('a');
-                var links = [];
-                moreLinks.each(function(i, elem) {
-                    links.push(elem.attribs.href.replace(/\?\S*/ig, ''));
-                });
+                current.douban_id = url.match(/\d+/)[0];
+                console.log(current.douban_id);
+                async.waterfall([
+                    function(next) {
+                        findExistData(current.douban_id, function(err, movie) {
+                            if (err) {
+                                console.log('findExistData:' + Err.message);
+                            }
+                            if (movie.length > 0) {
+                                var isExist = true;
+                                console.log('findExistData: True');
+                            } else {
+                                var isExist = false;
+                                console.log('findExistData: False');
+                            }
+                            next(null, isExist);
+                        });
+                    },
+                    function(isexist, next) {
+                        if (isexist.length > 0) {
+                            next(null);
+                        } else {
 
+                            current.name = $('span[property="v:itemreviewed"]').html();
 
-                current.director = $('#info a[rel="v:directedBy"]').html();
-                current.writer = $('#info span.attrs').eq(1).find('a').html();
+                            var moreLinks = $('.recommendations-bd dd').find('a');
+                            var links = [];
+                            moreLinks.each(function(i, elem) {
+                                links.push(elem.attribs.href.replace(/\?\S*/ig, ''));
+                            });
 
-                var starsList = $('#info span.attrs').eq(2).find('a[rel="v:starring"]');
-                var current_stars = [];
-                starsList.each(function(index, elem) {
-                    var obj = {
-                        name: $(this).html(),
-                        href: $(this).attr('href')
-                    };
+                            if (links.length >= 0) {
+                                for (var i = 0; i < links.length; i++) {
+                                    getPageData(links[i]);
+                                }
+                            }
 
-                    current_stars.push(obj);
-                });
-                current.stars = current_stars;
+                            current.director = $('#info a[rel="v:directedBy"]').html();
+                            current.writer = $('#info span.attrs').eq(1).find('a').html();
 
-                var types = $('#info span[property="v:genre"]');
-                var current_type = [];
-                types.each(function(index, elem) {
-                    current_type.push($(this).html());
-                });
-                current.type = current_type;
+                            var starsList = $('#info span.attrs').eq(2).find('a[rel="v:starring"]');
+                            var current_stars = [];
+                            starsList.each(function(index, elem) {
+                                var obj = {
+                                    name: $(this).html(),
+                                    href: $(this).attr('href')
+                                };
 
-                var txt = [];
-                $('#info').contents().each(function(index) {
-                    if (this.nodeType === 3) {
-                        txt.push(this);
+                                current_stars.push(obj);
+                            });
+                            current.stars = current_stars;
+
+                            var types = $('#info span[property="v:genre"]');
+                            var current_type = [];
+                            types.each(function(index, elem) {
+                                current_type.push($(this).html());
+                            });
+                            current.type = current_type;
+
+                            var txt = [];
+                            $('#info').contents().each(function(index) {
+                                if (this.nodeType === 3) {
+                                    txt.push(this);
+                                }
+                            });
+
+                            current.description = $('#link-report').find('span[property="v:summary"]').html();
+                            saveMovieData(current, function() {
+                                //
+                                console.log('saveMovieData');
+                                next();
+                            });
+                        }
+
                     }
+
+                ], function(err) {
+                    var endTime = new Date();
+                    console.log('waiting seconds: ' + (endTime - startTime));
+                    // clearTimeout(timer);
                 });
 
-                current.description = $('#link-report').find('span[property="v:summary"]').html();
-                saveMovieData(current, function() {
-                    // 
-                });
-                if (links.length >= 0) {
-                    for (var i = 0; i < links.length; i++) {
-                        getPageData(links[i]);
-                    }
-                }
 
             } else {
-                console.log(err);
+                console.log('请求失败@@@！！！！');
                 getPageData(url);
             }
 
         });
-    }, 1000 * Math.ceil(Math.random() * 100 + 10));
+    }, 1000 * Math.ceil(Math.random() * 20 + 10));
 
 }
 
 
 
 // 检查数据是否已存在
-function findExistData(name) {
+function findExistData(id, callback) {
     Controller.Movie.find({
-        name: name
+        douban_id: id
     }, function(err, movie) {
         if (err) {
+            console.log(err);
+            callback(err);
             return false;
         }
-        if (movie) {
-            return true;
-        } else {
-            return false;
-        }
+        callback(null, movie);
     });
 }
 
@@ -132,4 +164,4 @@ function saveMovieData(json, callback) {
     });
 }
 
-getPageData(url, getPageData);
+getPageData(url);

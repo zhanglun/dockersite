@@ -3,8 +3,8 @@ var db = require('../models');
 var Movie = {};
 
 Movie.find = function(params, callback){
-	db.Movie.find(params, function(err){
-		callback(arguments);
+	db.Movie.find(params, function(err, movie){
+		callback(err, movie);
 	});
 };
 
