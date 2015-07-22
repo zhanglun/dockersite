@@ -2,7 +2,6 @@ var express = require('express');
 var moment = require('moment');
 var mongoose = require('mongoose');
 var path = require('path');
-var router = express.Router();
 
 
 var config = require('./config');
@@ -23,7 +22,10 @@ var router = require('./router');
 
 var app = express();
 
-app.use('/', router);
+app.use('/', router.Index);
+app.use('/todo', router.Todo);
+app.use('/movie', router.Movie);
+
 
 
 

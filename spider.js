@@ -149,7 +149,6 @@ function findExistData(id, callback) {
     });
 }
 
-
 // 保存数据
 function saveMovieData(json, callback) {
     Controller.Movie.save(json, function(err, movie) {
@@ -164,4 +163,12 @@ function saveMovieData(json, callback) {
     });
 }
 
-getPageData(url);
+// getPageData(url);
+
+
+
+
+var Promise = require('promise');
+
+var promise = new Promise();
+
