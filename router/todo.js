@@ -8,5 +8,9 @@ router.get('/', function(req, res){
 	res.end('ToDo!!');
 });
 
+router.get('/:id', function(req, res){
+    res.send('user: ' + req.params.id);
+});
+
 
 module.exports = router;
