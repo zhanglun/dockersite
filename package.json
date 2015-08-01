@@ -6,9 +6,11 @@
   "author": "sakeven",
   "dependencies": {
     "async": "^1.4.0",
+    "bower": "^1.4.1",
     "bufferhelper": "^0.2.0",
     "cheerio": "^0.19.0",
     "express": "~4.12.2",
+    "express-handlebars": "^2.0.1",
     "moment": "*",
     "mongoose": "4.0",
     "request": "^2.58.0"
