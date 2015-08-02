@@ -5,7 +5,11 @@ var Controller = require('./../controls');
 
 
 router.get('/', function(req, res){
+<<<<<<< HEAD
 	res.end('ToDo!!');
+=======
+    res.render('todo', {layout: false});
+>>>>>>> dev
 });
 
 router.get('/:id', function(req, res){

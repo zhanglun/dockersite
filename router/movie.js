@@ -6,12 +6,7 @@ var db = require('./../models');
 var Controller = require('./../controls');
 
 
-router.get('/', function(req, res){
-	res.end('Movie!!');
-});
-
-
-router.get('/movie', function(req, res) {
+router.get('/', function(req, res) {
     console.log(req.query);
     var params = {};
     var queries = req.query;
@@ -33,7 +28,7 @@ router.get('/subject/:id', function(req, res) {
 router.get('/import', function(req, res){
     var dataPath = __dirname.replace(/router/, 'data.csv');
     fs.readFile(dataPath, encoding="utf-8", function(err, data){
-        var json = data
+        var json = data;
         
         json = json.replace(/\}\n\{/ig, '}#-#{');
 
