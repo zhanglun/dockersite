@@ -4,10 +4,10 @@
 
 var mongoose = require('mongoose');
 
-var schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 
-var Todo = new Shcema({
+var Todo = new Schema({
     name: String,
     ctime: {type: Date, default: Date.now},
     deadline:{type: Date, default: Date.now}
