@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
-plumber = require('gulp-plumber'),
-    livereload = require('gulp-livereload'),
-    sass = require('gulp-ruby-sass');
+var plumber = require('gulp-plumber');
+var livereload = require('gulp-livereload');
+var sass = require('gulp-ruby-sass');
 
 gulp.task('sass', function () {
     return sass('./src/css/')
@@ -20,7 +20,7 @@ gulp.task('develop', function () {
         "env": {
             "NODE_ENV": "development"
         },
-        script: 'app.js',
+        script: 'server.js',
         ext: 'js coffee handlebars'
     }).on('restart', function () {
         setTimeout(function () {
