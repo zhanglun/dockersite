@@ -12,14 +12,11 @@ var env = process.env.NODE_ENV || 'development';
 var PORT;
 
 if (env == 'development') {
+    console.log('deveploment');
     PORT = 3000;
 } else {
     PORT = 80;
     app.enable('view cacahe');
-}
-if (env == 'development') {
-    mongoose.connect('mongodb://localhost/sitedev');
-} else {
     var port = process.env.MONGODB_PORT_27017_TCP_PORT;
     var addr = process.env.MONGODB_PORT_27017_TCP_ADDR;
     var instance = process.env.MONGODB_INSTANCE_NAME;
