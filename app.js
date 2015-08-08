@@ -1,10 +1,24 @@
+var express = require('express');
+var config = require('./config/config');
+var glob = require('glob');
 var mongoose = require('mongoose');
 
-process.env.CODE_ENV = process.argv.slice(2)[0];
-var env = process.env.CODE_ENV;
+var app = express();
 
-if (env == 'dev') {
-	mongoose.connect('mongodb://localhost/sitedev');
+/**
+ * 环境变量
+ */
+var env = process.env.NODE_ENV || 'development';
+var PORT;
+
+if (env == 'development') {
+    PORT = 3000;
+} else {
+    PORT = 80;
+    app.enable('view cacahe');
+}
+if (env == 'development') {
+    mongoose.connect('mongodb://localhost/sitedev');
 } else {
     var port = process.env.MONGODB_PORT_27017_TCP_PORT;
     var addr = process.env.MONGODB_PORT_27017_TCP_ADDR;
@@ -18,13 +32,18 @@ if (env == 'dev') {
 
 var db = mongoose.connection;
 
-db.on('error', function(err) {
+db.on('error', function (err) {
     console.log('database connection failed!: ' + err);
 });
 
-db.on('open', function() {
+db.on('open', function () {
     console.log('database opened!!');
 });
 
 
-exports.Movie = mongoose.model('Movie', require('./movie'));
+require('./config/express')(app, config);
+
+app.listen(PORT, function () {
+    console.log('The server is listening on: ' + PORT);
+});
+
