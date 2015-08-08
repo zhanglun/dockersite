@@ -3,7 +3,6 @@ var router = express.Router();
 
 var _API = require('../../middlewares').API;
 
-console.log(_API);
 
 module.exports = function (app) {
     app.use('/api', router);

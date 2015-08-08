@@ -10,7 +10,7 @@ var methodOverride = require('method-override');
 var exphbs  = require('express-handlebars');
 
 module.exports = function(app, config) {
-  var env = process.env.NODE_ENV || 'development';
+  var env = process.env.NODE_ENV;
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
   
