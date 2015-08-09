@@ -9,3 +9,5 @@ module.exports = function (app) {
 };
 
 router.get('/todo/list', _API.Todo.getList);
+
+router.post('/todo', _API.Todo.create);

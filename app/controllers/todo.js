@@ -8,7 +8,5 @@ module.exports = function(app) {
 };
 
 router.get('/', function(req, res, next) {
-    res.render('index', {
-        title: 'Generator-Nodescaffold Todo'
-    });
+    res.render('todo', {layout:false});
 });
