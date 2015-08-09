@@ -8,6 +8,9 @@ module.exports = function (app) {
     app.use('/api', router);
 };
 
-router.get('/todo/list', _API.Todo.getList);
+router.get('/todo/tasklist', _API.Todo.getTasklist);
+router.get('/todo/task/:id', _API.Todo.getTaskById);
 
-router.post('/todo', _API.Todo.create);
+// 创建新的 task
+router.post('/todo/task/', _API.Todo.createTask);
+
