@@ -10,7 +10,7 @@ var methodOverride = require('method-override');
 var exphbs  = require('express-handlebars');
 
 module.exports = function(app, config) {
-  var env = process.env.NODE_ENV;
+  var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
   
@@ -30,7 +30,7 @@ module.exports = function(app, config) {
   }));
   app.use(cookieParser());
   app.use(compress());
-  app.use(express.static(config.root + '/build'));
+  app.use(express.static(config.root + '/src'));
   app.use(methodOverride());
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');

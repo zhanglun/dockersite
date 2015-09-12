@@ -8,7 +8,7 @@ var app = express();
 /**
  * 环境变量
  */
-var env = process.env.NODE_ENV;
+var env = process.env.NODE_ENV || 'development';
 var PORT;
 var db;
 

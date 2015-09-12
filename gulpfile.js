@@ -1,25 +1,25 @@
-var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');
-var plumber = require('gulp-plumber');
-var livereload = require('gulp-livereload');
-var sass = require('gulp-ruby-sass');
+var gulp = require('gulp'),
+    nodemon = require('gulp-nodemon'),
+    plumber = require('gulp-plumber'),
+    livereload = require('gulp-livereload'),
+    sass = require('gulp-ruby-sass');
+var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('sass', function () {
-    return sass('./src/css/')
-        .pipe(gulp.dest('./build/css'))
+    return sass('./src/scss/todo.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sourcemaps.write('./map'))
+        .pipe(gulp.dest('./src/css'))
         .pipe(livereload());
 });
 
-gulp.task('watch', function () {
-    gulp.watch('./src/css/*.scss', ['sass']);
+gulp.task('watch', function() {
+    gulp.watch(['./src/scss/*.scss','./src/scss/**/*.scss'] ['sass']);
 });
 
 gulp.task('develop', function () {
     livereload.listen();
     nodemon({
-        "env": {
-            "NODE_ENV": "development"
-        },
         script: 'server.js',
         ext: 'js coffee handlebars'
     }).on('restart', function () {

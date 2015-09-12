@@ -1,0 +1,1 @@
+{"version":3,"names":[],"mappings":"","sources":["style.css"],"sourcesContent":["body {\n  padding: 50px;\n  font: 14px \"Lucida Grande\", Helvetica, Arial, sans-serif;\n  background: #4F4D3F; }\n\na {\n  color: #00B7FF; }\n"],"file":"style.css","sourceRoot":"/source/"}

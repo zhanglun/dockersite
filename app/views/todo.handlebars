@@ -2,17 +2,92 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>todo</title>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="./css/todo.css"/>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/underscore/underscore-min.js"></script>
+    <script src="./bower_components/backbone/backbone-min.js"></script>
+    <!--<script src="./js/app.js"></script>-->
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
+<div id="todoapp">
 
+    <header>
+        <div class="container">
+            <div class="nabvbar">
+                <div class="navbar-header">
+
+                </div>
+                <nav class="">
+
+                    <ul class="nav navbar-nav">
+                        <li role="presentation" class="active"><a href="#">Home</a></li>
+                        <li role="presentation"><a href="#">Profile</a></li>
+                        <li role="presentation"><a href="#">Messages</a></li>
+                    </ul>
+                </nav>
+
+            </div>
         </div>
-        <div class="main">
 
+    </header>
+    <div class="row">
+
+        <div class="container">
+            <div class="col-sm-3">
+                <div class="nav">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="">category 01</a></li>
+                        <li><a href="">category 02</a></li>
+                        <li><a href="">category 03</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div id="task-inputer">
+                    <div class="form-group">
+                        <input type="text" name="" id="new-task" class="form-control" placeholder="create a task"/>
+                    </div>
+                </div>
+                <div id="main">
+
+                    <div class="task-container">
+                        <input type="checkbox" name="" id="toggle-all"/>
+                        <ul id="todo-list">
+                            <li><a href=""></a></li>
+                        </ul>
+                        <ul id="filters">
+                            <li><a href=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="footer">
+
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
+<script id="status-bar" type="text/template">
+    <footer>
+        This is the footer
+    </footer>
+</script>
+
+<script id="task-template" type="text/template">
+    <div class="editbox">
+        <div class="checkbox">
+            <input type="checkbox" name="" id=""/>
+            <label for=""></label>
+        </div>
+        <div class="task-content">
+            <div data-val="<%= title %>"><%= title %></div>
+            <input type="text" value="<%= title %>"/>
+        </div>
+    </div>
+</script>
+<script src="./js/todo/todo.js"></script>
 </body>
 </html>
