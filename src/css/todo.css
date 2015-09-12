@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.dib, .checkbox {
+.dib, .task-checker, .task-content {
   display: inline-block; }
 
 .modify, .task-content > input {
@@ -9,40 +9,48 @@
   line-height: 30px;
   padding: 0 4px; }
 
-.editbox {
+.task-editer {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-sizing: border-box;
   font-size: 16px;
   padding: 4px 0; }
 
-.checkbox {
-  width: 20px; }
-  .checkbox > input[type=checkbox] {
-    display: none; }
-    .checkbox > input[type=checkbox] + label {
-      display: block;
-      width: 14px;
-      height: 14px;
-      font-size: 14px;
-      text-align: center;
-      line-height: 14px;
-      border: 1px solid #d4d4d4; }
-    .checkbox > input[type=checkbox] + label::before {
-      content: '🐶';
-      display: block;
-      width: 100%;
-      height: 100%; }
-    .checkbox > input[type=checkbox]:checked + label::before {
-      content: '🐔'; }
+.taskbox {
+  height: 40px;
+  line-height: 40px; }
 
-.task-content > input {
-  border: 1px solid #d4d4d4;
-  display: none;
-  outline: none;
-  font-size: 16px; }
-.task-content.editing > div {
-  display: none; }
-.task-content.editing > input {
-  display: block; }
+.task-checker {
+  width: 20px; }
+  .task-checker > input[type=checkbox] + label {
+    display: none;
+    width: 14px;
+    height: 14px;
+    min-height: 14px;
+    padding: 0;
+    font-size: 14px;
+    text-align: center;
+    line-height: 14px;
+    border: 1px solid #d4d4d4; }
+  .task-checker > input[type=checkbox] + label::before {
+    content: '🐶';
+    display: block;
+    width: 100%;
+    height: 100%; }
+  .task-checker > input[type=checkbox]:checked + label::before {
+    content: '🐔'; }
+
+.task-content {
+  width: 84%; }
+  .task-content > input {
+    border: 1px solid #d4d4d4;
+    display: none;
+    outline: none;
+    font-size: 16px; }
+  .task-content > div {
+    padding: 0 5px; }
+  .task-content.editing > div {
+    display: none; }
+  .task-content.editing > input {
+    display: block; }
 
 /*# sourceMappingURL=map/todo.css.map */

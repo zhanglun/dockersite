@@ -12,22 +12,30 @@ $editbox-height: 30px;
   padding: 0 4px;
 }
 
-.editbox {
+.task-editer {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-sizing: border-box;
   font-size: 16px;
   padding: 4px 0;
 }
 
-.checkbox {
+.taskbox {
+  height: 40px;
+  line-height: 40px;
+}
+
+.task-checker {
   @extend .dib;
   width: 20px;
   > input[type=checkbox] {
-    display: none;
+    //display: none;
     & + label {
-      display: block;
+      display: none;
+      //display: block;
       width: 14px;
       height: 14px;
+      min-height: 14px;
+      padding: 0;
       font-size: 14px;
       text-align: center;
       line-height: 14px;
@@ -46,12 +54,17 @@ $editbox-height: 30px;
 }
 
 .task-content {
+  width: 84%;
+  @extend .dib;
   > input {
     @extend .modify;
     border: 1px solid #d4d4d4;
     display: none;
     outline: none;
     font-size: 16px;
+  }
+  > div {
+    padding: 0 5px;
   }
   &.editing {
     > div {

@@ -150,7 +150,7 @@ app.TodoView = Backbone.View.extend({
     className: 'taskbox',
     template: _.template($('#task-template').html()),
     events: {
-        'click .editbox': 'edit',
+        'click .task-content': 'edit',
         'keypress .task-content': 'updateOnEnter',
         'blur .edit': 'close'
     },
@@ -161,7 +161,7 @@ app.TodoView = Backbone.View.extend({
 
     render: function () {
         this.$el.html(this.template(this.model.toJSON()));
-        this.$input = this.$('input');
+        this.$input = this.$('.task-content input');
         this.$taskContent = this.$('.task-content');
         return this;
     },
@@ -173,8 +173,6 @@ app.TodoView = Backbone.View.extend({
 
     close: function () {
         var value = this.$input.val().trim();
-        console.log(this.$input);
-        console.log(this.$input.val());
         if (value) {
             console.log(value);
             this.model.save({title: value});
