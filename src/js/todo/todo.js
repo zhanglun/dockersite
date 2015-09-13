@@ -20,7 +20,7 @@ app.TodoList = Backbone.Collection.extend({
 
     completed: function () {
         return this.filter(function (todo) {
-            return todo.get('completed');
+            return todo.get('isDone');
         });
     },
     remaining: function () {
@@ -49,7 +49,8 @@ app.AppView = Backbone.View.extend({
     events: {
         'keypress #new-task': 'createOnEnter',
         'click #clear-completed': 'cleawrCompleted',
-        'click #toggle-all': 'toggleAllCompleted'
+        'click #toggle-all': 'toggleAllCompleted',
+        'click #show-task-completed': 'showTaskCompleted'
     },
 
     initialize: function () {
@@ -61,7 +62,8 @@ app.AppView = Backbone.View.extend({
         this.listenTo(app.Todos, 'add', this.addOne);
         this.listenTo(app.Todos, 'reset', this.addAll);
 
-        this.listenTo(app.Todos, 'change:completed', this.filterOne);
+        // change 后面接的是 监听的属性。这里监听的是 isDone 属性，如果 isDone 发生了变化，执行 filterOne()
+        this.listenTo(app.Todos, 'change:isDone', this.filterOne);
         this.listenTo(app.Todos, 'filter', this.filterAll);
         this.listenTo(app.Todos, 'all', this.render);
 
@@ -90,22 +92,32 @@ app.AppView = Backbone.View.extend({
             this.$main.hide();
             this.$footer.hide();
         }
-        console.log();
         this.$allCheckbox.checked = !remaining;
     },
 
     addOne: function (todo) {
         var view = new app.TodoView({model: todo});
-        $('#todo-list').append(view.render().el);
+        if (todo.get('isDone')) {
+            this.$('#task-completed').append(view.render().el);
+        } else {
+            this.$('#task-list').append(view.render().el);
+        }
     },
 
     addAll: function () {
-        this.$('#todo-list').html('');
+        this.$('#task-list').html('');
+
         app.Todos.each(this.addOne, this);
     },
 
     filterOne: function (todo) {
         todo.trigger('visible');
+        var view = new app.TodoView({model: todo});
+        if (todo.get('isDone')) {
+            this.$('#task-completed').append(view.render().el);
+        } else {
+            this.$('#task-list').append(view.render().el);
+        }
     },
 
     filterAll: function () {
@@ -141,6 +153,13 @@ app.AppView = Backbone.View.extend({
                 'isDone': completed
             });
         });
+    },
+
+    showTaskCompleted: function(e){
+        this.$('#task-completed').toggle('show');
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
     }
 
 });
@@ -170,7 +189,11 @@ app.TodoView = Backbone.View.extend({
         this.$taskContent = this.$('.task-content');
 
         this.$el.toggleClass('done', this.model.get('isDone'));
-        this.toggleVisible();
+        //this.toggleVisible();
+
+
+        // footer
+
 
         return this;
     },
@@ -198,7 +221,9 @@ app.TodoView = Backbone.View.extend({
     },
 
     toggleVisible: function () {
-        this.$el.toggleClass('hidden', this.isHidden());
+        //this.$el.toggleClass('hidden', this.isHidden());
+        this.$el.toggleClass('hidden');
+        this.$el.remove();
     },
 
     isHidden: function () {

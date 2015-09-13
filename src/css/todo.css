@@ -1,4 +1,7 @@
 @charset "UTF-8";
+body {
+  background: #eeeeee; }
+
 .dib, .task-checker, .task-content {
   display: inline-block; }
 
@@ -49,5 +52,13 @@
     display: none; }
   .task-content.editing > input {
     display: block; }
+
+#task-completed {
+  display: none; }
+
+.task-footer a {
+  display: inline-block; }
+.task-footer .todo-count {
+  display: inline-block; }
 
 /*# sourceMappingURL=map/todo.css.map */

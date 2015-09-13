@@ -1,4 +1,7 @@
 $editbox-height: 30px;
+body {
+  background: #eeeeee;
+}
 
 .dib {
   display: inline-block;
@@ -73,5 +76,17 @@ $editbox-height: 30px;
     > input {
       display: block;
     }
+  }
+}
+#task-completed{
+  display: none;
+}
+.task-footer {
+  a {
+    display: inline-block;
+  ;
+  }
+  .todo-count {
+    display: inline-block;
   }
 }
