@@ -8,12 +8,12 @@ module.exports = function (app) {
     app.use('/api', router);
 };
 
-router.get('/todo/task/:id', _API.Todo.getTaskById);
+router.get('/todo/tasks/:id', _API.Todo.getTaskById);
 
 
-router.get('/todo/tasklist', _API.Todo.getTasklist);
+router.get('/todo/tasks', _API.Todo.getTasklist);
 // 创建新的 task
-router.post('/todo/tasklist/', _API.Todo.createTask);
+router.post('/todo/tasks/', _API.Todo.createTask);
 
-router.put('/todo/tasklist/:id', _API.Todo.updateTask);
+router.put('/todo/tasks/:id', _API.Todo.updateTask);
 

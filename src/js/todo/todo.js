@@ -3,12 +3,12 @@ var app = app || {};
 app.Todo = Backbone.Model.extend({
     defaults: {
         title: '',
-        done: false
+        isDone: false
     },
     idAttribute: '_id',
     toggle: function () {
         this.save({
-            completed: !this.get('done!')
+            isDone: !this.get('isDone')
         });
     }
 });
@@ -16,7 +16,7 @@ app.Todo = Backbone.Model.extend({
 
 app.TodoList = Backbone.Collection.extend({
     model: app.Todo,
-    url: '/api/todo/tasklist',
+    url: '/api/todo/tasks',
 
     completed: function () {
         return this.filter(function (todo) {
@@ -53,7 +53,7 @@ app.AppView = Backbone.View.extend({
     },
 
     initialize: function () {
-        this.allCheckbox = this.$('#toggle-all')[0];
+        this.$allCheckbox = this.$('#toggle-all');
         this.$input = this.$('#new-task');
         this.$footer = this.$('#footer');
         this.$main = this.$('#main');
@@ -81,17 +81,17 @@ app.AppView = Backbone.View.extend({
                 remaining: remaining
             }));
 
-            this.$('#filters li a')
-                .removeClass('selected')
-                .filter('[href="/' + (app.TodoFilter || '' ) + ')]')
-                .addClass('selected');
+            //this.$('#filters li a')
+            //    .removeClass('selected')
+            //    .filter('[href="/' + (app.TodoFilter || '' ) + ')]')
+            //    .addClass('selected');
 
         } else {
             this.$main.hide();
             this.$footer.hide();
         }
         console.log();
-        this.allCheckbox.checked = !remaining;
+        this.$allCheckbox.checked = !remaining;
     },
 
     addOne: function (todo) {
@@ -133,11 +133,12 @@ app.AppView = Backbone.View.extend({
         return false;
     },
 
-    toggleAllComplete: function () {
-        var completed = this.allCheckbox.checked;
+    toggleAllCompleted: function () {
+        var completed = this.$allCheckbox.prop('checked');
+        console.log(completed);
         app.Todos.each(function (todo) {
             todo.save({
-                'completed': completed
+                'isDone': completed
             });
         });
     }
@@ -150,19 +151,27 @@ app.TodoView = Backbone.View.extend({
     className: 'taskbox',
     template: _.template($('#task-template').html()),
     events: {
-        'click .task-content': 'edit',
+        'dblclick .task-content': 'edit',
         'keypress .task-content': 'updateOnEnter',
-        'blur .edit': 'close'
+        'blur .edit': 'close',
+        'click .checker': 'toggleCompleted',
+        'click .delete': 'clear'
     },
 
     initialize: function () {
         this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'destroy', this.remove);
+        this.listenTo(this.model, 'visible', this.toggleVisible);
     },
 
     render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         this.$input = this.$('.task-content input');
         this.$taskContent = this.$('.task-content');
+
+        this.$el.toggleClass('done', this.model.get('isDone'));
+        this.toggleVisible();
+
         return this;
     },
 
@@ -176,6 +185,8 @@ app.TodoView = Backbone.View.extend({
         if (value) {
             console.log(value);
             this.model.save({title: value});
+        } else {
+            this.clear();
         }
         this.$taskContent.removeClass('editing');
     },
@@ -184,6 +195,23 @@ app.TodoView = Backbone.View.extend({
         if (e.which === 13) {
             this.close();
         }
+    },
+
+    toggleVisible: function () {
+        this.$el.toggleClass('hidden', this.isHidden());
+    },
+
+    isHidden: function () {
+        var isDone = this.model.get('isDone');
+        return ((!isDone && app.TdoFilter === 'completed') || (isDone && app.TodoFilter === 'active'));
+    },
+
+    toggleCompleted: function () {
+        this.model.toggle();
+    },
+
+    clear: function () {
+        this.model.destory();
     }
 
 });

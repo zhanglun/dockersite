@@ -13,7 +13,7 @@ var Todo = new Schema({
     deadline:{type: Date, default: Date.now},
     utime: {type: Date, default: Date.now},
     category: [],
-    isFinished: {type: Boolean, default: false},
+    isDone: {type: Boolean, default: false},
     isOverdue: {type: Boolean, default: false},
     lables: []
 });

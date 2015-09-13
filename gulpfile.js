@@ -21,7 +21,7 @@ gulp.task('develop', function () {
     livereload.listen();
     nodemon({
         script: 'server.js',
-        ext: 'js coffee handlebars'
+        ext: 'js coffee handlebars scss'
     }).on('restart', function () {
         setTimeout(function () {
             livereload.changed(__dirname);

@@ -12,21 +12,21 @@ $editbox-height: 30px;
   padding: 0 4px;
 }
 
-.task-editer {
+.taskbox {
+  height: 30px;
+  line-height: 30px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-sizing: border-box;
   font-size: 16px;
-  padding: 4px 0;
-}
-
-.taskbox {
-  height: 40px;
-  line-height: 40px;
+  &.done {
+    .task-content {
+      text-decoration: line-through;
+    }
+  }
 }
 
 .task-checker {
   @extend .dib;
-  width: 20px;
   > input[type=checkbox] {
     //display: none;
     & + label {

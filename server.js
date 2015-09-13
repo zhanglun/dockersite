@@ -8,16 +8,13 @@ var app = express();
 /**
  * 环境变量
  */
-var env = process.env.NODE_ENV;
+//var env = process.env.NODE_ENV || 'development';
 var PORT;
 var db;
 
-if (env == 'development') {
-    console.log('deveploment');
-    PORT = 3000;
-    mongoose.connect('mongodb://localhost/sitedev');
-    db = mongoose.connection;
-} else if(process.env.MONGODB_PORT_27017_TCP_PORT) {
+//if (env == 'development') {
+//}
+if(process.env.MONGODB_PORT_27017_TCP_PORT) {
     PORT = 80;
     app.enable('view cacahe');
 
@@ -28,6 +25,12 @@ if (env == 'development') {
     var password = process.env.MONGODB_PASSWORD;
     var username = process.env.MONGODB_USERNAME;
     mongoose.connect('mongodb://' + username + ':' + password + '@' + addr + ':' + port + '/' + instance);
+    db = mongoose.connection;
+}else {
+
+    console.log('deveploment');
+    PORT = 3000;
+    mongoose.connect('mongodb://localhost/sitedev');
     db = mongoose.connection;
 }
 
