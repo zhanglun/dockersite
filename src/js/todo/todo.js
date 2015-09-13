@@ -92,6 +92,11 @@ app.AppView = Backbone.View.extend({
             this.$main.hide();
             this.$footer.hide();
         }
+        if (completed) {
+            this.$('#show-task-completed').show();
+        } else {
+            this.$('#show-task-completed').hide();
+        }
         this.$allCheckbox.checked = !remaining;
     },
 
@@ -155,7 +160,7 @@ app.AppView = Backbone.View.extend({
         });
     },
 
-    showTaskCompleted: function(e){
+    showTaskCompleted: function (e) {
         this.$('#task-completed').toggle('show');
         e.preventDefault();
         e.stopPropagation();
