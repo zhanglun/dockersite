@@ -227,7 +227,7 @@ app.TodoView = Backbone.View.extend({
 
     toggleVisible: function () {
         //this.$el.toggleClass('hidden', this.isHidden());
-        this.$el.toggleClass('hidden');
+        this.$el.hide();
         this.$el.remove();
     },
 

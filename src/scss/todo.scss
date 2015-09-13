@@ -16,20 +16,27 @@ body {
 }
 
 .taskbox {
-  height: 30px;
+  height: $editbox-height + 8;
   line-height: 30px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 4px 8px;
+  margin-top: 4px;
   box-sizing: border-box;
   font-size: 16px;
+  background: rgba(255, 255, 255, 0.8);
   &.done {
     .task-content {
       text-decoration: line-through;
     }
   }
+  &:hover{
+    .task-actions{
+      display: block;
+    }
+  }
 }
 
 .task-checker {
-  @extend .dib;
+  float: left;
   > input[type=checkbox] {
     //display: none;
     & + label {
@@ -57,8 +64,8 @@ body {
 }
 
 .task-content {
-  width: 84%;
-  @extend .dib;
+  margin-left: 16px;
+  margin-right: 110px;
   > input {
     @extend .modify;
     border: 1px solid #d4d4d4;
@@ -78,15 +85,28 @@ body {
     }
   }
 }
-#task-completed{
+
+#task-completed {
   display: none;
 }
+
 .task-footer {
   a {
-    display: inline-block;
-  ;
+    display: inline-block;;
   }
   .todo-count {
     display: inline-block;
+  }
+}
+.task-actions{
+  width:100px;
+  overflow:hidden;
+  //display: none;
+  float: right;
+}
+
+#task-category {
+  .list-group-item {
+    background: rgba(255, 255, 255, 0.8);
   }
 }

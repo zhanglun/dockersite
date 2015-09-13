@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="./css/todo.css"/>
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./bower_components/underscore/underscore-min.js"></script>
     <script src="./bower_components/backbone/backbone-min.js"></script>
     <!--<script src="./js/app.js"></script>-->
@@ -37,13 +38,11 @@
 
         <div class="container">
             <div class="col-sm-3">
-                <div class="nav">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a href="">category 01</a></li>
-                        <li><a href="">Finished</a></li>
-                        <li><a href="">Archive</a></li>
-                    </ul>
-                </div>
+                <ul class="list-group" id="task-category">
+                    <li class="list-group-item"><a href="">category 01</a></li>
+                    <li class="list-group-item"><a href="">Finished</a></li>
+                    <li class="list-group-item"><a href="">Archive</a></li>
+                </ul>
             </div>
             <div class="col-sm-8">
                 <div id="task-inputer">
@@ -97,11 +96,23 @@
 <script id="task-template" type="text/template">
     <div class="task-checker">
         <input type="checkbox" class="checker" name="" id=""
-        <% if(isDone){%>
+        <% if(isDone){ %>
         checked
-        <%}%>
+        <% }%>
         />
         <label for=""></label>
+    </div>
+    <div class="task-actions">
+        <!--<span class="btn btn-primary">button1</span>-->
+        <!--<div class="dropdown">-->
+            <!--<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--Dropdown trigger-->
+                <!--<span class="caret"></span>-->
+            <!--</button>-->
+            <!--<ul class="dropdown-menu" aria-labelledby="dLabel">-->
+                <!--...-->
+            <!--</ul>-->
+        <!--</div>-->
     </div>
     <div class="task-content">
         <div data-val="<%= title %>"><%= title %></div>
