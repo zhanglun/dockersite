@@ -180,7 +180,8 @@ app.TodoView = Backbone.View.extend({
     'keypress .task-content': 'updateOnEnter',
     'blur .edit': 'close',
     'click .checker': 'toggleCompleted',
-    'click .delete': 'clear'
+    'click .delete': 'clear',
+    'click .archive': 'archive'
   },
 
   initialize: function () {
@@ -242,7 +243,11 @@ app.TodoView = Backbone.View.extend({
 
   // 归档
   archive: function () {
-
+    console.log('archive');
+    //this.model.set('category', 'archive');
+    this.model.save({
+      'category': 'archive'
+    });
   }
 
 });
