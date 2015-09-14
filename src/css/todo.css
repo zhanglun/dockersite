@@ -5,6 +5,9 @@ body {
 .dib {
   display: inline-block; }
 
+.app-main {
+  box-sizing: border-box; }
+
 .modify, .task-content > input {
   width: 100%;
   box-sizing: border-box;
@@ -70,10 +73,11 @@ body {
   display: inline-block; }
 
 .task-actions {
-  width: 100px;
-  overflow: hidden;
   display: none;
-  float: right; }
+  float: right;
+  width: 100px;
+  text-align: right;
+  overflow: hidden; }
 
 #task-category .list-group-item {
   background: rgba(255, 255, 255, 0.8); }

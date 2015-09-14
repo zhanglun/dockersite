@@ -7,6 +7,10 @@ body {
   display: inline-block;
 }
 
+.app-main {
+  box-sizing: border-box;
+}
+
 .modify {
   width: 100%;
   box-sizing: border-box;
@@ -28,8 +32,8 @@ body {
       text-decoration: line-through;
     }
   }
-  &:hover{
-    .task-actions{
+  &:hover {
+    .task-actions {
       display: block;
     }
   }
@@ -98,11 +102,13 @@ body {
     display: inline-block;
   }
 }
-.task-actions{
-  width:100px;
-  overflow:hidden;
+
+.task-actions {
   display: none;
   float: right;
+  width: 100px;
+  text-align: right;
+  overflow: hidden;
 }
 
 #task-category {
