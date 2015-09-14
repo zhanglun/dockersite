@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('sass', function() {
-    return gulp.src('./src/scss/todo.scss', {
+    return gulp.src('./src/scss/*.scss', {
             sourcemap: true
         })
         .pipe(plumber())

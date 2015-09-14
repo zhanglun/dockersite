@@ -1,5 +1,5 @@
-o
-t = true
+# http://editorconfig.org
+root = true
 
 [*]
 indent_style = space

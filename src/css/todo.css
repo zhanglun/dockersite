@@ -18,7 +18,7 @@ body {
   padding: 4px 8px;
   margin-top: 4px;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 14px;
   background: rgba(255, 255, 255, 0.8); }
   .taskbox.done .task-content {
     text-decoration: line-through; }
@@ -72,6 +72,7 @@ body {
 .task-actions {
   width: 100px;
   overflow: hidden;
+  display: none;
   float: right; }
 
 #task-category .list-group-item {
