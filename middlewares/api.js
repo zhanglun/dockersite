@@ -24,7 +24,6 @@ API.Todo.getTasklist = function(req, res, next) {
 API.Todo.createTask = function(req, res, next) {
     var param = req.body;
     var task = new db.Todo(param);
-    console.log(task.save);
     task.save(function(err, reply) {
         if (err) {
             res.status(400).json({
@@ -45,7 +44,6 @@ API.Todo.createTask = function(req, res, next) {
  */
 API.Todo.updateTask = function(req, res, next) {
     var param = req.body;
-    console.log(param);
     var _id = req.params.id;
     console.log(_id);
     if (param._id !== _id) {
@@ -74,7 +72,6 @@ API.Todo.updateTask = function(req, res, next) {
 
 API.Todo.deleteTask = function(req, res, next) {
     var _id = req.params.id;
-    console.log(_id);
     if (!_id) {
         return res.status(400).json({
             message: 'task id is not correct',

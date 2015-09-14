@@ -54,6 +54,7 @@ app.AppView = Backbone.View.extend({
     },
 
     initialize: function () {
+        console.log('initialize');
         this.$allCheckbox = this.$('#toggle-all');
         this.$input = this.$('#new-task');
         this.$footer = this.$('#footer');
@@ -247,6 +248,23 @@ app.TodoView = Backbone.View.extend({
 });
 
 
+app.AppRouter = Backbone.Router.extend({
+    routes: {
+        'archive': 'taskArchived',
+        '*actions': 'defaultRoute'
+    },
+
+    taskArchived: function(){
+        console.log('archive');
+    },
+    defaultRoute: function(){
+        console.log('Default Router!');
+        new app.AppView();
+    }
+});
+
+
 $(document).ready(function () {
-    new app.AppView();
+    new app.AppRouter();
+    Backbone.history.start();
 });
