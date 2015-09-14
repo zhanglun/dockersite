@@ -16,4 +16,5 @@ router.get('/todo/tasks', _API.Todo.getTasklist);
 router.post('/todo/tasks/', _API.Todo.createTask);
 
 router.put('/todo/tasks/:id', _API.Todo.updateTask);
+router.delete('/todo/tasks/:id', _API.Todo.deleteTask);
 

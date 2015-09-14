@@ -133,7 +133,7 @@ app.AppView = Backbone.View.extend({
         return {
             title: this.$input.val().trim(),
             order: app.Todos.nextOrder(),
-            completed: false
+            isDone: false
         };
     },
 
@@ -195,11 +195,6 @@ app.TodoView = Backbone.View.extend({
 
         this.$el.toggleClass('done', this.model.get('isDone'));
         //this.toggleVisible();
-
-
-        // footer
-
-
         return this;
     },
 
@@ -241,7 +236,12 @@ app.TodoView = Backbone.View.extend({
     },
 
     clear: function () {
-        this.model.destory();
+        this.model.destroy();
+    },
+
+    // 归档
+    archive: function(){
+
     }
 
 });
