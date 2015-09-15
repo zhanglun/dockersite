@@ -12,7 +12,7 @@ var Todo = new Schema({
     ctime: {type: Date, default: Date.now},
     deadline:{type: Date, default: Date.now},
     utime: {type: Date, default: Date.now},
-    category: [],
+    category: '',
     isDone: {type: Boolean, default: false},
     isOverdue: {type: Boolean, default: false},
     lables: []

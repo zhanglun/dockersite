@@ -13,7 +13,6 @@ app.Todo = Backbone.Model.extend({
   }
 });
 
-
 app.TodoList = Backbone.Collection.extend({
   model: app.Todo,
   url: '/api/todo/tasks',
@@ -37,9 +36,7 @@ app.TodoList = Backbone.Collection.extend({
   }
 });
 
-
 app.Todos = new app.TodoList();
-
 
 app.AppView = Backbone.View.extend({
 
@@ -66,6 +63,7 @@ app.AppView = Backbone.View.extend({
     // change 后面接的是 监听的属性。这里监听的是 isDone 属性，如果 isDone 发生了变化，执行 filterOne()
     this.listenTo(app.Todos, 'change:isDone', this.filterOne);
     this.listenTo(app.Todos, 'filter', this.filterAll);
+    this.listenTo(app.Todos, 'filter:archive', this.taskArchived);
     this.listenTo(app.Todos, 'all', this.render);
 
     app.Todos.fetch();
@@ -130,6 +128,19 @@ app.AppView = Backbone.View.extend({
     app.Todos.each(this.filterOne, this);
   },
 
+  taskArchived: function () {
+    console.log(11);
+    var _this = this;
+    _this.$('#task-list').html('');
+    app.Todos.each(function (todo) {
+      if (todo.get('category') == 'archive') {
+        console.log(11);
+        var view = new app.TodoView({model: todo});
+        _this.$('#task-list').append(view.render().el);
+      }
+    });
+  },
+
   newAttributes: function () {
     return {
       title: this.$input.val().trim(),
@@ -169,7 +180,6 @@ app.AppView = Backbone.View.extend({
   }
 
 });
-
 
 app.TodoView = Backbone.View.extend({
   tagName: 'div',
@@ -224,8 +234,7 @@ app.TodoView = Backbone.View.extend({
 
   toggleVisible: function () {
     //this.$el.toggleClass('hidden', this.isHidden());
-    this.$el.hide();
-    this.$el.remove();
+    this.$el.hide().remove();
   },
 
   isHidden: function () {
@@ -243,8 +252,8 @@ app.TodoView = Backbone.View.extend({
 
   // 归档
   archive: function () {
-    console.log('archive');
     //this.model.set('category', 'archive');
+    this.$el.hide().remove();
     this.model.save({
       'category': 'archive'
     });
@@ -252,18 +261,19 @@ app.TodoView = Backbone.View.extend({
 
 });
 
-
 app.AppRouter = Backbone.Router.extend({
   routes: {
     'archive': 'taskArchived',
     '*actions': 'defaultRoute'
   },
 
-  taskArchived: function () {
+  taskArchived: function (param) {
     console.log('archive');
+    app.Todos.trigger('filter:' + param);
   },
   defaultRoute: function () {
     console.log('Default Router!');
+    app.Todos.trigger('reset');
     new app.AppView();
   }
 });
