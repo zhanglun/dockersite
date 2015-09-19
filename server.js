@@ -29,7 +29,7 @@ if(process.env.MONGODB_PORT_27017_TCP_PORT) {
 }else {
 
     console.log('deveploment');
-    PORT = 3000;
+    PORT = 1234;
     mongoose.connect('mongodb://localhost/sitedev');
     db = mongoose.connection;
 }
@@ -46,7 +46,17 @@ db.on('open', function () {
 
 require('./config/express')(app, config);
 
-app.listen(PORT, function () {
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+http.listen(PORT, function () {
     console.log('The server is listening on: ' + PORT);
+});
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
 });
 

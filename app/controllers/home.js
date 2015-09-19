@@ -7,7 +7,16 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
+  console.dir(req.cookies);
+  if(req.cookies.isVisit){
+    console.log(req.cookies);
     res.render('index', {
-        title: 'Generator-Nodescaffold MVC'
+      message: 'welcome back!' + req.sessionID
     });
+  }else{
+    res.cookie('isVisit', 1, {maxAge: 30 * 1000});
+    res.render('index', {
+      message: 'welcome! freshman！' + req.sessionID
+    });
+  }
 });
