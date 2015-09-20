@@ -5,22 +5,22 @@ var _API = require('../../middlewares').API;
 
 
 module.exports = function (app) {
-    app.use('/api/todo', router);
+    app.use('/api', router);
 };
 
 
 // task list
-router.get('/tasks', _API.Todo.getTasklist);
+router.get('/todo/tasks', _API.Todo.getTasklist);
 
 // 创建 task
-router.post('/tasks', _API.Todo.createTask);
+router.post('/todo/tasks', _API.Todo.createTask);
 // 获得单个 task
-router.get('/tasks/:id', _API.Todo.getTaskById);
+router.get('/todo/tasks/:id', _API.Todo.getTaskById);
 // 更新 task
-router.put('/tasks/:id', _API.Todo.updateTask);
+router.put('/todo/tasks/:id', _API.Todo.updateTask);
 // 删除 task
-router.delete('/tasks/:id', _API.Todo.deleteTask);
+router.delete('/todo/tasks/:id', _API.Todo.deleteTask);
 
 
-
+router.post('/files', _API.File.upload);
 

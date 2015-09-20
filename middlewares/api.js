@@ -123,4 +123,16 @@ API.Todo.getArchivedTasks = function (req, res, next) {
   });
 };
 
+
+
+API.File = {};
+
+
+API.File.upload = function(){
+  res.status(200).json({
+    code: 200
+  });
+};
+
+
 module.exports = API;
