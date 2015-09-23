@@ -7,5 +7,5 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  res.render('page', {layout: false});
+  res.render('demo', {layout: false});
 });

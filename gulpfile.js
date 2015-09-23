@@ -22,7 +22,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('develop', function() {
-    livereload.listen();
+    livereload.listen(35730);
     nodemon({
         script: 'server.js',
         ext: 'js coffee handlebars scss'
