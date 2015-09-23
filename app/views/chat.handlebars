@@ -1,33 +1,106 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+<head>
+  <title>Socket.IO chat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  </form>
+    body {
+      font: 13px Helvetica, Arial;
+    }
+
+    form {
+      background: #000;
+      padding: 3px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+    }
+
+    form button {
+      width: 9%;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messages li {
+      padding: 5px 10px;
+    }
+
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
+  </style>
+  <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="row">
+  <div class="col-md-10">
+
+    <div class="container">
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="m" autocomplete="off"/>
+        <button>Send</button>
+
+      </form>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <ul id="roomlist" class="list-group">
+      <li class="list-group-item"><a href="#room1" data-roomid="room1">room1</a></li>
+      <li class="list-group-item"><a href="#room2" data-roomid="room2">room2</a></li>
+      <li class="list-group-item"><a href="#room3" data-roomid="room3">room3</a></li>
+    </ul>
+  </div>
+</div>
 <script src="/socket.io/socket.io.js"></script>
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
 <script>
-  var socket = io();
-   $('form').submit(function(){
-    socket.emit('chat:send_message', $('#m').val());
-    $('#m').val('');
-    return false;
+
+  $(document).ready(function () {
+    var socket = io();
+    var _roomid = window.location.hash ? window.location.hash.slice(1) : "default";
+    socket.emit('user:join_room', {roomid: _roomid});
+    socket.on('online', function (data) {
+      console.log(data.msg);
+    });
+    $('form').submit(function () {
+      socket.emit('chat:send_message', _roomid, $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat:append_message', function (msg) {
+      console.log(arguments);
+      $('#messages').append($('<li>').text(msg));
+    });
+    $('#roomlist').on('click', function (e) {
+      var target = e.target;
+      _roomid = target.dataset.roomid;
+      socket.emit('user:join_room', {roomid: _roomid});
+    });
   });
+
+
 </script>
-  </body>
+</body>
 
 </html>

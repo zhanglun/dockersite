@@ -14,7 +14,7 @@ var db;
 
 //if (env == 'development') {
 //}
-if(process.env.MONGODB_PORT_27017_TCP_PORT) {
+if (process.env.MONGODB_PORT_27017_TCP_PORT) {
     PORT = 80;
     app.enable('view cacahe');
 
@@ -26,7 +26,7 @@ if(process.env.MONGODB_PORT_27017_TCP_PORT) {
     var username = process.env.MONGODB_USERNAME;
     mongoose.connect('mongodb://' + username + ':' + password + '@' + addr + ':' + port + '/' + instance);
     db = mongoose.connection;
-}else {
+} else {
 
     console.log('deveploment');
     PORT = 1234;
@@ -34,11 +34,11 @@ if(process.env.MONGODB_PORT_27017_TCP_PORT) {
     db = mongoose.connection;
 }
 
-db.on('error', function (err) {
+db.on('error', function(err) {
     console.log('database connection failed!: ' + err);
 });
 
-db.on('open', function () {
+db.on('open', function() {
     console.log('database opened!!');
 });
 
@@ -46,17 +46,11 @@ db.on('open', function () {
 
 require('./config/express')(app, config);
 
+
+// socket
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
-http.listen(PORT, function () {
+var socketCon = require('./middlewares/chat/connection.js')(io);
+http.listen(PORT, function() {
     console.log('The server is listening on: ' + PORT);
 });
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-
