@@ -9,12 +9,11 @@ module.exports = function (io) {
       console.log('user disconnected');
     });
 
-    var accepter = new SocketAccepter(socket);
     var emitter = new SocketEmitter(socket);
 
-    socket.on('chat:send_message', function (roomid, msg, callback) {
-      console.log("message: " + msg + 'roomid: ' + roomid);
-      emitter.Chat_append_message(roomid, msg);
+    socket.on('chat:send_message', function (data, callback) {
+      console.log("message: " + data.msg + 'roomid: ' + data.roomid);
+      emitter.Chat_append_message(data);
       if (callback) {
         callback();
       }
