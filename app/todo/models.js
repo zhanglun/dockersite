@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var Todo = new Schema({
+var TodoSchema = new Schema({
     title: String,
     ctime: {type: Date, default: Date.now},
     deadline:{type: Date, default: Date.now},
@@ -18,4 +18,5 @@ var Todo = new Schema({
     lables: []
 });
 
-module.exports = Todo;
+exports.Todo = mongoose.model('Todo', TodoSchema);
+

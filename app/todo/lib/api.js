@@ -1,4 +1,4 @@
-var db = require('../app/models');
+var db = require('../models.js');
 var API = {};
 
 API.Todo = {};
@@ -122,17 +122,5 @@ API.Todo.getArchivedTasks = function (req, res, next) {
     res.status(200).json(tasks);
   });
 };
-
-
-
-API.File = {};
-
-
-API.File.upload = function(){
-  res.status(200).json({
-    code: 200
-  });
-};
-
 
 module.exports = API;

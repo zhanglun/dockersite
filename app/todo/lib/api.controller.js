@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var _API = require('../../middlewares').API;
+var _API = require('./api.js').API;
 
 
 module.exports = function (app) {
