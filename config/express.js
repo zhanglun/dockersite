@@ -43,14 +43,9 @@ module.exports = function (app, config) {
   app.use(express.static(config.root + '/src'));
   app.use(methodOverride());
 
-  //var controllers = glob.sync(config.root + '/app/controllers/*.js');
-  var controllers = glob.sync(config.root + '/app/**/controller.js');
-  controllers.forEach(function (controller) {
-    require(controller)(app);
-  });
-
-  // FIXME: TODO:
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
+  //var pattern = config.root + "{/app/**/controller.js,/app/controllers/*.js}";
+  var controllers = glob.sync(config.root + "{/app/**/controller.js,/app/**/lib/api.controller.js,/app/controllers/*.js}");
+  console.log(controllers);
   controllers.forEach(function (controller) {
     require(controller)(app);
   });

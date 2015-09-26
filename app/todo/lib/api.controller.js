@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var _API = require('./api.js').API;
+var _API = require('./api.js');
 
 
 module.exports = function (app) {
@@ -20,7 +20,3 @@ router.get('/todo/tasks/:id', _API.Todo.getTaskById);
 router.put('/todo/tasks/:id', _API.Todo.updateTask);
 // 删除 task
 router.delete('/todo/tasks/:id', _API.Todo.deleteTask);
-
-
-router.post('/files', _API.File.upload);
-

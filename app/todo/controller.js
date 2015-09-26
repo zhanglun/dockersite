@@ -13,7 +13,15 @@ module.exports = function (app) {
 router.get('/', function (req, res, next) {
   var promise = exphbs.render(tplPath, {title: 'This is the title!'});
   promise.then(function (str) {
-    console.log(str);
+    res.write(str);
+    res.end();
+  });
+});
+
+
+router.get('/:sub', function (req, res, next) {
+  var promise = exphbs.render(tplPath, {title: 'This is the title!'});
+  promise.then(function (str) {
     res.write(str);
     res.end();
   });
