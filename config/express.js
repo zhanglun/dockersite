@@ -7,7 +7,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
-var exphbs = require('express-handlebars');
 
 //var session = require('express-session');
 //var RedisStore = require('connect-redis')(session);
@@ -18,13 +17,8 @@ module.exports = function (app, config) {
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
-  app.engine('handlebars', exphbs({
-    layoutsDir: config.root + '/app/views/layouts/',
-    defaultLayout: 'main',
-    partialsDir: [config.root + '/app/views/partials/']
-  }));
   app.set('views', config.root + '/app/views');
-  app.set('view engine', 'handlebars');
+  app.set('view engine', 'ejs');
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));

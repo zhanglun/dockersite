@@ -1,3 +1,51 @@
+
+page.base('/todovue');
+
+page('/', index);
+page('/inbox', inbox);
+page('/finished', finished);
+page('/archive', archive);
+page();
+
+function index(){
+  console.log(arguments);
+  console.log('welcome to todovue');
+}
+
+function inbox(ctx){
+  console.log(arguments);
+  console.log(ctx.params);
+  document.title = 'todo-inbox';
+}
+
+function finished(){
+  document.title = 'todo-finished';
+}
+
+function archive(){
+  document.title = 'todo-archive';
+}
+
+
+var vm = new Vue();
+var demo = new Vue({
+  el: '#demo',
+  data: {
+    title: 'todos',
+    todos: [
+      {
+        done: true,
+        content: 'Learn JavaScript'
+      },
+      {
+        done: false,
+        content: 'Learn Vue.js'
+      }
+    ]
+  }
+});
+
+
 var app = app || {};
 
 app.Todo = Backbone.Model.extend({

@@ -1,9 +1,10 @@
+var join = require('path').join;
+var fs = require('fs');
 var express = require('express');
 var router = express.Router();
-var db = require('./models.js');
 
-var tplPath = require.resolve('./todo.handlebars');
-var exphbs = require('express-handlebars').create();
+var tplPath = require.resolve('./todo.html');
+console.log(tplPath);
 
 
 module.exports = function (app) {
@@ -11,19 +12,37 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  var promise = exphbs.render(tplPath, {title: 'This is the title!'});
-  promise.then(function (str) {
-    res.write(str);
-    res.end();
+  //res.write(tplFn({title: 'Welcome'}));
+  fs.stat(tplPath, function (err, stat) {
+    if (err){
+      return next();
+    }
+    return res.sendFile(tplPath);
   });
 });
 
+//router.get('/:category', function(req, res){
+//  console.log('redirect');
+//  res.redirect('/todovue/' + req.params.category + '/');
+//});
 
-router.get('/:sub', function (req, res, next) {
-  var promise = exphbs.render(tplPath, {title: 'This is the title!'});
-  promise.then(function (str) {
-    res.write(str);
-    res.end();
-  });
+/**
+ *
+ */
+router.get('/:category', function (req, res, next) {
+  res.write(tplFn({title: 'This is the !' + req.params.category}));
+  res.end();
 });
 
+router.get('/:example/:file(*)', function (req, res, next) {
+  var file = req.params.file;
+  if (!file) return next();
+  var name = req.params.example;
+  var path = join(__dirname, name, file);
+  fs.stat(path, function (err, stat) {
+    if (err){
+      return next();
+    }
+    return res.sendFile(path);
+  });
+});
