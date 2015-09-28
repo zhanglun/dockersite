@@ -14,7 +14,7 @@ module.exports = function (app) {
 router.get('/', function (req, res, next) {
   //res.write(tplFn({title: 'Welcome'}));
   fs.stat(tplPath, function (err, stat) {
-    if (err){
+    if (err) {
       return next();
     }
     return res.sendFile(tplPath);
@@ -30,8 +30,12 @@ router.get('/', function (req, res, next) {
  *
  */
 router.get('/:category', function (req, res, next) {
-  res.write(tplFn({title: 'This is the !' + req.params.category}));
-  res.end();
+  fs.stat(tplPath, function (err, stat) {
+    if (err) {
+      return next();
+    }
+    return res.sendFile(tplPath);
+  });
 });
 
 router.get('/:example/:file(*)', function (req, res, next) {
@@ -40,7 +44,7 @@ router.get('/:example/:file(*)', function (req, res, next) {
   var name = req.params.example;
   var path = join(__dirname, name, file);
   fs.stat(path, function (err, stat) {
-    if (err){
+    if (err) {
       return next();
     }
     return res.sendFile(path);
