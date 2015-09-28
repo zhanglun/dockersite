@@ -7,12 +7,12 @@ API.Todo.getTasklist = function (req, res, next) {
   console.log(querystring);
   db.Todo.find(querystring, function (err, list) {
     if (err) {
-      res.status(400).json({
+      return res.status(400).json({
         message: err.message,
         code: err
       });
     }
-    res.status(200).json(list);
+    return res.status(200).json(list);
   });
 };
 
@@ -27,12 +27,12 @@ API.Todo.createTask = function (req, res, next) {
   var task = new db.Todo(param);
   task.save(function (err, reply) {
     if (err) {
-      res.status(400).json({
+      return res.status(400).json({
         message: err.message,
         code: err
       });
     }
-    res.status(200).json(reply);
+    return res.status(200).json(reply);
   });
 };
 
@@ -62,7 +62,7 @@ API.Todo.updateTask = function (req, res, next) {
     if (err) {
       console.log(err);
       res.status(400).json({
-        message: err.emssage,
+        message: err.message,
         code: err
       });
     }
@@ -84,7 +84,7 @@ API.Todo.deleteTask = function (req, res, next) {
     if (err) {
       console.log(err);
       res.status(400).json({
-        message: err.emssage,
+        message: err.message,
         code: err
       });
     }
@@ -110,7 +110,6 @@ API.Todo.getTaskById = function (req, res, next) {
 
 
 API.Todo.getArchivedTasks = function (req, res, next) {
-  console.log(';111');
   db.Todo.find({category: 'archive'}, function (err, tasks) {
     console.log(tasks);
     if (err) {

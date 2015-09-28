@@ -8,16 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var stylePath = '';
 var filebase = '';
 gulp.task('sass', function () {
-  return gulp.src('./app/**/scss/*.scss', {sourcemap: true})
-    //.pipe(gulp.dest(function (file) {
-    //  var relative = file.relative.split("/");
-    //  stylePath = relative[0] + '/css/';
-    //  filebase = file.base;
-    //  //console.log(filebase + stylePath);
-    //  //filebase = filebase + stylePath;
-    //  //console.log(filebase);
-    //  return filebase;
-    //}))
+  return gulp.src('./app/**/css/*.scss', {sourcemap: true})
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(sass())

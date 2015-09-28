@@ -45,7 +45,6 @@ module.exports = function (app, config) {
 
   //var pattern = config.root + "{/app/**/controller.js,/app/controllers/*.js}";
   var controllers = glob.sync(config.root + "{/app/**/controller.js,/app/**/lib/api.controller.js,/app/controllers/*.js}");
-  console.log(controllers);
   controllers.forEach(function (controller) {
     require(controller)(app);
   });

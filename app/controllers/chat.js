@@ -11,3 +11,9 @@ router.get('/', function(req, res, next) {
         layout: false
     });
 });
+
+router.get('/aa/sss', function(req, res, next) {
+  res.render('chat', {
+    layout: false
+  });
+});
