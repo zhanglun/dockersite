@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
+var ejs = require('ejs');
 
 //var session = require('express-session');
 //var RedisStore = require('connect-redis')(session);

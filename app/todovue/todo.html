@@ -40,30 +40,30 @@
       <div id="main">
         <div class="task-container">
           <div class="">
-            <input type="checkbox" name="" id="toggle-all"/>
+            <input type="checkbox" name="" id="toggle-all" v-on="keyup:submit | key 'enter'"/>
             <label for="toggle-all">Mark all as complete</label>
           </div>
 
           <div id="task-list">
-            <div class="taskbox" v-repeat="todos">
+            <div class="taskbox" v-repeat="todo in todos">
 
               <div class="task-checker">
-                <input type="checkbox" class="checker" name="" id="{{_id}}"/>
-                <label for="{{_id}}"></label>
+                <input type="checkbox" class="checker" name="" id="{{todo._id}}" v-on="click: toggleCompleted(todo)"/>
+                <label for="{{todo._id}}"></label>
               </div>
               <div class="task-actions">
                 <span class="glyphicon glyphicon-remove delete" title="delete"></span>
                 <span class="glyphicon glyphicon-check archive" title="archive"></span>
-                <span class="glyphicon glyphicon-option-horizontal" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="false" id="dLabel">
-                  <ul class="dropdown-menu" aria-labelledby="dLabel">
-                  ...
-                  </ul>
-                </span>
+                <!--<span class="glyphicon glyphicon-option-horizontal" data-toggle="dropdown" aria-haspopup="true"-->
+                      <!--aria-expanded="false" id="dLabel">-->
+                  <!--<ul class="dropdown-menu" aria-labelledby="dLabel">-->
+                  <!--...-->
+                  <!--</ul>-->
+                <!--</span>-->
               </div>
               <div class="task-content" v-on="dblclick: edit">
-                <div data-val="{{title}}">{{title}}</div>
-                <input type="text" value="{{title}}" class=" edit form-control"/>
+                <div data-val="{{todo.title}}">{{todo.title}}</div>
+                <input type="text" value="{{todo.title}}" class=" edit form-control"/>
               </div>
             </div>
           </div>

@@ -264,6 +264,7 @@
 //});
 
 var app = app || {};
+var TodoMethods = {};
 app.init = function () {
   app.$allCheckbox = $('#toggle-all');
   app.$input = $('#new-task');
@@ -283,20 +284,31 @@ app.loadTaskList = function () {
       'data': {
         todos: res
       },
-      'methods': {
-        edit: app.edit
-      }
+      'methods': TodoMethods
     });
   });
 };
 
-app.edit = function (e) {
-  console.log(arguments);
-  console.log(app.$taskContent);
-  $(e.target).addClass('editing');
+
+TodoMethods.edit = function (e) {
+  $(e.target).parents('.task-content').addClass('editing');
   app.$input.focus();
 };
-
+TodoMethods.toggleCompleted = function(item){
+  console.log(item);
+  item.isDone = !item.isDone;
+  TodoMethods.save(item);
+};
+TodoMethods.save = function(todo){
+  $.ajax({
+    url: '/api/todo/tasks/' + todo._id,
+    method: 'put',
+    data: todo
+  })
+    .done(function(res){
+      console.log(res);
+    });
+};
 
 page.base('/todovue');
 
