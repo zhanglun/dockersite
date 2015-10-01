@@ -1,4 +1,4 @@
-$editbox-height: 30px;
+$editbox-height: 42px;
 body {
   background: #eeeeee;
 }
@@ -20,14 +20,14 @@ body {
 }
 
 .taskbox {
-  height: $editbox-height + 8;
-  line-height: 30px;
-  padding: 4px 8px;
+  height: $editbox-height;
+  line-height: $editbox-height;
+  padding: 0 14px;
   margin-top: 4px;
   box-sizing: border-box;
   font-size: 14px;
   background: rgba(255, 255, 255, 0.8);
-  &.done {
+  &.finished {
     .task-content {
       text-decoration: line-through;
     }

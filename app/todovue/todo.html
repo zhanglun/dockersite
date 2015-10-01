@@ -45,10 +45,10 @@
           </div>
 
           <div id="task-list">
-            <div class="taskbox" v-repeat="todo in todos">
+            <div class="taskbox" v-repeat="todo in todos" v-class="finished: todo.isDone">
 
               <div class="task-checker">
-                <input type="checkbox" class="checker" name="" id="{{todo._id}}" v-on="click: toggleCompleted(todo)"/>
+                <input type="checkbox" class="checker" name="" id="{{todo._id}}" v-on="click: toggleCompleted(todo)" v-model="todo.isDone"/>
                 <label for="{{todo._id}}"></label>
               </div>
               <div class="task-actions">
@@ -61,20 +61,19 @@
                 <!--</ul>-->
                 <!--</span>-->
               </div>
-              <div class="task-content" v-on="dblclick: edit(todo)" v-class="finished: todo.isDone, editing: todo == todoEditing">
+              <div class="task-content" v-on="dblclick: edit(todo)" v-class=" editing: todo == todoEditing">
                 <div data-val="{{todo.title}}">{{todo.title}}</div>
                 <input type="text" value="{{todo.title}}" v-todo-autofocus="todo == todoEditing" v-model="todo.title" class="edit form-control"
                        v-on="keyup: updateTodo(todo) | key 13, blur: updateTodo(todo)"/>
               </div>
             </div>
           </div>
-          <div>
-            <a href="" id="show-task-completed">Show completed to-dos</a>
-
-            <div id="task-completed">
-
-            </div>
-          </div>
+          <!-- TODO: -->
+          <!--<div>-->
+            <!--<a href="" id="show-task-completed">Show completed to-dos</a>-->
+            <!--<div id="task-completed">-->
+            <!--</div>-->
+          <!--</div>-->
           <!--<ul id="filters">-->
           <!--<li><a href="">adsfsdf</a></li>-->
           <!--</ul>-->

@@ -11,19 +11,19 @@ body {
 .modify, .task-content > input {
   width: 100%;
   box-sizing: border-box;
-  height: 30px;
-  line-height: 30px;
+  height: 42px;
+  line-height: 42px;
   padding: 0 4px; }
 
 .taskbox {
-  height: 38px;
-  line-height: 30px;
-  padding: 4px 8px;
+  height: 42px;
+  line-height: 42px;
+  padding: 0 14px;
   margin-top: 4px;
   box-sizing: border-box;
   font-size: 14px;
   background: rgba(255, 255, 255, 0.8); }
-  .taskbox.done .task-content {
+  .taskbox.finished .task-content {
     text-decoration: line-through; }
   .taskbox:hover .task-actions {
     display: block; }
