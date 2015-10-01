@@ -33,14 +33,14 @@
     <div class="col-sm-9 app-main">
       <div id="task-inputer">
         <div class="form-group">
-          <input type="text" name="" id="new-task" class="form-control"
-                 placeholder="What needs to be done?"/>
+          <input type="text" name="" autofocus id="new-todo" class="form-control"
+                 placeholder="What needs to be done?" v-model="newTodo.title" v-on="keyup: addTodo | key 13"/>
         </div>
       </div>
       <div id="main">
         <div class="task-container">
           <div class="">
-            <input type="checkbox" name="" id="toggle-all" v-on="keyup:submit | key 'enter'"/>
+            <input type="checkbox" name="" id="toggle-all"/>
             <label for="toggle-all">Mark all as complete</label>
           </div>
 
@@ -55,15 +55,16 @@
                 <span class="glyphicon glyphicon-remove delete" title="delete"></span>
                 <span class="glyphicon glyphicon-check archive" title="archive"></span>
                 <!--<span class="glyphicon glyphicon-option-horizontal" data-toggle="dropdown" aria-haspopup="true"-->
-                      <!--aria-expanded="false" id="dLabel">-->
-                  <!--<ul class="dropdown-menu" aria-labelledby="dLabel">-->
-                  <!--...-->
-                  <!--</ul>-->
+                <!--aria-expanded="false" id="dLabel">-->
+                <!--<ul class="dropdown-menu" aria-labelledby="dLabel">-->
+                <!--...-->
+                <!--</ul>-->
                 <!--</span>-->
               </div>
-              <div class="task-content" v-on="dblclick: edit">
+              <div class="task-content" v-on="dblclick: edit(todo)" v-class="finished: todo.isDone, editing: todo == todoEditing">
                 <div data-val="{{todo.title}}">{{todo.title}}</div>
-                <input type="text" value="{{todo.title}}" class=" edit form-control"/>
+                <input type="text" value="{{todo.title}}" v-todo-autofocus="todo == todoEditing" v-model="todo.title" class="edit form-control"
+                       v-on="keyup: updateTodo(todo) | key 13, blur: updateTodo(todo)"/>
               </div>
             </div>
           </div>

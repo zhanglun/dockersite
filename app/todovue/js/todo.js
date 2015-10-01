@@ -264,51 +264,113 @@
 //});
 
 var app = app || {};
-var TodoMethods = {};
-app.init = function () {
-  app.$allCheckbox = $('#toggle-all');
-  app.$input = $('#new-task');
-  app.$footer = $('#footer');
-  app.$main = $('#main');
-  app.$input = $('.task-content input');
-  app.$taskContent = $('.task-content');
-};
 app.loadTaskList = function () {
-  var deffered = $.ajax({
-    url: '/api/todo/tasks',
-    method: 'get'
-  });
-  deffered.done(function (res) {
-    var list = new Vue({
-      'el': '#task-list',
-      'data': {
-        todos: res
+};
+
+
+function VueInbox() {
+
+  var TodoMethods = {};
+
+  TodoMethods.fetchData = function () {
+    var _this = this;
+    var deffered = $.ajax({
+      url: '/api/todo/tasks',
+      method: 'get'
+    });
+    deffered.done(function (res) {
+      _this.$set('todos', res);
+    });
+  };
+
+  TodoMethods.edit = function (todo) {
+    var _this = this;
+    _this.todoEditing = todo;
+    console.log(todo);
+    //$(e.target).next('input').focus();
+  };
+
+  TodoMethods.toggleCompleted = function (item) {
+    console.log(item);
+    item.isDone = !item.isDone;
+    TodoMethods.save(item);
+  };
+
+  TodoMethods.addTodo = function () {
+    var _this = this;
+    var todo = this.$data.newTodo;
+    TodoMethods.create(todo)
+      .done(function (res) {
+        _this.$data.todos.push(res);
+        _this.$data.newTodo.title = '';
+      });
+  };
+
+  TodoMethods.save = function (todo) {
+    return $.ajax({
+      url: '/api/todo/tasks/' + todo._id,
+      method: 'put',
+      data: todo
+    });
+  };
+
+  TodoMethods.create = function (todo) {
+    return $.ajax({
+      url: '/api/todo/tasks',
+      method: 'post',
+      data: todo
+    });
+  };
+
+  TodoMethods.updateTodo = function (todo) {
+    var _this = this;
+    TodoMethods.save(todo)
+      .done(function(){
+        _this.todoEditing = null;
+      });
+
+  };
+
+  var inbox = new Vue({
+    el: '#todoapp',
+    ready: function () {
+      var _this = this;
+      console.log('Vue is ready!');
+      var deffered = $.ajax({
+        url: '/api/todo/tasks',
+        method: 'get'
+      });
+      deffered.done(function (res) {
+        _this.$set('todos', res);
+      });
+    },
+    data: {
+      newTodo: {
+        title: '',
+        isDone: false
       },
-      'methods': TodoMethods
-    });
+      todoEditing: null,
+      todos: []
+    },
+    directives: {
+      'todo-autofocus': function (value) {
+        if (!value) {
+          return;
+        }
+        var el = this.el;
+        setTimeout(function () {
+          el.focus();
+        }, 0);
+      }
+    },
+    methods: TodoMethods
   });
-};
 
 
-TodoMethods.edit = function (e) {
-  $(e.target).parents('.task-content').addClass('editing');
-  app.$input.focus();
-};
-TodoMethods.toggleCompleted = function(item){
-  console.log(item);
-  item.isDone = !item.isDone;
-  TodoMethods.save(item);
-};
-TodoMethods.save = function(todo){
-  $.ajax({
-    url: '/api/todo/tasks/' + todo._id,
-    method: 'put',
-    data: todo
-  })
-    .done(function(res){
-      console.log(res);
-    });
-};
+  return inbox;
+
+}
+
 
 page.base('/todovue');
 
@@ -324,7 +386,8 @@ function index() {
 
 function inbox(ctx) {
   document.title = 'todo-inbox';
-  app.loadTaskList();
+  //app.loadTaskList();
+  VueInbox();
 }
 
 function finished() {
@@ -335,7 +398,3 @@ function archive() {
   document.title = 'todo-archive';
 }
 
-
-$(document).ready(function () {
-  app.init();
-});

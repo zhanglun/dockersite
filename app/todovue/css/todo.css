@@ -60,7 +60,8 @@ body {
     padding: 0 5px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; }
+    text-overflow: ellipsis;
+    -webkit-user-select: none; }
   .task-content.editing > div {
     display: none; }
   .task-content.editing > input {
