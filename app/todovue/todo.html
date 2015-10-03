@@ -52,7 +52,7 @@
                 <label for="{{todo._id}}"></label>
               </div>
               <div class="task-actions">
-                <span class="glyphicon glyphicon-remove delete" title="delete"></span>
+                <span class="glyphicon glyphicon-remove delete" title="delete" v-on="click: deleteTodo(todo)"></span>
                 <span class="glyphicon glyphicon-check archive" title="archive"></span>
                 <!--<span class="glyphicon glyphicon-option-horizontal" data-toggle="dropdown" aria-haspopup="true"-->
                 <!--aria-expanded="false" id="dLabel">-->

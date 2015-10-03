@@ -322,14 +322,31 @@ function VueInbox() {
     });
   };
 
+  TodoMethods.delete = function (todo) {
+    return $.ajax({
+      url: '/api/todo/tasks/' + todo._id,
+      method: 'delete',
+      data: todo
+    });
+  };
+
   TodoMethods.updateTodo = function (todo) {
     var _this = this;
     TodoMethods.save(todo)
-      .done(function(){
+      .done(function () {
         _this.todoEditing = null;
       });
-
   };
+
+  TodoMethods.deleteTodo = function (todo) {
+    var _this = this;
+    TodoMethods.delete(todo)
+      .done(function () {
+        console.log('delete todo from database');
+        _this.$data.todos.$remove(todo);
+      });
+  };
+
 
   var inbox = new Vue({
     el: '#todoapp',
@@ -344,6 +361,8 @@ function VueInbox() {
         _this.$set('todos', res);
       });
     },
+
+    // 数据
     data: {
       newTodo: {
         title: '',
@@ -352,6 +371,8 @@ function VueInbox() {
       todoEditing: null,
       todos: []
     },
+
+    // 指令
     directives: {
       'todo-autofocus': function (value) {
         if (!value) {
@@ -363,6 +384,8 @@ function VueInbox() {
         }, 0);
       }
     },
+
+    // 方法
     methods: TodoMethods
   });
 

@@ -1,4 +1,4 @@
-$editbox-height: 42px;
+$editbox-height: 34px;
 body {
   background: #eeeeee;
 }
@@ -20,9 +20,9 @@ body {
 }
 
 .taskbox {
-  height: $editbox-height;
+  height: $editbox-height + 10;
   line-height: $editbox-height;
-  padding: 0 14px;
+  padding: 5px 14px;
   margin-top: 4px;
   box-sizing: border-box;
   font-size: 14px;
