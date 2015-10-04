@@ -20,3 +20,5 @@ router.get('/todo/tasks/:id', _API.Todo.getTaskById);
 router.put('/todo/tasks/:id', _API.Todo.updateTask);
 // 删除 task
 router.delete('/todo/tasks/:id', _API.Todo.deleteTask);
+
+router.get('/todo/archived', _API.Todo.getArchivedTasks);

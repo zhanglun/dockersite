@@ -39,10 +39,10 @@
       </div>
       <div id="main">
         <div class="task-container">
-          <div class="">
-            <input type="checkbox" name="" id="toggle-all"/>
-            <label for="toggle-all">Mark all as complete</label>
-          </div>
+          <!--<div class="">-->
+            <!--<input type="checkbox" name="" id="toggle-all"/>-->
+            <!--<label for="toggle-all">Mark all as complete</label>-->
+          <!--</div>-->
 
           <div id="task-list">
             <div class="taskbox" v-repeat="todo in todos" v-class="finished: todo.isDone">
@@ -53,7 +53,7 @@
               </div>
               <div class="task-actions">
                 <span class="glyphicon glyphicon-remove delete" title="delete" v-on="click: deleteTodo(todo)"></span>
-                <span class="glyphicon glyphicon-check archive" title="archive"></span>
+                <span class="glyphicon glyphicon-check archive" title="archive" v-on="click: archiveTodo(todo)"></span>
                 <!--<span class="glyphicon glyphicon-option-horizontal" data-toggle="dropdown" aria-haspopup="true"-->
                 <!--aria-expanded="false" id="dLabel">-->
                 <!--<ul class="dropdown-menu" aria-labelledby="dLabel">-->
@@ -122,5 +122,5 @@
     <input type="text" value="<%= title %>" class=" edit form-control"/>
   </div>
 </script>
-<script src="/todovue/js/todo.js"></script>
+<script src="/todovue/dist/todo.js"></script>
 </body>

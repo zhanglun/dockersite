@@ -5,6 +5,8 @@ var gulp = require('gulp'),
   sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 
+var browserify = require('gulp-browserify');
+
 var stylePath = '';
 var filebase = '';
 gulp.task('sass', function () {
@@ -21,8 +23,18 @@ gulp.task('sass', function () {
     .pipe(livereload());
 });
 
+gulp.task('browserify', function () {
+  gulp.src('./app/todovue/js/*.js')
+    .pipe(browserify({
+      insertGlobals: true,
+      debug: true
+    }))
+    .pipe(gulp.dest('./app/todovue/dist/'));
+});
+
 gulp.task('watch', function () {
   gulp.watch('./app/**/css/*.scss', ['sass']);
+  gulp.watch('./app/**/js/*.js', ['browserify']);
 });
 
 gulp.task('develop', function () {
@@ -39,6 +51,7 @@ gulp.task('develop', function () {
 
 gulp.task('default', [
   'sass',
+  'browserify',
   'develop',
   'watch'
 ]);
