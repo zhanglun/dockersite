@@ -26,7 +26,7 @@
       <ul class="list-group" id="task-category">
         <li class="list-group-item"><a href="./inbox"><i class="glyphicon glyphicon-inbox"></i> Inbox</a></li>
         <li class="list-group-item"><a href="./finished"><i class="glyphicon glyphicon-list-alt"></i> Finished</a></li>
-        <li class="list-group-item"><a href="./archive"> <i class="glyphicon glyphicon-folder-close"></i> Archive</a>
+        <!--<li class="list-group-item"><a href="./archive"> <i class="glyphicon glyphicon-folder-close"></i> Archive</a>-->
         </li>
       </ul>
     </div>
@@ -40,15 +40,16 @@
       <div id="main">
         <div class="task-container">
           <!--<div class="">-->
-            <!--<input type="checkbox" name="" id="toggle-all"/>-->
-            <!--<label for="toggle-all">Mark all as complete</label>-->
+          <!--<input type="checkbox" name="" id="toggle-all"/>-->
+          <!--<label for="toggle-all">Mark all as complete</label>-->
           <!--</div>-->
 
           <div id="task-list">
-            <div class="taskbox" v-repeat="todo in todos" v-class="finished: todo.isDone">
+            <div class="taskbox" v-repeat="todo in filteredTodos" v-class="finished: todo.isDone">
 
               <div class="task-checker">
-                <input type="checkbox" class="checker" name="" id="{{todo._id}}" v-on="click: toggleCompleted(todo)" v-model="todo.isDone"/>
+                <input type="checkbox" class="checker" name="" id="{{todo._id}}" v-on="click: toggleCompleted(todo)"
+                       v-model="todo.isDone"/>
                 <label for="{{todo._id}}"></label>
               </div>
               <div class="task-actions">
@@ -63,16 +64,17 @@
               </div>
               <div class="task-content" v-on="dblclick: edit(todo)" v-class=" editing: todo == todoEditing">
                 <div data-val="{{todo.title}}">{{todo.title}}</div>
-                <input type="text" value="{{todo.title}}" v-todo-autofocus="todo == todoEditing" v-model="todo.title" class="edit form-control"
+                <input type="text" value="{{todo.title}}" v-todo-autofocus="todo == todoEditing" v-model="todo.title"
+                       class="edit form-control"
                        v-on="keyup: updateTodo(todo) | key 13, blur: updateTodo(todo)"/>
               </div>
             </div>
           </div>
           <!-- TODO: -->
           <!--<div>-->
-            <!--<a href="" id="show-task-completed">Show completed to-dos</a>-->
-            <!--<div id="task-completed">-->
-            <!--</div>-->
+          <!--<a href="" id="show-task-completed">Show completed to-dos</a>-->
+          <!--<div id="task-completed">-->
+          <!--</div>-->
           <!--</div>-->
           <!--<ul id="filters">-->
           <!--<li><a href="">adsfsdf</a></li>-->
