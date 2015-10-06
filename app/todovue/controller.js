@@ -4,7 +4,6 @@ var express = require('express');
 var router = express.Router();
 
 var tplPath = require.resolve('./todo.html');
-console.log(tplPath);
 
 
 module.exports = function (app) {
@@ -12,7 +11,6 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  //res.write(tplFn({title: 'Welcome'}));
   fs.stat(tplPath, function (err, stat) {
     if (err) {
       return next();
