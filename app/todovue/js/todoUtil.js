@@ -29,6 +29,9 @@ TodoMethods.toggleCompleted = function (item) {
 TodoMethods.addTodo = function () {
   var _this = this;
   var todo = this.$data.newTodo;
+  if (todo.title == '') {
+    return false;
+  }
   TodoMethods.create(todo)
     .done(function (res) {
       _this.$data.todos.push(res);

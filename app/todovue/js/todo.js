@@ -1,12 +1,10 @@
 var TodoUtil = require('./todoUtil');
 var filters = require('./todoFilter');
-console.log(filters);
 
 var app = new Vue({
   el: '#todoapp',
   ready: function () {
     var _this = this;
-    console.log('Vue is ready!');
     var deffered = $.ajax({
       url: '/api/todo/tasks',
       method: 'get'
