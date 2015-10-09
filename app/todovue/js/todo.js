@@ -52,10 +52,9 @@ var app = new Vue({
 
 page.base('/todovue');
 
-page('/', index);
+page('/', '/inbox');
 page('/inbox', inbox);
 page('/finished', finished);
-page('/archive', archive);
 page();
 
 function index() {

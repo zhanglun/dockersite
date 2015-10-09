@@ -11,6 +11,7 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
+  console.log('/');
   fs.stat(tplPath, function (err, stat) {
     if (err) {
       return next();
@@ -19,15 +20,10 @@ router.get('/', function (req, res, next) {
   });
 });
 
-//router.get('/:category', function(req, res){
-//  console.log('redirect');
-//  res.redirect('/todovue/' + req.params.category + '/');
-//});
-
 /**
  *
  */
-router.get('/:category', function (req, res, next) {
+router.get('/:category/', function (req, res, next) {
   fs.stat(tplPath, function (err, stat) {
     if (err) {
       return next();
