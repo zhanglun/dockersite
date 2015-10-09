@@ -5,34 +5,16 @@ var router = express.Router();
 
 var tplPath = require.resolve('./todo.html');
 
-
-module.exports = function (app) {
-  app.use('/todovue', router);
-};
-
-router.get('/', function (req, res, next) {
-  console.log('/');
+function renderHtml(req, res, next){
   fs.stat(tplPath, function (err, stat) {
     if (err) {
       return next();
     }
     return res.sendFile(tplPath);
   });
-});
+}
 
-/**
- *
- */
-router.get('/:category/', function (req, res, next) {
-  fs.stat(tplPath, function (err, stat) {
-    if (err) {
-      return next();
-    }
-    return res.sendFile(tplPath);
-  });
-});
-
-router.get('/:example/:file(*)', function (req, res, next) {
+function renderFiles(req, res, next){
   var file = req.params.file;
   if (!file) return next();
   var name = req.params.example;
@@ -43,4 +25,16 @@ router.get('/:example/:file(*)', function (req, res, next) {
     }
     return res.sendFile(path);
   });
-});
+}
+
+
+module.exports = function (app) {
+  app.use('/todovue', router);
+};
+
+// 静态文件
+router.get('/:example/:file(*)', renderFiles);
+
+// 路由
+router.get('/', renderHtml);
+router.get('/:category', renderHtml);
