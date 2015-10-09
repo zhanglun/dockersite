@@ -38,3 +38,4 @@ router.get('/:example/:file(*)', renderFiles);
 // 路由
 router.get('/', renderHtml);
 router.get('/:category', renderHtml);
+router.get('/:category/*', renderHtml);
