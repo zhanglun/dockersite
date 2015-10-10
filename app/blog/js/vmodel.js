@@ -36,10 +36,22 @@ VModel.post = function () {
 VModel.write = function () {
   return new Vue({
     el: '#blog-writer',
+    ready: function(){
+      var _this = this;
+      $.ajax({
+        method: 'get',
+        url: '/api/blog/category'
+      })
+        .done(function(res){
+          _this.$set('categories', res);
+        });
+    },
     data: {
+      categories:[],
       post: {
         title: '',
         content: '',
+        category: '',
         tags: ''
       }
 

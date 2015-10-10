@@ -70,6 +70,12 @@ Blog.createPost = function (req, res, next) {
   });
 };
 
+Blog.getCategoryList = function (req, res, next) {
+  db.Article.find({}, {category: 1, _id: 0})
+    .then(function (result) {
+      res.send(result);
+    });
+};
 
 // 博客主页数据
 router.get('/posts', Blog.getPostList);
@@ -79,10 +85,14 @@ router.get('/posts/:id', Blog.getArticleDetail);
 // 添加新的博文
 router.post('/posts', Blog.createPost);
 
+router.get('/category', Blog.getCategoryList);
 
 router.get('/tags', function (req, res, next) {
-  db.Article.find({}, {tags: 1, _id: 0}, function (err, tags) {
-    console.log(tags);
-    res.send(tags);
-  });
+  db.Article.find({}, {tags: 1, _id: 0})
+    .then(function (tags) {
+      res.send(tags);
+    })
+    .catch(function(err){
+      console.log(err);
+    });
 });
