@@ -1,67 +1,80 @@
-function index() {
-    console.log('welcome to blog');
-}
+var VModel = require('./VModel');
 
-(function() {
-    // private api
+(function () {
 
-    var cache = {};
+  // private api
 
-    function get(url, cb) {
-        if (cache[url]) return cb(cache[url]);
-        $.ajax({
-            url: url,
-            success: function(data) {
-                cache[url] = data;
-                cb(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR, textStatus, errorThrown);
-            },
-            dataType: 'text'
-        });
+  var cache = {};
+
+  function get(url, cb) {
+    if (cache[url]) return cb(cache[url]);
+    $.ajax({
+      url: url,
+      success: function (data) {
+        cache[url] = data;
+        cb(data);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR, textStatus, errorThrown);
+      },
+      dataType: 'text'
+    });
+  }
+
+  // public api
+
+  window.init = {
+    ctx: function (ctx, next) {
+      ctx.data = {};
+      ctx.partials = {};
+      next();
     }
+  };
 
-    // public api
+  window.route = {
+    post: function (ctx, next) {
+      get('partials/post.html', function (html) {
+        ctx.data.index = 'post';
+        ctx.partials.content = html;
+        next();
+      });
+    },
+    article: function (ctx, next) {
+      get('partials/article.html', function (html) {
+        ctx.data.index = 'article';
+        ctx.partials.content = html;
+        ctx.partials.postid = ctx.params.id;
+        next();
+      });
+    },
+    write: function (ctx, next) {
+      get('partials/writer.html', function (html) {
+        ctx.data.index = 'write';
+        ctx.partials.content = html;
+        next();
+      });
+    }
+  };
 
-    window.init = {
-        ctx: function(ctx, next) {
-            ctx.data = {};
-            ctx.partials = {};
-            next();
-        }
-    };
+  window.render = {
+    content: function (ctx, next) {
+      $('#content').attr('data-postid', ctx.partials.postid);
+      $('#content').empty().append(ctx.partials.content);
+      VModel[ctx.data.index]();
+    }
+  };
 
-    window.route = {
-        post: function(ctx, next) {
-            get('partials/post.html', function(html) {
-                ctx.data.index = 0;
-                ctx.partials.content = html;
-                next();
-            });
-        },
-        write: function(ctx, next) {
-            get('partials/writer.html', function(html) {
-                ctx.data.index = 1;
-                ctx.partials.content = html;
-                next();
-            });
-        }
-    };
-
-    window.render = {
-        content: function(ctx, next) {
-            $('#content').empty().append(ctx.partials.content);
-        }
-    };
-
-    window.done = null;
+  window.done = null;
 }());
+
 
 page.base('/blog');
 page('*', init.ctx);
 page('/', '/post');
 page('/post', route.post);
+page('/post/:id', route.article);
 page('/write', route.write);
 page('*', render.content);
 page();
+
+

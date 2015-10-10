@@ -9,27 +9,3 @@
         <button class="btn btn-primary" v-on="click: publish(post)">发布</button>
     </div>
 </div>
-<script>
-var Writer = new Vue({
-    el: '#blog-writer',
-    data: {
-        post: {
-            title: '',
-            content: ''
-        }
-
-    },
-    methods: {
-        "publish": function(post) {
-            console.log(post);
-            $.ajax({
-                method: 'post',
-                url: '/api/blog/posts',
-                dataType: 'application/json',
-                data: post
-            });
-        }
-    }
-
-});
-</script>

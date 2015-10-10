@@ -19,14 +19,32 @@ var Blog = {};
  * @param next
  */
 Blog.getPostList = function(req, res, next){
-  db.Article.find({}, function(err, reply) {
-    console.log(reply);
+  db.Article.find({}, function(err, list) {
     if (err) {
       console.log(err);
       res.send(err);
     } else {
-      console.log(reply);
-      res.send(reply);
+      console.log(list);
+      res.send(list);
+    }
+  });
+};
+
+/**
+ * 单个博文详情
+ * @param req
+ * @param res
+ * @param next
+ */
+Blog.getArticleDetail = function(req, res, next){
+  var _id = req.params.id;
+  console.log(req.params);
+  db.Article.findOne({'_id': _id},function(err, article){
+    if(err){
+      console.log(err);
+      res.send(err);
+    }else{
+      res.send(article);
     }
   });
 };
@@ -58,6 +76,8 @@ Blog.createPost = function(req, res, next) {
 
 // 博客主页数据
 router.get('/posts', Blog.getPostList);
+// 单个博文
+router.get('/posts/:id', Blog.getArticleDetail);
 
 // 添加新的博文
 router.post('/posts', Blog.createPost);

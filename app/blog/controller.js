@@ -41,6 +41,7 @@ router.get('/:example/:file(*)', renderFiles);
 router.get('/', renderHtml);
 router.get('/:category', renderHtml);
 router.get('/:category/*', renderHtml);
+router.get('/:category/*/*', renderHtml);
 
 
 
