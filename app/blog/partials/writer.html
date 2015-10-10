@@ -6,7 +6,7 @@
 
     <div class="form-group">
       <label for="" class="control-label">标题</label>
-      <input type="text" name="" id="" class="form-control" placeholder="标题" v-model="post.title">
+      <input type="text" class="form-control" placeholder="标题" v-model="post.title">
     </div>
     <div class="form-group">
       <label for="" class="control-label">正文</label>
@@ -14,21 +14,14 @@
     </div>
     <div class="form-group ">
       <label for="" class="control-label">标签</label>
-      <input type="text" name="" id="" class="form-control" placeholder="标签（多个标签用逗号分开）" v-model="post.tags"/>
+      <input type="text" class="form-control" placeholder="标签（多个标签用逗号分开）" v-model="post.tags"/>
     </div>
     <div class="form-group">
-      <label for="" class="control-label">分类</label>
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          分类
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-         <li r-repeat="category in categories">
-           {{category}}
-         </li>
-        </ul>
-      </div>
+      <label for="" class="control-label">分类{{post.category}}</label>
+      <select name="" id="option" v-model="post.category">
+        <option value="未分类">未分类</option>
+        <option v-repeat="categories" value="{{$value}}">{{$value}}</option>
+      </select>
     </div>
     <div class="form-group ">
       <button class="btn btn-primary" v-on="click: publish(post)">发布</button>

@@ -36,18 +36,18 @@ VModel.post = function () {
 VModel.write = function () {
   return new Vue({
     el: '#blog-writer',
-    ready: function(){
+    ready: function () {
       var _this = this;
       $.ajax({
         method: 'get',
         url: '/api/blog/category'
       })
-        .done(function(res){
+        .done(function (res) {
           _this.$set('categories', res);
         });
     },
     data: {
-      categories:[],
+      categories: [1, 2, 3, 4],
       post: {
         title: '',
         content: '',
@@ -58,7 +58,11 @@ VModel.write = function () {
     },
 
     methods: {
-      "publish": function (post) {
+      'selectCategory': function (val) {
+        console.log(val);
+        this.$data.post.category = val;
+      },
+      'publish': function (post) {
         post.tags = post.tags.split(',');
         $.ajax({
           method: 'post',
@@ -93,7 +97,6 @@ VModel.article = function () {
   });
 
 };
-
 
 
 module.exports = VModel;

@@ -1,8 +1,11 @@
-<div id="post">
-  <h2>文章列表</h2>
-  <ul>
-    <li v-repeat="article in articles">
-      <a href="./post/{{article._id}}"> {{article.title}}</a>
-    </li>
-  </ul>
+<div id="post" class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <article v-repeat="article in articles">
+      <span class="pull-right">{{article.ctime}}</span>
+      <h3>
+        <a href="./post/{{article._id}}"> {{article.title}}</a>
+      </h3>
+    </article>
+  </div>
 </div>

@@ -71,8 +71,25 @@ Blog.createPost = function (req, res, next) {
 };
 
 Blog.getCategoryList = function (req, res, next) {
-  db.Article.find({}, {category: 1, _id: 0})
-    .then(function (result) {
+  //db.Article.mapReduce(function(){
+  //  emit(this.category, {category: this.cagetory,count:1});
+  //}, function(key, values){
+  //  var result = {'category':'', 'count': ''};
+  //  values.map(function(item, i){
+  //    result.count += item.count;
+  //    result.category = item.category;
+  //  });
+  //  return result;
+  //}, {
+  // 'out': 'aaaa'
+  //}).exec(function(){
+  //  console.log('----');
+  //  console.log(arguments);
+  //});
+  //console.log('bb');
+  //console.log(bb);
+  db.Article.distinct('category')
+    .exec(function (err, result) {
       res.send(result);
     });
 };
@@ -92,7 +109,7 @@ router.get('/tags', function (req, res, next) {
     .then(function (tags) {
       res.send(tags);
     })
-    .catch(function(err){
+    .catch(function (err) {
       console.log(err);
     });
 });
