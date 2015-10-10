@@ -17,10 +17,5 @@ var Article = new Schema({
     tags: []
 });
 
-/**
- * static
- */
-
-
 exports.Article = mongoose.model('Article', Article);
 

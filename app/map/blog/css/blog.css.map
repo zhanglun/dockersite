@@ -1,0 +1,1 @@
+{"version":3,"sources":["blog/css/blog.scss"],"names":[],"mappings":"AAAA,eAAe,CAAA;EAEb,MAAM,EAAC,KAAM,GAFC","file":"blog/css/blog.css","sourcesContent":[".writer-content{\n  //resize: none;\n  height:400px;\n}\n"],"sourceRoot":"/source/"}

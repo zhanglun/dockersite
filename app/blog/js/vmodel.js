@@ -39,13 +39,15 @@ VModel.write = function () {
     data: {
       post: {
         title: '',
-        content: ''
+        content: '',
+        tags: ''
       }
 
     },
+
     methods: {
       "publish": function (post) {
-        console.log(post);
+        post.tags = post.tags.split(',');
         $.ajax({
           method: 'post',
           url: '/api/blog/posts',

@@ -1,6 +1,14 @@
 <div id="article-detail">
   <article class="entry">
-    <h1>{{article.title}}</h1>
+    <header>
+      <h1>{{article.title}}</h1>
+      <p>发表于 {{article.ctime}}</p>
+    </header>
     <div v-html="article.content"></div>
+   <footer>
+     <div class="tags">
+       <span class="label label-success" v-repeat="tag in article.tags">{{tag}}</span>
+     </div>
+   </footer>
   </article>
 </div>
