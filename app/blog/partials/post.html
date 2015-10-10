@@ -1,0 +1,32 @@
+<div id="post">
+  <h2>文章列表</h2>
+  <ul>
+    <li v-repeat="article in articles">
+      {{article.title}}
+    </li>
+  </ul>
+</div>
+
+
+<script>
+  var Post = new Vue({
+    el: '#post',
+    ready: function(){
+      var _this = this;
+      $.ajax({
+        method: 'get',
+        url: '/api/blog/posts'
+      })
+      .done(function(res){
+        console.log(res);
+        _this.$set('articles', res);
+      });
+    },
+    data: {
+      articles: []
+    },
+    methods: {
+
+    }
+  });
+</script>

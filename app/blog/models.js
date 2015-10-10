@@ -7,16 +7,20 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var TodoSchema = new Schema({
+var Article = new Schema({
     title: String,
+    content: String,
+    author: String,
     ctime: {type: Date, default: Date.now},
-    deadline:{type: Date, default: Date.now},
     utime: {type: Date, default: Date.now},
-    category: '',
-    isDone: {type: Boolean, default: false},
-    isOverdue: {type: Boolean, default: false},
-    lables: []
+    category: String,
+    tags: []
 });
 
-exports.Todo = mongoose.model('Todo', TodoSchema);
+/**
+ * static
+ */
+
+
+exports.Article = mongoose.model('Article', Article);
 

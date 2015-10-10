@@ -31,10 +31,18 @@ gulp.task('browserify', function () {
     }))
     .pipe(gulp.dest('./app/todovue/dist/'));
 });
+gulp.task('browserify1', function () {
+  gulp.src('./app/blog/js/*.js')
+    .pipe(browserify({
+      insertGlobals: true,
+      debug: true
+    }))
+    .pipe(gulp.dest('./app/blog/dist/'));
+});
 
 gulp.task('watch', function () {
   gulp.watch('./app/**/css/*.scss', ['sass']);
-  gulp.watch('./app/**/js/*.js', ['browserify']);
+  gulp.watch('./app/**/js/*.js', ['browserify', 'browserify1']);
 });
 
 gulp.task('develop', function () {
@@ -52,6 +60,7 @@ gulp.task('develop', function () {
 gulp.task('default', [
   'sass',
   'browserify',
+  'browserify1',
   'develop',
   'watch'
 ]);
