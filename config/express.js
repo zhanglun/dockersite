@@ -9,7 +9,7 @@ var compress = require('compression');
 var methodOverride = require('method-override');
 var ejs = require('ejs');
 
-//var session = require('express-session');
+var session = require('express-session');
 //var RedisStore = require('connect-redis')(session);
 
 
@@ -28,12 +28,12 @@ module.exports = function (app, config) {
     extended: true
   }));
   app.use(cookieParser());
-  //app.use(session({
-  //    store: new RedisStore(),
-  //    resave: true,
-  //    saveUninitialized: true,
-  //    secret: 'zhanglun daocloud!'
-  //}));
+  app.use(session({
+    //cookie: { secure: true },
+    //resave: true,
+    //saveUninitialized: true,
+    secret: 'zhanglun daocloud!'
+  }));
   app.use(compress());
   app.use(express.static(config.root + '/src'));
   app.use(methodOverride());

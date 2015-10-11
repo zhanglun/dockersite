@@ -8,40 +8,41 @@ var app = express();
 /**
  * 环境变量
  */
-//var env = process.env.NODE_ENV || 'development';
 var PORT;
 var db;
 
-//if (env == 'development') {
-//}
 if (process.env.MONGODB_PORT_27017_TCP_PORT) {
-    PORT = 80;
-    app.enable('view cacahe');
+  PORT = 80;
+  app.enable('view cacahe');
 
-    // mongodb
-    var port = process.env.MONGODB_PORT_27017_TCP_PORT;
-    var addr = process.env.MONGODB_PORT_27017_TCP_ADDR;
-    var instance = process.env.MONGODB_INSTANCE_NAME;
-    var password = process.env.MONGODB_PASSWORD;
-    var username = process.env.MONGODB_USERNAME;
-    mongoose.connect('mongodb://' + username + ':' + password + '@' + addr + ':' + port + '/' + instance);
-    db = mongoose.connection;
+  // mongodb
+  var port = process.env.MONGODB_PORT_27017_TCP_PORT;
+  var addr = process.env.MONGODB_PORT_27017_TCP_ADDR;
+  var instance = process.env.MONGODB_INSTANCE_NAME;
+  var password = process.env.MONGODB_PASSWORD;
+  var username = process.env.MONGODB_USERNAME;
+  mongoose.connect('mongodb://' + username + ':' + password + '@' + addr + ':' + port + '/' + instance);
+  db = mongoose.connection;
+
+  // redis
+
 } else {
+  // mongodb
+  PORT = 1234;
+  mongoose.connect('mongodb://localhost/sitedev');
+  db = mongoose.connection;
 
-    console.log('deveploment');
-    PORT = 1234;
-    mongoose.connect('mongodb://localhost/sitedev');
-    db = mongoose.connection;
+  // redis
+  // TODO:
 }
 
-db.on('error', function(err) {
-    console.log('database connection failed!: ' + err);
+db.on('error', function (err) {
+  console.log('database connection failed!: ' + err);
 });
 
-db.on('open', function() {
-    console.log('database opened!!');
+db.on('open', function () {
+  console.log('database opened!!');
 });
-
 
 
 require('./config/express')(app, config);
@@ -51,6 +52,6 @@ require('./config/express')(app, config);
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var socketCon = require('./middlewares/chat/connection.js')(io);
-http.listen(PORT, function() {
-    console.log('The server is listening on: ' + PORT);
+http.listen(PORT, function () {
+  console.log('The server is listening on: ' + PORT);
 });

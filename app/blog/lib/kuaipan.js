@@ -54,12 +54,13 @@ KuaiPan.authorize = function (temptoken) {
 /**
  * 获取最终访问的 token
  * @param token
+ * @param tokenserect
+ * @param verifier
  * @returns {string}
  */
 KuaiPan.getAccessToken = function (token, tokenserect, verifier) {
   var base_uri = config.kuaipan.url.accessToken;
   var qsobj = {
-    //oauth_callback: config.kuaipan.oauth_callback,
     oauth_consumer_key: config.kuaipan.consumer_key,
     oauth_nonce: Math.random().toString(36).slice(2, 10) + '',
     oauth_signature_method: config.kuaipan.oauth_signature_method,
@@ -68,8 +69,6 @@ KuaiPan.getAccessToken = function (token, tokenserect, verifier) {
     oauth_verifier: verifier,
     oauth_version: config.kuaipan.oauth_version
   };
-
-  console.log(qsobj);
 
   var base_string = 'GET' + '&' +
     encodeURIComponent(base_uri) + '&' +
@@ -82,18 +81,32 @@ KuaiPan.getAccessToken = function (token, tokenserect, verifier) {
   return url;
 };
 
+/**
+ * 获取用户信息
+ * @param token
+ * @param tokenserect
+ * @returns {string}
+ */
+KuaiPan.getAccountInfo = function(token, tokenserect){
+  var base_uri = config.kuaipan.url.account_info;
+  var qsobj = {
+    oauth_consumer_key: config.kuaipan.consumer_key,
+    oauth_nonce: Math.random().toString(36).slice(2, 10) + '',
+    oauth_signature_method: config.kuaipan.oauth_signature_method,
+    oauth_timestamp: (new Date().getTime() + '').slice(0, 10) * 1,
+    oauth_token: token,
+    oauth_version: config.kuaipan.oauth_version
+  };
 
-//KuaiPan.oauth = function () {
-//  var temp_url = this.getRequestToken();
-//  var temp_body = null;
-//  request(temp_url, function (err, result) {
-//    if (result.statusCode == 200) {
-//      temp_body = JSON.parse(result.body);
-//      KuaiPan.authorize(temp_body.auth_token);
-//    } else {
-//      // TODO: errorHandler
-//    }
-//  });
-//};
+  var base_string = 'GET' + '&' +
+    encodeURIComponent(base_uri) + '&' +
+    encodeURIComponent(querystring.stringify(qsobj));
+
+  qsobj.oauth_signature = crypto.createHmac('sha1', config.kuaipan.consumer_secret + '&' + tokenserect).update(base_string).digest('base64');
+
+  var url = base_uri + '?' + querystring.stringify(qsobj);
+  return url;
+};
+
 
 module.exports = KuaiPan;

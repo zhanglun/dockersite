@@ -131,8 +131,7 @@ router.get('/kuaipan/request_token', function (req, res, next) {
   var url = KuaiPan.getRequestToken();
   request(url, function (err, result) {
     var body = JSON.parse(result.body);
-    console.log(body);
-    temp = body.oauth_token_secret;
+    req.session.oauth_token_secret = body.oauth_token_secret;
     res.send({
       code: result.statusCode,
       body: body
@@ -140,37 +139,32 @@ router.get('/kuaipan/request_token', function (req, res, next) {
   });
 });
 
-
-//router.post('/kuaipan/authorize_callback', function(req, res, next){
-//  console.log('0000000->>>>');
-//  console.log(req.body);
-//  res.send(req.body);
-//});
 /**
  *  step2: 用户授权之后跳转, 得到 token
  */
 router.get('/kuaipan/authorize_callback', function (req, res, next) {
-  console.log(req.query);
-  // TODO: 获取 access token
+
   var oauth_token = req.query.oauth_token;
   var oauth_verifier = req.query.oauth_verifier;
-  var oauth_token_secret = temp;
+  var oauth_token_secret = req.session.oauth_token_secret;
   var url = KuaiPan.getAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
   request(url, function (err, result) {
-    res.send(result);
+    var body = JSON.parse(result.body);
+    req.session.access_token = body.oauth_token;
+    req.session.oauth_token_secret = body.oauth_token_secret;
+    console.log(req.session);
+    res.send(body);
   });
 });
 
 
 router.get('/kuaipan/account_info', function (req, res, next) {
 
-  var url = KuaiPan.getRequestToken();
+  var access_token = req.session.access_token;
+  var access_token_sercet = req.session.oauth_token_secret;
+  console.log(res.session);
+  var url = KuaiPan.getAccountInfo(access_token, access_token_sercet);
   request(url, function (err, result) {
-    var tmp_body = JSON.parse(result.body);
-    console.log(tmp_body);
-    var _url = KuaiPan.getAccessToken(tmp_body.oauth_token);
-    request(_url, function (err, result) {
-      res.send(result);
-    });
+    res.send(JSON.parse(result.body));
   });
 });
