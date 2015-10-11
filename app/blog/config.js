@@ -10,7 +10,8 @@ config.kuaipan = {
     requestToken: 'https://openapi.kuaipan.cn/open/requestToken',
     authorize: 'https://www.kuaipan.cn/api.php?ac=open&op=authorise&oauth_token=',
     accessToken: 'https://openapi.kuaipan.cn/open/accessToken',
-    account_info: 'http://openapi.kuaipan.cn/1/account_info'
+    account_info: 'http://openapi.kuaipan.cn/1/account_info',
+    metadata: 'http://openapi.kuaipan.cn/1/metadata/app_folder/'
   }
 
 };

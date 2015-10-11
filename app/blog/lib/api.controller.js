@@ -168,3 +168,14 @@ router.get('/kuaipan/account_info', function (req, res, next) {
     res.send(JSON.parse(result.body));
   });
 });
+
+router.get('/kuaipan/metadata', function(req, res, next){
+
+  var access_token = req.session.access_token;
+  var access_token_sercet = req.session.oauth_token_secret;
+  console.log(res.session);
+  var url = KuaiPan.getFolderMetadata(access_token, access_token_sercet);
+  request(url, function (err, result) {
+    res.send(JSON.parse(result.body));
+  });
+});

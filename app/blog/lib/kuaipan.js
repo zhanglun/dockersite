@@ -6,9 +6,13 @@ console.log(config);
 
 var KuaiPan = {};
 
+/**
+ * 请求快盘 api 时需要的oauth 参数
+ * @returns {{oauth_callback: string, oauth_consumer_key: string, oauth_nonce: string, oauth_signature_method: string, oauth_timestamp: number, oauth_version: string}}
+ */
 KuaiPan.createOauthParam = function () {
 
-  var qsobj = {
+  return {
     oauth_callback: config.kuaipan.oauth_callback,
     oauth_consumer_key: config.kuaipan.consumer_key,
     oauth_nonce: Math.random().toString(36).slice(2, 10) + '',
@@ -17,7 +21,6 @@ KuaiPan.createOauthParam = function () {
     //oauth_consumer_secret: config.kuaipan.consumer_secret,
     oauth_version: config.kuaipan.oauth_version
   };
-  return qsobj;
 };
 
 /**
@@ -34,22 +37,9 @@ KuaiPan.getRequestToken = function () {
   qsobj.oauth_signature = crypto.createHmac('sha1', config.kuaipan.consumer_secret + '&').update(base_string).digest('base64');
 
   var url = base_uri + '?' + querystring.stringify(qsobj);
-  console.log(url);
   return url;
 };
 
-/**
- * 用户授权
- * @param temptoken
- */
-KuaiPan.authorize = function (temptoken) {
-  var url = config.kuaipan.url.authorize + temptoken;
-  request(url, function (err, result) {
-    console.log(result);
-    //res.send(result);
-  });
-
-};
 
 /**
  * 获取最终访问的 token
@@ -87,7 +77,7 @@ KuaiPan.getAccessToken = function (token, tokenserect, verifier) {
  * @param tokenserect
  * @returns {string}
  */
-KuaiPan.getAccountInfo = function(token, tokenserect){
+KuaiPan.getAccountInfo = function (token, tokenserect) {
   var base_uri = config.kuaipan.url.account_info;
   var qsobj = {
     oauth_consumer_key: config.kuaipan.consumer_key,
@@ -108,5 +98,27 @@ KuaiPan.getAccountInfo = function(token, tokenserect){
   return url;
 };
 
+KuaiPan.getFolderMetadata = function(token, tokenserect){
+
+  var base_uri = config.kuaipan.url.metadata;
+  var qsobj = {
+    oauth_consumer_key: config.kuaipan.consumer_key,
+    oauth_nonce: Math.random().toString(36).slice(2, 10) + '',
+    oauth_signature_method: config.kuaipan.oauth_signature_method,
+    oauth_timestamp: (new Date().getTime() + '').slice(0, 10) * 1,
+    oauth_token: token,
+    oauth_version: config.kuaipan.oauth_version
+  };
+
+  var base_string = 'GET' + '&' +
+    encodeURIComponent(base_uri) + '&' +
+    encodeURIComponent(querystring.stringify(qsobj));
+
+  qsobj.oauth_signature = crypto.createHmac('sha1', config.kuaipan.consumer_secret + '&' + tokenserect).update(base_string).digest('base64');
+
+  var url = base_uri + '?' + querystring.stringify(qsobj);
+  console.log(url);
+  return url;
+};
 
 module.exports = KuaiPan;
