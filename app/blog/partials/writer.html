@@ -18,9 +18,9 @@
     </div>
     <div class="form-group">
       <label for="" class="control-label">分类{{post.category}}</label>
-      <select name="" id="option" v-model="post.category">
-        <option value="未分类">未分类</option>
-        <option v-repeat="categories" value="{{$value}}">{{$value}}</option>
+      <select class="form-control" name="" id="option" v-model="post.category" options="categories">
+        <option value="未分类" selected="selected">未分类</option>
+        <!--<option v-repeat="categories" value="{{$value}}">{{$value}}</option>-->
       </select>
     </div>
     <div class="form-group ">

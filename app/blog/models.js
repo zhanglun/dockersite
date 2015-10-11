@@ -8,13 +8,14 @@ var Schema = mongoose.Schema;
 
 
 var Article = new Schema({
-    title: String,
-    content: String,
-    author: String,
-    ctime: {type: Date, default: Date.now},
-    utime: {type: Date, default: Date.now},
-    category: String,
-    tags: []
+  title: String,
+  content: String,
+  abstract: String,
+  author: String,
+  ctime: {type: Date, default: Date.now},
+  utime: {type: Date, default: Date.now},
+  category: String,
+  tags: []
 });
 
 exports.Article = mongoose.model('Article', Article);

@@ -51,6 +51,7 @@ VModel.write = function () {
       post: {
         title: '',
         content: '',
+        abstract: '',
         category: '',
         tags: ''
       }
@@ -80,14 +81,13 @@ VModel.article = function () {
   return new Vue({
     el: '#article-detail',
     ready: function () {
-      console.log($('#content').attr('data-postid'));
       var _this = this;
       $.ajax({
         method: 'get',
         url: '/api/blog/posts/' + $('#content').attr('data-postid')
       })
         .done(function (res) {
-          res.content = marked(res.content);
+          res.content = marked(res.content.replace(/\<\!\-\-\s*more\s*\-\-\>/, ''));
           _this.$set('article', res);
         });
     },

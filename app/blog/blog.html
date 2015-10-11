@@ -20,6 +20,7 @@
       <li>
         <a href="./write">write</a>
       </li>
+      <li><span id="test">授权快盘</span></li>
     </ul>
   </nav>
 </div>
@@ -30,6 +31,21 @@
 <script src="/bower_components/page/page.js"></script>
 <script src="/bower_components/vue/dist/vue.js"></script>
 <script src="/blog/dist/app.js"></script>
+<script>
+  window.onload = function () {
+    $('#test').click(function () {
+      $.ajax({
+        method: 'get',
+        url: '/api/blog/kuaipan/request_token'
+      })
+        .done(function (res) {
+          console.log(res);
+         var oauth_token = res.body.oauth_token;
+          window.open('https://www.kuaipan.cn/api.php?ac=open&op=authorise&oauth_token=' + oauth_token);
+        });
+    });
+  };
+</script>
 </body>
 
 </html>
