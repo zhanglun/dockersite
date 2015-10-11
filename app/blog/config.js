@@ -15,4 +15,7 @@ config.kuaipan = {
 
 };
 
+if (process.env.MONGODB_PORT_27017_TCP_PORT) {
+  config.kuaipan.oauth_callback = 'http://zhanglun.daocloud.io/api/blog/kuaipan/authorize_callback';
+}
 module.exports = config;
