@@ -58,7 +58,7 @@ Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
     encodeURIComponent(querystring.stringify(oauth_param));
   oauth_param.oauth_signature = crypto.createHmac('sha1', config.kuaipan.consumer_secret + '&' + tokenserect).update(base_string).digest('base64');
 
-  return  baseuri + '?' + querystring.stringify(oauth_param);
+  return baseuri + '?' + querystring.stringify(oauth_param);
 
 };
 
@@ -106,6 +106,7 @@ Kuaipan.getAccountInfo = function (token, tokenserect) {
 
 /**
  * 获取文件夹信息
+ * @param path
  * @param token
  * @param tokenserect
  * @returns {string}
@@ -119,5 +120,30 @@ Kuaipan.getFolderMetadata = function (path, token, tokenserect) {
   }], tokenserect);
   return request.getAsync(url);
 };
+
+/**
+ * 创建文件夹
+ * @param path
+ * @param token
+ * @param tokenserect
+ * @returns {*}
+ */
+Kuaipan.createFolder = function (path, token, tokenserect) {
+  var base_uri = config.kuaipan.url.create_folder;
+  var url = this.createOauthUrl(base_uri, [{
+    oauth_token: token
+  }, {root: 'app_folder'}, {path: path}], tokenserect);
+  return request.getAsync(url);
+};
+
+
+Kuaipan.downloadFile = function (path, token, tokenserect) {
+  var base_uri = config.kuaipan.url.download_file;
+  var url = this.createOauthUrl(base_uri, [{
+    oauth_token: token
+  }, {root: 'app_folder'}, {path: path}], tokenserect);
+  return request.getAsync(url);
+};
+
 
 module.exports = Kuaipan;

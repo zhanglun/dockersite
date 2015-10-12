@@ -196,7 +196,6 @@ router.get('/kuaipan/account_info', function (req, res, next) {
 });
 
 /**
- * TODO: 目前只是简单的获取根目录的信息，可以增加路径参数获取指定路径的信息
  * 获取应用文件夹信息
  */
 router.get('/kuaipan/metadata', function (req, res, next) {
@@ -208,5 +207,45 @@ router.get('/kuaipan/metadata', function (req, res, next) {
   promise.then(function (result) {
     result = result[0];
     res.send(JSON.parse(result.body));
+  });
+});
+
+/**
+ * 创建文件夹
+ */
+router.get('/kuaipan/create_folder', function(req, res, next){
+
+  var access_token = req.session.access_token;
+  var access_token_secret = req.session.oauth_token_secret;
+  var path = req.query.path;
+  if(!path){
+    res.status(403).json({
+      code: 403,
+      msg: 'no path'
+    });
+  }
+  var promise = Kuaipan.createFolder(path, access_token, access_token_secret);
+  promise.then(function (result) {
+    result = result[0];
+    res.status(200).json(JSON.parse(result.body));
+  });
+});
+
+
+router.get('/kuaipan/download_file', function(req, res, next){
+
+  var access_token = req.session.access_token;
+  var access_token_secret = req.session.oauth_token_secret;
+  var path = req.query.path;
+  if(!path){
+    res.status(403).json({
+      code: 403,
+      msg: 'no path'
+    });
+  }
+  var promise = Kuaipan.downloadFile(path, access_token, access_token_secret);
+  promise.then(function (result) {
+    result = result[0];
+    res.status(200).json(JSON.parse(result.body));
   });
 });
