@@ -1,6 +1,7 @@
 image: daocloud/ci-node:0.12
 services:
     - mongodb
+    - redis
 
 env:
     - MONGODB_INSTANCE_NAME = "test"
