@@ -92,8 +92,22 @@ Blog.getCategoryList = function (req, res, next) {
   //});
   //console.log('bb');
   //console.log(bb);
-  db.Article.distinct('category')
+  //db.Article.distinct('category')
+  //  .exec(function (err, result) {
+  //    res.send(result);
+  //  });
+  db.Article.aggregate([{
+    $group: {
+      _id: '$category',
+      count: {$sum: 1}
+    }
+  }])
     .exec(function (err, result) {
+      result.map(function(item,i){
+        item['category'] = item['_id'];
+        delete item['_id'];
+        return item;
+      });
       res.send(result);
     });
 };
@@ -158,7 +172,7 @@ router.get('/kuaipan/authorize_callback', function (req, res, next) {
     var body = JSON.parse(result.body);
     req.session.access_token = body.oauth_token;
     req.session.oauth_token_secret = body.oauth_token_secret;
-    res.send(body);
+    res.render('oauth');
   })
     .catch(function (err) {
       console.log(err);
@@ -189,7 +203,8 @@ router.get('/kuaipan/metadata', function (req, res, next) {
 
   var access_token = req.session.access_token;
   var access_token_secret = req.session.oauth_token_secret;
-  var promise = Kuaipan.getFolderMetadata(access_token, access_token_secret);
+  var path = req.query.path || '/';
+  var promise = Kuaipan.getFolderMetadata(path, access_token, access_token_secret);
   promise.then(function (result) {
     result = result[0];
     res.send(JSON.parse(result.body));

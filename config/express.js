@@ -10,7 +10,7 @@ var methodOverride = require('method-override');
 var ejs = require('ejs');
 
 var session = require('express-session');
-//var RedisStore = require('connect-redis')(session);
+var RedisStore = require('connect-redis')(session);
 
 
 module.exports = function (app, config) {
@@ -29,9 +29,13 @@ module.exports = function (app, config) {
   }));
   app.use(cookieParser());
   app.use(session({
+    store: new RedisStore({
+      host: config.redis.host,
+      port: config.redis.post
+    }),
     //cookie: { secure: true },
-    //resave: true,
-    //saveUninitialized: true,
+    resave: true,
+    saveUninitialized: true,
     secret: 'zhanglun daocloud!'
   }));
   app.use(compress());

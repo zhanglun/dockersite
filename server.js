@@ -2,6 +2,7 @@ var express = require('express');
 var config = require('./config/config');
 var glob = require('glob');
 var mongoose = require('mongoose');
+var redis = require('redis');
 
 var app = express();
 

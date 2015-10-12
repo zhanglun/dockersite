@@ -58,9 +58,7 @@ Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
     encodeURIComponent(querystring.stringify(oauth_param));
   oauth_param.oauth_signature = crypto.createHmac('sha1', config.kuaipan.consumer_secret + '&' + tokenserect).update(base_string).digest('base64');
 
-  var url = baseuri + '?' + querystring.stringify(oauth_param);
-  console.log(url);
-  return url;
+  return  baseuri + '?' + querystring.stringify(oauth_param);
 
 };
 
@@ -112,9 +110,10 @@ Kuaipan.getAccountInfo = function (token, tokenserect) {
  * @param tokenserect
  * @returns {string}
  */
-Kuaipan.getFolderMetadata = function (token, tokenserect) {
+Kuaipan.getFolderMetadata = function (path, token, tokenserect) {
 
   var base_uri = config.kuaipan.url.metadata;
+  base_uri += path;
   var url = this.createOauthUrl(base_uri, [{
     oauth_token: token
   }], tokenserect);

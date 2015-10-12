@@ -43,7 +43,11 @@ VModel.write = function () {
         url: '/api/blog/category'
       })
         .done(function (res) {
-          _this.$set('categories', res);
+          var _temp = res.map(function(item){
+            return item['category'];
+          });
+          _this.$set('categories', _temp);
+          console.log(_temp);
         });
     },
     data: {

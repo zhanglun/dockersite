@@ -1,8 +1,10 @@
 var path = require('path'),
   rootPath = path.normalize(__dirname + '/..'),
   env = process.env.NODE_ENV || 'development';
-console.log('env');
-console.log(env);
+if (process.env.MONGODB_PORT_27017_TCP_PORT) {
+  env = "production";
+}
+console.log('----app config----: env ' + env );
 var config = {
   development: {
     root: rootPath,
@@ -13,7 +15,7 @@ var config = {
     db: 'mongodb://localhost/docker-node-development',
     redis: {
       host: '127.0.0.1',
-      post: ''
+      post: '6379'
     }
   },
 
@@ -32,7 +34,11 @@ var config = {
       name: 'docker-node'
     },
     port: 3000,
-    db: 'mongodb://localhost/docker-node-production'
+    db: 'mongodb://localhost/docker-node-production',
+    redis: {
+      host: '127.0.0.1',
+      post: '6379'
+    }
   },
 
   mongodb: {

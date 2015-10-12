@@ -11,7 +11,7 @@ config.kuaipan = {
     authorize: 'https://www.kuaipan.cn/api.php?ac=open&op=authorise&oauth_token=',
     accessToken: 'https://openapi.kuaipan.cn/open/accessToken',
     account_info: 'http://openapi.kuaipan.cn/1/account_info',
-    metadata: 'http://openapi.kuaipan.cn/1/metadata/app_folder/'
+    metadata: 'http://openapi.kuaipan.cn/1/metadata/app_folder'
   }
 
 };
