@@ -1,10 +1,18 @@
 var request = require('request');
+var Promise = require('bluebird');
 var querystring = require('querystring');
 var _ = require('underscore');
 var crypto = require('crypto');
 var config = require('../config');
 
-var KuaiPan = {};
+/**
+ * Bluebird Promisification
+ * 将不支持 promise 的 API 转换成 promise API
+ */
+Promise.promisifyAll(request);
+
+
+var Kuaipan = {};
 
 
 /**
@@ -14,7 +22,7 @@ var KuaiPan = {};
  * @param tokenserect
  * @returns {string}
  */
-KuaiPan.createOauthUrl = function (baseuri, params, tokenserect) {
+Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
   var oauth_param = {};
   var _temp = [];
   var obj = {
@@ -60,9 +68,10 @@ KuaiPan.createOauthUrl = function (baseuri, params, tokenserect) {
  * 获取临时 token
  * @returns {string}
  */
-KuaiPan.getRequestToken = function () {
+Kuaipan.getRequestToken = function () {
   var baseuri = config.kuaipan.url.requestToken;
-  return this.createOauthUrl(baseuri);
+  var url = this.createOauthUrl(baseuri);
+  return request.getAsync(url);
 };
 
 
@@ -73,13 +82,14 @@ KuaiPan.getRequestToken = function () {
  * @param verifier
  * @returns {string}
  */
-KuaiPan.getAccessToken = function (token, tokenserect, verifier) {
+Kuaipan.getAccessToken = function (token, tokenserect, verifier) {
   var base_uri = config.kuaipan.url.accessToken;
-  return this.createOauthUrl(base_uri, [{
+  var url = this.createOauthUrl(base_uri, [{
     oauth_token: token
   }, {
     oauth_verifier: verifier
   }], tokenserect);
+  return request.getAsync(url);
 };
 
 /**
@@ -88,19 +98,27 @@ KuaiPan.getAccessToken = function (token, tokenserect, verifier) {
  * @param tokenserect
  * @returns {string}
  */
-KuaiPan.getAccountInfo = function (token, tokenserect) {
+Kuaipan.getAccountInfo = function (token, tokenserect) {
   var base_uri = config.kuaipan.url.account_info;
-  return this.createOauthUrl(base_uri, [{
+  var url = this.createOauthUrl(base_uri, [{
     oauth_token: token
   }], tokenserect);
+  return request.getAsync(url);
 };
 
-KuaiPan.getFolderMetadata = function (token, tokenserect) {
+/**
+ * 获取文件夹信息
+ * @param token
+ * @param tokenserect
+ * @returns {string}
+ */
+Kuaipan.getFolderMetadata = function (token, tokenserect) {
 
   var base_uri = config.kuaipan.url.metadata;
-  return this.createOauthUrl(base_uri, [{
+  var url = this.createOauthUrl(base_uri, [{
     oauth_token: token
   }], tokenserect);
+  return request.getAsync(url);
 };
 
-module.exports = KuaiPan;
+module.exports = Kuaipan;

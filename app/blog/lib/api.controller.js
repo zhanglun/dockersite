@@ -2,7 +2,7 @@ var promise = require('bluebird');
 var express = require('express');
 var request = require('request');
 var router = express.Router();
-var KuaiPan = require('./kuaipan');
+var Kuaipan = require('./kuaipan');
 var db = require('../models');
 
 module.exports = function (app) {
@@ -128,15 +128,20 @@ router.get('/tags', function (req, res, next) {
  */
 var temp = null;
 router.get('/kuaipan/request_token', function (req, res, next) {
-  var url = KuaiPan.getRequestToken();
-  request(url, function (err, result) {
+  var promise = Kuaipan.getRequestToken();
+  promise.then(function (result) {
+    result = result[0];
     var body = JSON.parse(result.body);
     req.session.oauth_token_secret = body.oauth_token_secret;
     res.send({
       code: result.statusCode,
       body: body
     });
-  });
+  })
+    .catch(function (err) {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 /**
@@ -147,34 +152,46 @@ router.get('/kuaipan/authorize_callback', function (req, res, next) {
   var oauth_token = req.query.oauth_token;
   var oauth_verifier = req.query.oauth_verifier;
   var oauth_token_secret = req.session.oauth_token_secret;
-  var url = KuaiPan.getAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
-  request(url, function (err, result) {
+  var promise = Kuaipan.getAccessToken(oauth_token, oauth_token_secret, oauth_verifier);
+  promise.then(function (result) {
+    result = result[0];
     var body = JSON.parse(result.body);
     req.session.access_token = body.oauth_token;
     req.session.oauth_token_secret = body.oauth_token_secret;
     res.send(body);
-  });
+  })
+    .catch(function (err) {
+      console.log(err);
+      res.send(err);
+    });
 });
 
-
+/**
+ * 获取用户信息
+ */
 router.get('/kuaipan/account_info', function (req, res, next) {
 
   var access_token = req.session.access_token;
-  var access_token_sercet = req.session.oauth_token_secret;
+  var access_token_secret = req.session.oauth_token_secret;
   console.log(res.session);
-  var url = KuaiPan.getAccountInfo(access_token, access_token_sercet);
-  request(url, function (err, result) {
+  var promise = Kuaipan.getAccountInfo(access_token, access_token_secret);
+  promise.then(function (result) {
+    result = result[0];
     res.send(JSON.parse(result.body));
   });
 });
 
+/**
+ * TODO: 目前只是简单的获取根目录的信息，可以增加路径参数获取指定路径的信息
+ * 获取应用文件夹信息
+ */
 router.get('/kuaipan/metadata', function (req, res, next) {
 
   var access_token = req.session.access_token;
-  var access_token_sercet = req.session.oauth_token_secret;
-  console.log(res.session);
-  var url = KuaiPan.getFolderMetadata(access_token, access_token_sercet);
-  request(url, function (err, result) {
+  var access_token_secret = req.session.oauth_token_secret;
+  var promise = Kuaipan.getFolderMetadata(access_token, access_token_secret);
+  promise.then(function (result) {
+    result = result[0];
     res.send(JSON.parse(result.body));
   });
 });
