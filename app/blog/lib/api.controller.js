@@ -144,16 +144,14 @@ var temp = null;
 router.get('/kuaipan/request_token', function (req, res, next) {
   var promise = Kuaipan.getRequestToken();
   promise.then(function (result) {
-    //console.log('result');
-    //console.log(result.length);
-    //result = result[1];
-    //var body = JSON.parse(result.body);
-    //req.session.oauth_token_secret = body.oauth_token_secret;
-    //res.send({
-    //  code: result.statusCode,
-    //  body: body
-    //});
-    res.send(result);
+    result = result[0];
+    var body = JSON.parse(result.body);
+    req.session.oauth_token_secret = body.oauth_token_secret;
+    res.send({
+      code: result.statusCode,
+      body: body
+    });
+    //res.send(result);
   })
     .catch(function (err) {
       console.log(err);
