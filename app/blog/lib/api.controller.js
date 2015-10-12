@@ -152,7 +152,6 @@ router.get('/kuaipan/authorize_callback', function (req, res, next) {
     var body = JSON.parse(result.body);
     req.session.access_token = body.oauth_token;
     req.session.oauth_token_secret = body.oauth_token_secret;
-    console.log(req.session);
     res.send(body);
   });
 });
@@ -169,7 +168,7 @@ router.get('/kuaipan/account_info', function (req, res, next) {
   });
 });
 
-router.get('/kuaipan/metadata', function(req, res, next){
+router.get('/kuaipan/metadata', function (req, res, next) {
 
   var access_token = req.session.access_token;
   var access_token_sercet = req.session.oauth_token_secret;
