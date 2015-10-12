@@ -4,7 +4,7 @@ var path = require('path'),
 if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   env = "production";
 }
-console.log('----app config----: env ' + env );
+console.log('----app config----: env ' + env);
 var config = {
   development: {
     root: rootPath,
@@ -36,8 +36,8 @@ var config = {
     port: 3000,
     db: 'mongodb://localhost/docker-node-production',
     redis: {
-      host: '127.0.0.1',
-      post: '6379'
+      host: process.env.REDIS_PORT,
+      post: process.env.REDIS_PORT_6379_TCP_PORT
     }
   },
 
