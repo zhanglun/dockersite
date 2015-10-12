@@ -103,7 +103,7 @@ Blog.getCategoryList = function (req, res, next) {
     }
   }])
     .exec(function (err, result) {
-      result.map(function(item,i){
+      result.map(function (item, i) {
         item['category'] = item['_id'];
         delete item['_id'];
         return item;
@@ -214,12 +214,12 @@ router.get('/kuaipan/metadata', function (req, res, next) {
 /**
  * 创建文件夹
  */
-router.get('/kuaipan/create_folder', function(req, res, next){
+router.get('/kuaipan/create_folder', function (req, res, next) {
 
   var access_token = req.session.access_token;
   var access_token_secret = req.session.oauth_token_secret;
   var path = req.query.path;
-  if(!path){
+  if (!path) {
     res.status(403).json({
       code: 403,
       msg: 'no path'
@@ -232,13 +232,15 @@ router.get('/kuaipan/create_folder', function(req, res, next){
   });
 });
 
-
-router.get('/kuaipan/download_file', function(req, res, next){
+/**
+ * 下载文件
+ */
+router.get('/kuaipan/download_file', function (req, res, next) {
 
   var access_token = req.session.access_token;
   var access_token_secret = req.session.oauth_token_secret;
   var path = req.query.path;
-  if(!path){
+  if (!path) {
     res.status(403).json({
       code: 403,
       msg: 'no path'
@@ -247,6 +249,24 @@ router.get('/kuaipan/download_file', function(req, res, next){
   var promise = Kuaipan.downloadFile(path, access_token, access_token_secret);
   promise.then(function (result) {
     result = result[0];
-    res.status(200).json(JSON.parse(result.body));
+    //res.status(200).json(JSON.parse(result.body));
+    res.send(result);
   });
+});
+
+router.get('/kuaipan/upload_file', function (req, res, next) {
+
+  var access_token = req.session.access_token;
+  var access_token_secret = req.session.oauth_token_secret;
+
+  var promise = Kuaipan.uploadFile(access_token, access_token_secret);
+  //console.log(promise);
+  promise.then(function (result) {
+    return Promise.resolve(result);
+    res.send(result);
+
+  }).then(function(url){
+
+  });
+
 });

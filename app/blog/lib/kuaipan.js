@@ -146,4 +146,13 @@ Kuaipan.downloadFile = function (path, token, tokenserect) {
 };
 
 
+Kuaipan.uploadFile = function(path, token, tokenserect){
+  var base_uri = config.kuaipan.url.upload_file;
+  var url = this.createOauthUrl(base_uri, [{oauth_token: token}], tokenserect);
+  return request.getAsync(url)
+    .then(function(res){
+      var _url = res + '/1/fileops/upload_file';
+    });
+};
+
 module.exports = Kuaipan;

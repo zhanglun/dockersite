@@ -13,7 +13,8 @@ config.kuaipan = {
     account_info: 'http://openapi.kuaipan.cn/1/account_info',
     metadata: 'http://openapi.kuaipan.cn/1/metadata/app_folder',
     create_folder: 'http://openapi.kuaipan.cn/1/fileops/create_folder',
-    download_file: 'http://api-content.dfs.kuaipan.cn/1/fileops/download_file'
+    download_file: 'http://api-content.dfs.kuaipan.cn/1/fileops/download_file',
+    upload_file: 'http://api-content.dfs.kuaipan.cn/1/fileops/upload_locate'
   }
 
 };

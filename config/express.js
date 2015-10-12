@@ -28,6 +28,7 @@ module.exports = function (app, config) {
     extended: true
   }));
   app.use(cookieParser());
+  console.log(config.redis);
   app.use(session({
     store: new RedisStore({
       host: config.redis.host,
