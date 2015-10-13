@@ -142,7 +142,10 @@ Kuaipan.downloadFile = function (path, token, tokenserect) {
   var url = this.createOauthUrl(base_uri, [{
     oauth_token: token
   }, {root: 'app_folder'}, {path: path}], tokenserect);
-  return request.getAsync(url);
+  return request.getAsync({
+    url: url,
+    followRedirect:false
+  });
 };
 
 

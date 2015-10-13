@@ -249,9 +249,18 @@ router.get('/kuaipan/download_file', function (req, res, next) {
   var promise = Kuaipan.downloadFile(path, access_token, access_token_secret);
   promise.then(function (result) {
     result = result[0];
-    //res.status(200).json(JSON.parse(result.body));
-    res.send(result);
-  });
+    return result.request.uri.href;
+  })
+    .then(function(href){
+      console.log(href);
+      request({
+        url:href,
+        jar: true
+      }, function(err, file){
+        // TODO: 已经拿到文件实体 ，待处理
+        res.send(file)
+      });
+    });
 });
 
 router.get('/kuaipan/upload_file', function (req, res, next) {
