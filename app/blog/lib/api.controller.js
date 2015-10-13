@@ -240,6 +240,7 @@ router.get('/kuaipan/download_file', function (req, res, next) {
   var access_token = req.session.access_token;
   var access_token_secret = req.session.oauth_token_secret;
   var path = req.query.path;
+  var file_type = path.match(/\.[^\.]+$/)[0].slice(1);
   if (!path) {
     res.status(403).json({
       code: 403,
@@ -252,13 +253,18 @@ router.get('/kuaipan/download_file', function (req, res, next) {
     return result.request.uri.href;
   })
     .then(function(href){
-      console.log(href);
       request({
         url:href,
-        jar: true
+        jar: true,
+        encoding: null
       }, function(err, file){
         // TODO: 已经拿到文件实体 ，待处理
-        res.send(file)
+        if(file_type == 'md'){
+          res.contentType('text/plain; charset=utf-8');
+        }else{
+          res.contentType('image/' + file_type + '; charset=utf-8');
+        }
+        res.send(file.body);
       });
     });
 });
