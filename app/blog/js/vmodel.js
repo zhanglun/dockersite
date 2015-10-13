@@ -76,6 +76,18 @@ VModel.write = function () {
           data: post
         });
       },
+      'loadMd': function (post) {
+        $.ajax({
+          method: 'get',
+          url: '/api/blog/kuaipan/download_file?path=/%E8%A7%84%E8%8C%83%E4%B9%8B%E8%B7%AF-normal%20flow.md'
+        })
+          .done(function (res) {
+            window.res = res;
+            post.title = res.match(/^title:\S+/);
+          }).fail(function (xhr) {
+            console.log(xhr);
+          });
+      },
       'saveToCloud': function (post) {
         // TODO: 保存到网盘
         var file = post.content;

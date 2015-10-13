@@ -10,6 +10,7 @@
     <div class="form-group ">
       <button class="btn btn-primary" v-on="click: publish(post)">发布</button>
       <button class="btn btn-primary" v-on="click: saveToCloud(post)">上传</button>
+      <button class="btn btn-primary" v-on="click: loadMd(post)">加载</button>
     </div>
     <div class="form-group writer-title col-sm-12">
       <input type="text" class="form-control" placeholder="标题" v-model="post.title">

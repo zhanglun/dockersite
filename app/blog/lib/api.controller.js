@@ -259,7 +259,7 @@ router.get('/kuaipan/download_file', function (req, res, next) {
         encoding: null
       }, function (err, file) {
         // TODO: 已经拿到文件实体 ，待完善
-        if (file_type == 'md') {
+        if (file_type == 'md' && file_type == 'txt') {
           res.contentType('text/plain; charset=utf-8');
         } else {
           res.contentType('image/' + file_type + '; charset=utf-8');
