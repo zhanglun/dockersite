@@ -252,16 +252,16 @@ router.get('/kuaipan/download_file', function (req, res, next) {
     result = result[0];
     return result.request.uri.href;
   })
-    .then(function(href){
+    .then(function (href) {
       request({
-        url:href,
+        url: href,
         jar: true,
         encoding: null
-      }, function(err, file){
+      }, function (err, file) {
         // TODO: 已经拿到文件实体 ，待完善
-        if(file_type == 'md'){
+        if (file_type == 'md') {
           res.contentType('text/plain; charset=utf-8');
-        }else{
+        } else {
           res.contentType('image/' + file_type + '; charset=utf-8');
         }
         res.send(file.body);
@@ -275,16 +275,21 @@ router.post('/kuaipan/upload_file', function (req, res, next) {
   var access_token_secret = req.session.oauth_token_secret;
   var file = req.body.file;
   var path = req.body.path;
-  //file = new Buffer(file, 'binary');
+  file = new Buffer(file, 'binary');
   console.log(file);
   var promise = Kuaipan.uploadFile(file, path, access_token, access_token_secret);
-  promise.then(function (result) {
-    var status = result[0].statusCode;
-    var msg = result[0].body;
-    res.status(status).end(msg);
+  promise.then(function (url) {
+    // post file
+    var filename = path.match(/\w+\.\w+/)[0];
+    var reqForm = request.post(url, function (err, result) {
 
-  }).then(function(url){
-  //
+      res.status(result.statusCode).send(result.body);
+    });
+    var form = reqForm.form();
+    form.append('file', file, {
+      filename: filename,
+      contentType: 'text/plain'
+    });
   });
 
 });

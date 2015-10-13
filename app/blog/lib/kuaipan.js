@@ -37,9 +37,6 @@ Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
   for (var key in obj) {
     var _obj = {};
     _obj[key] = obj[key];
-    if (key == 'file') {
-      continue;
-    }
     _temp.push(_obj);
   }
   if (params) {
@@ -61,6 +58,7 @@ Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
     encodeURIComponent(querystring.stringify(oauth_param));
   oauth_param.oauth_signature = crypto.createHmac('sha1', config.kuaipan.consumer_secret + '&' + tokenserect).update(base_string).digest('base64');
 
+  console.log(baseuri + '?' + querystring.stringify(oauth_param));
   return baseuri + '?' + querystring.stringify(oauth_param);
 
 };
@@ -158,28 +156,11 @@ Kuaipan.uploadFile = function (file, path, token, tokenserect) {
   var url = this.createOauthUrl(base_uri, [{oauth_token: token}], tokenserect);
   return request.getAsync(url)
     .then(function (res) {
-      var _url = JSON.parse(res[0].body).url + '/1/fileops/upload_file';
+      var _url = JSON.parse(res[0].body).url + '1/fileops/upload_file';
       _url = _this.createOauthUrl(_url, [{
         oauth_token: token
       }, {overwrite: true}, {root: 'app_folder'}, {path: path}], tokenserect);
       return _url;
-    }).then(function (url) {
-      // post file
-      var filename = path.match(/\w+\.\w+/)[0];
-      var formData = {
-        file: file,
-        custom_file: {
-          name: "file",
-          filename: filename
-        }
-      };
-      return request.postAsync({
-        url: url,
-        headers: {
-          'Content-Type' : 'multipart/form-data'
-        },
-        formData: formData
-      });
     });
 };
 
