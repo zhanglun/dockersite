@@ -43,7 +43,7 @@ VModel.write = function () {
         url: '/api/blog/category'
       })
         .done(function (res) {
-          var _temp = res.map(function(item){
+          var _temp = res.map(function (item) {
             return item['category'];
           });
           _this.$set('categories', _temp);
@@ -75,6 +75,28 @@ VModel.write = function () {
           dataType: 'application/json',
           data: post
         });
+      },
+      'saveToCloud': function (post) {
+        // TODO: 保存到网盘
+        var file = post.content;
+        var path = '/test/' + post.title + '.md';
+        var data = '';
+        $.ajax({
+          method: 'post',
+          url: '/api/blog/kuaipan/upload_file',
+          //processData: false,
+          dataType: 'json',
+          //contentType: 'multipart/form-data',
+          data: {
+            file: file,
+            path: path
+          }
+        })
+          .done(function (res) {
+            alert('上传成功！')
+          }).fail(function (xhr) {
+            console.log(xhr);
+          });
       }
     }
 

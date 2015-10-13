@@ -258,7 +258,7 @@ router.get('/kuaipan/download_file', function (req, res, next) {
         jar: true,
         encoding: null
       }, function(err, file){
-        // TODO: 已经拿到文件实体 ，待处理
+        // TODO: 已经拿到文件实体 ，待完善
         if(file_type == 'md'){
           res.contentType('text/plain; charset=utf-8');
         }else{
@@ -269,19 +269,22 @@ router.get('/kuaipan/download_file', function (req, res, next) {
     });
 });
 
-router.get('/kuaipan/upload_file', function (req, res, next) {
+router.post('/kuaipan/upload_file', function (req, res, next) {
 
   var access_token = req.session.access_token;
   var access_token_secret = req.session.oauth_token_secret;
-
-  var promise = Kuaipan.uploadFile(access_token, access_token_secret);
-  //console.log(promise);
+  var file = req.body.file;
+  var path = req.body.path;
+  //file = new Buffer(file, 'binary');
+  console.log(file);
+  var promise = Kuaipan.uploadFile(file, path, access_token, access_token_secret);
   promise.then(function (result) {
-    return Promise.resolve(result);
-    res.send(result);
+    var status = result[0].statusCode;
+    var msg = result[0].body;
+    res.status(status).end(msg);
 
   }).then(function(url){
-
+  //
   });
 
 });

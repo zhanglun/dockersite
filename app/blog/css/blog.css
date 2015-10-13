@@ -1,7 +1,30 @@
 body {
   background: #f4f4f4; }
 
-.writer-content {
-  height: 400px; }
+/*
+ * editor
+ */
+.writer-title > input {
+  height: 100%;
+  font-size: 30px;
+  background: #f4f4f4;
+  border: none;
+  box-shadow: none;
+  outline: none; }
+  .writer-title > input:focus {
+    border: none;
+    box-shadow: none;
+    outline: none; }
+
+.writer-content > textarea {
+  height: 400px;
+  background: #f4f4f4;
+  border: none;
+  box-shadow: none;
+  outline: none; }
+  .writer-content > textarea:focus {
+    border: none;
+    box-shadow: none;
+    outline: none; }
 
 /*# sourceMappingURL=../../map/blog/css/blog.css.map */

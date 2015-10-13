@@ -1,30 +1,21 @@
 <div id="blog-writer" class="row">
-  <div class="col-sm-12">
-
-    <h2>发布新文章</h2>
-    <hr/>
-
-    <div class="form-group">
-      <label for="" class="control-label">标题</label>
-      <input type="text" class="form-control" placeholder="标题" v-model="post.title">
-    </div>
-    <div class="form-group">
-      <label for="" class="control-label">正文</label>
-      <textarea class="form-control writer-content" rows="16" placeholder="正文" v-model="post.content"></textarea>
-    </div>
-    <div class="form-group ">
-      <label for="" class="control-label">标签</label>
+  <!--<div class="col-sm-12">-->
+    <div class="form-group col-sm-4">
       <input type="text" class="form-control" placeholder="标签（多个标签用逗号分开）" v-model="post.tags"/>
     </div>
-    <div class="form-group">
-      <label for="" class="control-label">分类{{post.category}}</label>
+    <div class="form-group col-sm-4">
       <select class="form-control" name="" id="option" v-model="post.category" options="categories">
-        <option value="未分类" selected="selected">未分类</option>
-        <!--<option v-repeat="categories" value="{{$value}}">{{$value}}</option>-->
       </select>
     </div>
     <div class="form-group ">
       <button class="btn btn-primary" v-on="click: publish(post)">发布</button>
+      <button class="btn btn-primary" v-on="click: saveToCloud(post)">上传</button>
     </div>
-  </div>
+    <div class="form-group writer-title col-sm-12">
+      <input type="text" class="form-control" placeholder="标题" v-model="post.title">
+    </div>
+    <div class="form-group writer-content col-sm-12">
+      <textarea class="form-control " rows="16" placeholder="正文" v-model="post.content"></textarea>
+    </div>
+  <!--</div>-->
 </div>
