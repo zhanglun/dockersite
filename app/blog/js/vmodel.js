@@ -83,7 +83,11 @@ VModel.write = function () {
         })
           .done(function (res) {
             window.res = res;
-            post.title = res.match(/^title:\S+/);
+            post.title = res.match(/^\btitle.+/)[0].slice(7);
+            post.tags = JSON.parse(res.match(/tags.+/)[0].slice(6)).join(',');
+            var content = res.split('---');
+            content.shift();
+            post.content = content.join('\n');
           }).fail(function (xhr) {
             console.log(xhr);
           });
