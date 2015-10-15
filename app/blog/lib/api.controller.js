@@ -60,8 +60,15 @@ Blog.getArticleDetail = function (req, res, next) {
  */
 Blog.createPost = function (req, res, next) {
   var data = req.body;
-  // data.content = data.content.replace(/\<\!\-\-\s+more\s+\-\-\>/, '<!--more-->');
-  data.abstract = data.content.split(/\<\!\-\-\s*more\s*\-\-\>/)[0];
+  var abstract = data.content.split(/\s*<!--\s*more\s*-->\s+/);
+  if (abstract && abstract.length > 0) {
+    data.abstract = abstract[0];
+  } else {
+    var _temp = data.content.replace(/^#+.*[^.]/, '');
+    data.abstract = _temp.slice(0, 200);
+  }
+
+  data.tags = data.tags.split(',');
   var post = db.Article(data);
   post.save(function (err, reply) {
     if (err) {
@@ -75,27 +82,6 @@ Blog.createPost = function (req, res, next) {
 };
 
 Blog.getCategoryList = function (req, res, next) {
-  //db.Article.mapReduce(function(){
-  //  emit(this.category, {category: this.cagetory,count:1});
-  //}, function(key, values){
-  //  var result = {'category':'', 'count': ''};
-  //  values.map(function(item, i){
-  //    result.count += item.count;
-  //    result.category = item.category;
-  //  });
-  //  return result;
-  //}, {
-  // 'out': 'aaaa'
-  //}).exec(function(){
-  //  console.log('----');
-  //  console.log(arguments);
-  //});
-  //console.log('bb');
-  //console.log(bb);
-  //db.Article.distinct('category')
-  //  .exec(function (err, result) {
-  //    res.send(result);
-  //  });
   db.Article.aggregate([{
     $group: {
       _id: '$category',
@@ -252,16 +238,16 @@ router.get('/kuaipan/download_file', function (req, res, next) {
     result = result[0];
     return result.request.uri.href;
   })
-    .then(function(href){
+    .then(function (href) {
       request({
-        url:href,
+        url: href,
         jar: true,
         encoding: null
-      }, function(err, file){
+      }, function (err, file) {
         // TODO: 已经拿到文件实体 ，待完善
-        if(file_type == 'md'){
+        if (file_type == 'md') {
           res.contentType('text/plain; charset=utf-8');
-        }else{
+        } else {
           res.contentType('image/' + file_type + '; charset=utf-8');
         }
         console.log(file.body);
@@ -270,6 +256,9 @@ router.get('/kuaipan/download_file', function (req, res, next) {
     });
 });
 
+/**
+ * 上传文件
+ */
 router.post('/kuaipan/upload_file', function (req, res, next) {
 
   var access_token = req.session.access_token;
@@ -279,13 +268,19 @@ router.post('/kuaipan/upload_file', function (req, res, next) {
   //file = new Buffer(file, 'binary');
   console.log(file);
   var promise = Kuaipan.uploadFile(file, path, access_token, access_token_secret);
-  promise.then(function (result) {
-    var status = result[0].statusCode;
-    var msg = result[0].body;
-    res.status(status).end(msg);
+  promise.then(function (url) {
+    // post file
+    var filename = path.match(/\w+\.\w+/)[0];
+    var reqForm = request.post(url, function (err, result) {
 
-  }).then(function(url){
-  //
+      res.status(result.statusCode).send(result.body);
+    });
+    var form = reqForm.form();
+    form.append('file', file, {
+      filename: filename,
+      contentType: 'text/plain'
+    });
   });
+
 
 });
