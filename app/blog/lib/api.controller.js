@@ -27,7 +27,6 @@ Blog.getPostList = function (req, res, next) {
       console.log(err);
       res.send(err);
     } else {
-      console.log(list);
       res.send(list);
     }
   });
@@ -60,22 +59,25 @@ Blog.getArticleDetail = function (req, res, next) {
  */
 Blog.createPost = function (req, res, next) {
   var data = req.body;
-  var abstract = data.content.split(/\s*<!--\s*more\s*-->\s+/);
+  data.content = data.content.replace(/\r/g, '');
+  var abstract = data.content.match(/\s*<!--\s*more\s*-->\s+/);
+  console.log('abstract');
+  console.log(abstract);
   if (abstract && abstract.length > 0) {
     data.abstract = abstract[0];
   } else {
-    var _temp = data.content.replace(/^#+.*[^.]/, '');
-    data.abstract = _temp.slice(0, 200);
+    console.log(data.content);
+    var _temp = data.content.replace(/[^.*]#+.*/g, '');
+    console.log(_temp);
+    data.abstract = _temp.slice(0, 260);
   }
 
   data.tags = data.tags.split(',');
   var post = db.Article(data);
   post.save(function (err, reply) {
     if (err) {
-      console.log(err);
       res.send(err);
     } else {
-      console.log(reply);
       res.send(reply);
     }
   });
