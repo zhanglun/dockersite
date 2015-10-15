@@ -26,7 +26,6 @@ Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
   var oauth_param = {};
   var _temp = [];
   var obj = {
-    oauth_callback: config.kuaipan.oauth_callback,
     oauth_consumer_key: config.kuaipan.consumer_key,
     oauth_nonce: Math.random().toString(36).slice(2, 10) + '',
     oauth_signature_method: config.kuaipan.oauth_signature_method,
@@ -52,7 +51,6 @@ Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
   if (!tokenserect) {
     tokenserect = '';
   }
-
   var base_string = 'GET' + '&' +
     encodeURIComponent(baseuri) + '&' +
     encodeURIComponent(querystring.stringify(oauth_param));
@@ -69,7 +67,9 @@ Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
  */
 Kuaipan.getRequestToken = function () {
   var baseuri = config.kuaipan.url.requestToken;
-  var url = this.createOauthUrl(baseuri);
+  var url = this.createOauthUrl(baseuri,[{
+    oauth_callback: config.kuaipan.oauth_callback
+  }]);
   return request.getAsync(url);
 };
 
@@ -159,7 +159,8 @@ Kuaipan.uploadFile = function (file, path, token, tokenserect) {
       var _url = JSON.parse(res[0].body).url + '1/fileops/upload_file';
       _url = _this.createOauthUrl(_url, [{
         oauth_token: token
-      }, {overwrite: true}, {root: 'app_folder'}, {path: path}], tokenserect);
+      }, {overwrite: 'True'}, {root: 'app_folder'}, {path: path}], tokenserect);
+      console.log(_url);
       return _url;
     });
 };

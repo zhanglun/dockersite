@@ -1,7 +1,7 @@
 var marked = require('marked');
 marked.setOptions({
   renderer: new marked.Renderer(),
-  gfm: true,
+  gfm: false,
   tables: true,
   breaks: false,
   pedantic: false,
@@ -64,11 +64,10 @@ VModel.write = function () {
 
     methods: {
       'selectCategory': function (val) {
-        console.log(val);
         this.$data.post.category = val;
       },
       'publish': function (post) {
-        post.tags = post.tags.split(',');
+        //post.tags = post.tags.split(',');
         $.ajax({
           method: 'post',
           url: '/api/blog/posts',
@@ -100,9 +99,7 @@ VModel.write = function () {
         $.ajax({
           method: 'post',
           url: '/api/blog/kuaipan/upload_file',
-          //processData: false,
           dataType: 'json',
-          //contentType: 'multipart/form-data',
           data: {
             file: file,
             path: path
@@ -129,7 +126,8 @@ VModel.article = function () {
         url: '/api/blog/posts/' + $('#content').attr('data-postid')
       })
         .done(function (res) {
-          res.content = marked(res.content.replace(/\<\!\-\-\s*more\s*\-\-\>/, ''));
+          res.content = marked(res.content.replace(/\s*<!--\s*more\s*-->\s+/, ''));
+          res.abstract = marked(res.abstract);
           _this.$set('article', res);
         });
     },
