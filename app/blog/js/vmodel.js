@@ -26,7 +26,13 @@ VModel.mainNav = function(currentpage){
       currentpage: currentpage
     },
     directives: {
-      'nav-highlight': function(){}
+      'nav-highlight': function(val){
+        if(!val){
+          return false;
+        }
+        var el = this.el;
+        console.log(el);
+      }
     }
   });
 };

@@ -49,9 +49,13 @@ header {
     &.active {
       margin-bottom: -1px;
       border-bottom: 1px solid #fff;
+      > a {
+        color: #fff;
+      }
     }
     > a {
       color: #fff;
+      color: rgba(255, 255, 255, 0.7);
       display: block;
       padding: 10px 15px;
       line-height: 20px;

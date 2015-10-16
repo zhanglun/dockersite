@@ -24,8 +24,11 @@ header {
   .main-nav-menu li.active {
     margin-bottom: -1px;
     border-bottom: 1px solid #fff; }
+    .main-nav-menu li.active > a {
+      color: #fff; }
   .main-nav-menu li > a {
     color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     display: block;
     padding: 10px 15px;
     line-height: 20px; }
