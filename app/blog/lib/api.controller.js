@@ -24,7 +24,6 @@ var Blog = {};
 Blog.getPostList = function (req, res, next) {
   db.Article.find({}).sort({utime: -1}).exec(function (err, list) {
     if (err) {
-      console.log(err);
       res.send(err);
     } else {
       res.send(list);
@@ -279,4 +278,11 @@ router.post('/kuaipan/upload_file', function (req, res, next) {
     });
   });
 
+});
+
+router.get('/kuaipan/thumbnail', function(req, res, next){
+
+  var access_token = req.session.access_token;
+  var access_token_secret = req.session.oauth_token_secret;
+  var path = req.query.path;
 });

@@ -1,6 +1,7 @@
 var marked = require('marked');
 var CodeMirror = require('codemirror');
-console.log(CodeMirror);
+//require("codemirror/mode/markdown/markdown.js");
+window.CodeMirror = CodeMirror;
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: false,
@@ -11,6 +12,7 @@ marked.setOptions({
   smartLists: true,
   smartypants: false
 });
+
 
 var VModel = {};
 
@@ -24,7 +26,6 @@ VModel.post = function () {
         url: '/api/blog/posts'
       })
         .done(function (res) {
-          console.log(res);
           _this.$set('articles', res);
         });
     },
@@ -49,15 +50,20 @@ VModel.write = function () {
             return item['category'];
           });
           _this.$set('categories', _temp);
-          console.log(_temp);
         });
 
+
       // editor
-      var editor = CodeMirror.fromTextArea($('.writer-content').find('textarea')[0], {
-        //readOnly: false,
-        //lineNumbers: true,
+      var editor = CodeMirror.fromTextArea($('.writer-content').find('textarea')[0],{
+        value: 'start blogging...',
+        mode: 'markdown',
+        indentUnit : 2,  // 缩进单位，默认2
+        smartIndent : true,  // 是否智能缩进
+        tabSize : 2,  // Tab缩进，默认4
+        showCursorWhenSelecting : true
       });
 
+      _this.editor = editor;
 
     },
     data: {
@@ -72,12 +78,21 @@ VModel.write = function () {
 
     },
 
+
+    // directive
+    //
+    //directives: {
+    //  'codemirror': function(value){
+    //    console.log(this);
+    //  }
+    //},
+
     methods: {
       'selectCategory': function (val) {
         this.$data.post.category = val;
       },
       'publish': function (post) {
-        //post.tags = post.tags.split(',');
+        post.content = this.editor.getValue();
         $.ajax({
           method: 'post',
           url: '/api/blog/posts',
