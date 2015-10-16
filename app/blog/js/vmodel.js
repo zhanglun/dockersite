@@ -16,6 +16,23 @@ marked.setOptions({
 
 var VModel = {};
 
+VModel.mainNav = function(currentpage){
+  return new Vue({
+    el: 'header',
+    ready: function(){
+      this.$set('currentpage', currentpage);
+    },
+    data: {
+      currentpage: currentpage
+    },
+    directives: {
+      'nav-highlight': function(){}
+    }
+  });
+};
+
+
+
 VModel.post = function () {
   return new Vue({
     el: '#post',

@@ -3,8 +3,34 @@ body {
 
 header {
   width: 100%;
-  background: #eee;
-  border: 1px solid rgba(255, 255, 255, 0.15); }
+  background: rgba(238, 238, 238, 0.6); }
+
+.banner {
+  color: #fff;
+  position: relative;
+  text-align: center; }
+  .banner.cover {
+    background: url(../images/bg.jpg) no-repeat top center;
+    background-size: cover;
+    min-height: 660px; }
+
+.main-nav {
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
+
+.main-nav-menu li {
+  display: inline-block;
+  font-size: 14px; }
+  .main-nav-menu li.active {
+    margin-bottom: -1px;
+    border-bottom: 1px solid #fff; }
+  .main-nav-menu li > a {
+    color: #fff;
+    display: block;
+    padding: 10px 15px;
+    line-height: 20px; }
+    .main-nav-menu li > a:hover {
+      text-decoration: none; }
 
 /*
  * editor

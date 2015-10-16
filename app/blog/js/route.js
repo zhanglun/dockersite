@@ -58,8 +58,9 @@ var VModel = require('./VModel');
 
   window.render = {
     content: function (ctx, next) {
-      $('#content').attr('data-postid', ctx.partials.postid);
-      $('#content').empty().append(ctx.partials.content);
+      $('#content').attr('data-postid', ctx.partials.postid)
+        .empty()
+        .append(ctx.partials.content);
       VModel[ctx.data.index]();
     }
   };

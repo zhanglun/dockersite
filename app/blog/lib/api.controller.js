@@ -266,7 +266,7 @@ router.post('/kuaipan/upload_file', function (req, res, next) {
   var promise = Kuaipan.uploadFile(file, path, access_token, access_token_secret);
   promise.then(function (url) {
     // post file
-    var filename = path.match(/\w+\.\w+/)[0];
+    var filename = path.match(/\b\w*\.\b\w*$/)[0];
     var reqForm = request.post(url, function (err, result) {
 
       res.status(result.statusCode).send(result.body);
