@@ -22,7 +22,7 @@ var Blog = {};
  * @param next
  */
 Blog.getPostList = function (req, res, next) {
-  db.Article.find({}, function (err, list) {
+  db.Article.find({}).sort({utime: -1}).exec(function (err, list) {
     if (err) {
       console.log(err);
       res.send(err);
@@ -61,14 +61,10 @@ Blog.createPost = function (req, res, next) {
   var data = req.body;
   data.content = data.content.replace(/\r/g, '');
   var abstract = data.content.match(/\s*<!--\s*more\s*-->\s+/);
-  console.log('abstract');
-  console.log(abstract);
   if (abstract && abstract.length > 0) {
     data.abstract = abstract[0];
   } else {
-    console.log(data.content);
     var _temp = data.content.replace(/[^.*]#+.*/g, '');
-    console.log(_temp);
     data.abstract = _temp.slice(0, 260);
   }
 

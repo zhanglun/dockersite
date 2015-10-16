@@ -1,4 +1,6 @@
 var marked = require('marked');
+var CodeMirror = require('codemirror');
+console.log(CodeMirror);
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: false,
@@ -49,6 +51,14 @@ VModel.write = function () {
           _this.$set('categories', _temp);
           console.log(_temp);
         });
+
+      // editor
+      var editor = CodeMirror.fromTextArea($('.writer-content').find('textarea')[0], {
+        //readOnly: false,
+        //lineNumbers: true,
+      });
+
+
     },
     data: {
       categories: [1, 2, 3, 4],

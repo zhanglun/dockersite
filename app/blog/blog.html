@@ -10,20 +10,21 @@
 </head>
 
 <body>
-<div class="container">
-  <p></p>
-  <nav class="navbar navbar-default">
-    <ul class="nav navbar-nav">
-      <li>
-        <a href="./post">post</a>
-      </li>
-      <li>
-        <a href="./write">write</a>
-      </li>
-      <li><span id="test">授权快盘</span></li>
-    </ul>
-  </nav>
-</div>
+<header class="">
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="./post">post</a>
+        </li>
+        <li>
+          <a href="./write">write</a>
+        </li>
+        <li><span id="test">授权快盘</span></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 <section class="container" id="content">
 </section>
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -40,7 +41,7 @@
       })
         .done(function (res) {
           console.log(res);
-         var oauth_token = res.body.oauth_token;
+          var oauth_token = res.body.oauth_token;
           window.open('https://www.kuaipan.cn/api.php?ac=open&op=authorise&oauth_token=' + oauth_token);
         });
     });

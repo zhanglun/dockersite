@@ -67,7 +67,7 @@ Kuaipan.createOauthUrl = function (baseuri, params, tokenserect) {
  */
 Kuaipan.getRequestToken = function () {
   var baseuri = config.kuaipan.url.requestToken;
-  var url = this.createOauthUrl(baseuri,[{
+  var url = this.createOauthUrl(baseuri, [{
     oauth_callback: config.kuaipan.oauth_callback
   }]);
   return request.getAsync(url);
@@ -156,7 +156,7 @@ Kuaipan.uploadFile = function (file, path, token, tokenserect) {
   var url = this.createOauthUrl(base_uri, [{oauth_token: token}], tokenserect);
   return request.getAsync(url)
     .then(function (res) {
-      var _url = JSON.parse(res[0].body).url + '1/fileops/upload_file';
+      var _url = JSON.parse(res[0].body).url + '1/fileops/upload_file/';
       _url = _this.createOauthUrl(_url, [{
         oauth_token: token
       }, {overwrite: 'True'}, {root: 'app_folder'}, {path: path}], tokenserect);

@@ -9,6 +9,7 @@
   "dependencies": {
     "backbone": "~1.2.3",
     "bootstrap": "~3.3.5",
+    "codemirror": "~5.7.0",
     "page": "visionmedia/page.js#~1.6.3",
     "vue": "~0.12.16"
   }
