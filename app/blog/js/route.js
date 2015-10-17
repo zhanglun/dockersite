@@ -48,8 +48,8 @@ var VModel = require('./VModel');
       });
     },
     write: function (ctx, next) {
-      get('partials/writer.html', function (html) {
-        ctx.data.index = 'write';
+      get('partials/editor.html', function (html) {
+        ctx.data.index = 'editor';
         ctx.partials.content = html;
         next();
       });

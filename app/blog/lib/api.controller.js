@@ -1,5 +1,7 @@
 var promise = require('bluebird');
 var express = require('express');
+var Moment = require('moment');
+//var moment = Moment();
 var request = require('request');
 var router = express.Router();
 var Kuaipan = require('./kuaipan');
@@ -26,6 +28,10 @@ Blog.getPostList = function (req, res, next) {
     if (err) {
       res.send(err);
     } else {
+      //list.forEach(function (item) {
+      //  item.ctime = Moment().format(item.ctime);
+      //  item.utime = Moment().format(item.utime);
+      //});
       res.send(list);
     }
   });
@@ -280,7 +286,7 @@ router.post('/kuaipan/upload_file', function (req, res, next) {
 
 });
 
-router.get('/kuaipan/thumbnail', function(req, res, next){
+router.get('/kuaipan/thumbnail', function (req, res, next) {
 
   var access_token = req.session.access_token;
   var access_token_secret = req.session.oauth_token_secret;
