@@ -1,6 +1,5 @@
 var marked = require('marked');
 var CodeMirror = require('codemirror');
-//require("codemirror/mode/markdown/markdown.js");
 window.CodeMirror = CodeMirror;
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -77,14 +76,17 @@ VModel.write = function () {
 
 
       // editor
-      var editor = CodeMirror.fromTextArea($('.writer-content').find('textarea')[0],{
+      var editor = CodeMirror(document.getElementById('writer-board'),{
         value: 'start blogging...',
         mode: 'markdown',
         indentUnit : 2,  // 缩进单位，默认2
         smartIndent : true,  // 是否智能缩进
         tabSize : 2,  // Tab缩进，默认4
-        showCursorWhenSelecting : true
+        showCursorWhenSelecting : true,
+        lineWrapping: 'wrap'
       });
+
+      editor.setSize('50%', '100%');
 
       _this.editor = editor;
 
@@ -124,6 +126,7 @@ VModel.write = function () {
         });
       },
       'loadMd': function (post) {
+        var _this = this;
         $.ajax({
           method: 'get',
           url: '/api/blog/kuaipan/download_file?path=/%E8%A7%84%E8%8C%83%E4%B9%8B%E8%B7%AF-normal%20flow.md'
@@ -135,6 +138,7 @@ VModel.write = function () {
             var content = res.split('---');
             content.shift();
             post.content = content.join('\n');
+            _this.editor.setValue(post.content);
           }).fail(function (xhr) {
             console.log(xhr);
           });

@@ -1,14 +1,32 @@
-<div id="post" class="row">
-  <div class="col-sm-8 col-sm-offset-2">
+<header class="banner cover">
+  <nav class="main-nav">
+    <div class="container">
+      <ul class="main-nav-menu" v-nav-highlight="currentpage">
+        <li>
+          <a href="./post">主页</a>
+        </li>
+        <li>
+          <a href="./write">write</a>
+        </li>
+        <!--<li><span id="test">授权快盘</span></li>-->
+      </ul>
+    </div>
+  </nav>
+</header>
+<section class="container">
 
-    <article v-repeat="article in articles">
-      <span class="pull-right">{{article.ctime}}</span>
+  <div id="post" class="row">
+    <div class="col-sm-8 col-sm-offset-2">
 
-      <h3>
-        <a href="./post/{{article._id}}"> {{article.title}}</a>
-      </h3>
+      <article v-repeat="article in articles">
+        <span class="pull-right">{{article.ctime}}</span>
 
-      <p>{{article.abstract}}</p>
-    </article>
+        <h3>
+          <a href="./post/{{article._id}}"> {{article.title}}</a>
+        </h3>
+
+        <p>{{article.abstract}}</p>
+      </article>
+    </div>
   </div>
-</div>
+</section>

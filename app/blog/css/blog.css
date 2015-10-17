@@ -1,5 +1,10 @@
+html {
+  height: 100%; }
+
 body {
-  background: #f4f4f4; }
+  background: #f4f4f4;
+  height: 100%;
+  width: 100%; }
 
 header {
   width: 100%;
@@ -13,31 +18,54 @@ header {
     background: url(../images/bg.jpg) no-repeat top center;
     background-size: cover;
     min-height: 660px; }
+    .banner.cover::before {
+      content: "";
+      display: block;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      position: absolute;
+      background: #a83279;
+      background-repeat: repeat-x;
+      background-image: -webkit-linear-gradient(-45deg, #a83279, #d38312);
+      background-image: linear-gradient(-45deg, #a83279, #d38312);
+      opacity: .8;
+      filter: alpha(opacity=80); }
 
 .main-nav {
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative; }
+
+ul {
+  margin: 0; }
 
 .main-nav-menu li {
   display: inline-block;
   font-size: 14px; }
-  .main-nav-menu li.active {
-    margin-bottom: -1px;
-    border-bottom: 1px solid #fff; }
-    .main-nav-menu li.active > a {
-      color: #fff; }
   .main-nav-menu li > a {
     color: #fff;
     color: rgba(255, 255, 255, 0.7);
     display: block;
     padding: 10px 15px;
-    line-height: 20px; }
+    line-height: 30px; }
     .main-nav-menu li > a:hover {
-      text-decoration: none; }
+      text-decoration: none;
+      background: 0;
+      color: #fff; }
+  .main-nav-menu li.active {
+    margin-bottom: -1px;
+    border-bottom: 1px solid #fff; }
+    .main-nav-menu li.active > a {
+      color: #fff; }
 
 /*
  * editor
  */
+#blog-writer {
+  height: 100%; }
+
 .writer-title > input {
   height: 100%;
   font-size: 30px;
@@ -50,15 +78,15 @@ header {
     box-shadow: none;
     outline: none; }
 
-.writer-content > textarea {
-  height: 400px;
-  background: #f4f4f4;
-  border: none;
-  box-shadow: none;
-  outline: none; }
-  .writer-content > textarea:focus {
-    border: none;
-    box-shadow: none;
-    outline: none; }
+.writer-content {
+  height: 100%; }
+
+.writer-toolbar {
+  width: 30px;
+  height: 100%;
+  background: #d4d4d4;
+  position: absolute;
+  top: 0;
+  right: 0; }
 
 /*# sourceMappingURL=../../map/blog/css/blog.css.map */
