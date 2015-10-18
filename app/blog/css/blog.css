@@ -64,34 +64,29 @@ ul {
 /*
  * editor
  */
-#blog-writer {
+#blog-editor {
   height: 100%; }
 
-.writer-title > input {
+.post-title > input {
   height: 100%;
   font-size: 30px;
   background: #f4f4f4;
   border: none;
   box-shadow: none;
   outline: none; }
-  .writer-title > input:focus {
+  .post-title > input:focus {
     border: none;
     box-shadow: none;
     outline: none; }
 
-.writer-content, .preview-content {
+.post-options {
+  float: right; }
+
+.post-content, .preview-content {
   box-sizing: border-box;
   float: left;
   width: 50%;
   height: 100%; }
-
-.writer-toolbar {
-  width: 30px;
-  height: 100%;
-  background: #d4d4d4;
-  position: absolute;
-  top: 0;
-  right: 0; }
 
 #post article {
   padding: 1em;

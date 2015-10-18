@@ -9,7 +9,7 @@ var contentMarked = function (val) {
 
 var editor = function () {
   return new Vue({
-    el: '#blog-writer',
+    el: '#blog-editor',
     ready: function () {
       var _this = this;
       $.ajax({

@@ -79,11 +79,11 @@ ul {
 /*
  * editor
  */
-#blog-writer {
+#blog-editor {
   height: 100%;
 }
 
-.writer-title {
+.post-title {
   > input {
     height: 100%;
     font-size: 30px;
@@ -99,20 +99,18 @@ ul {
   }
 }
 
-.writer-content, .preview-content {
+.post-options {
+  float: right;
+}
+
+.post-content, .preview-content {
   box-sizing: border-box;
   float: left;
   width: 50%;
   height: 100%;
 }
 
-.writer-toolbar {
-  width: 30px;
-  height: 100%;
-  background: #d4d4d4;
-  position: absolute;
-  top: 0;
-  right: 0;
+.editor-toolbar {
 }
 
 #post {
