@@ -16,18 +16,18 @@ var editor = require('./editor.js');
 
 var VModel = {};
 
-VModel.mainNav = function(currentpage){
+VModel.mainNav = function (currentpage) {
   return new Vue({
     el: 'header',
-    ready: function(){
+    ready: function () {
       this.$set('currentpage', currentpage);
     },
     data: {
       currentpage: currentpage
     },
     directives: {
-      'nav-highlight': function(val){
-        if(!val){
+      'nav-highlight': function (val) {
+        if (!val) {
           return false;
         }
         var el = this.el;
@@ -48,9 +48,6 @@ VModel.post = function () {
         url: '/api/blog/posts'
       })
         .done(function (res) {
-          res.forEach(function(item){
-            item.ctime = item.ctime.replace(/T|Z|\.\d*/ig, ' ');
-          });
           _this.$set('articles', res);
         });
     },
@@ -75,7 +72,6 @@ VModel.article = function () {
         .done(function (res) {
           res.content = marked(res.content.replace(/\s*<!--\s*more\s*-->\s+/, ''));
           res.abstract = marked(res.abstract);
-          console.log(res);
           _this.$set('article', res);
         });
     },

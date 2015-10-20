@@ -28,10 +28,13 @@ Blog.getPostList = function (req, res, next) {
     if (err) {
       res.send(err);
     } else {
-      //list.forEach(function (item) {
-      //  item.ctime = Moment().format(item.ctime);
-      //  item.utime = Moment().format(item.utime);
-      //});
+      list = list.map(function (item) {
+        item = item.toObject();
+        item.ctime = Moment(item.ctime).format('YYYY-MM-DD HH:mm:ss');
+        item.utime = Moment(item.utime).format('YYYY-MM-DD HH:mm:ss');
+        return item;
+      });
+      console.log(list[0]);
       res.send(list);
     }
   });
@@ -51,6 +54,9 @@ Blog.getArticleDetail = function (req, res, next) {
       console.log(err);
       res.send(err);
     } else {
+      article = article.toObject();
+      article.ctime = Moment(article.ctime).format('YYYY-MM-DD HH:mm:ss');
+      article.utime = Moment(article.utime).format('YYYY-MM-DD HH:mm:ss');
       res.send(article);
     }
   });
