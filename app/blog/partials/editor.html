@@ -1,19 +1,32 @@
 <link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css"/>
 <script src="/bower_components/codemirror/mode/gfm/gfm.js"></script>
 <div id="blog-editor">
-  <div class="editor-toolbar">
+  <div class="editor-toolbar clearfixed">
 
-    <div class="post-options">
-      <input type="text" placeholder="标签（多个标签用逗号分开）" v-model="post.tags"/>
-      <select name="" id="option" v-model="post.category" options="categories">
-      </select>
-      <a class="" v-on="click: publish(post)">发布</a>
-      <a class="" v-on="click: saveToCloud(post)">上传</a>
-      <a class="" v-on="click: loadMd(post)">加载</a>
-    </div>
     <div class="post-title">
       <input type="text" placeholder="标题" v-model="post.title">
+    </div>
 
+    <div class="post-options">
+      <div class="post-category">
+        <select name="" id="option" v-model="post.category" options="categories">
+        </select>
+      </div>
+      <div class="post-tags">
+        <div class="tags-storing">
+          <span v-repeat="tag in post.tags" class="label label-success">{{tag}}</span>
+        </div>
+        <div class="tags-inputer">
+
+          <input type="text" placeholder="标签（按 Enter 键确认）" v-model="tag_adding" v-on="keyup: storeTag | key 13"/>
+        </div>
+      </div>
+      <div class="post-action">
+
+        <a class="" v-on="click: publish(post)">发布</a>
+        <a class="" v-on="click: saveToCloud(post)">上传</a>
+        <a class="" v-on="click: loadMd(post)">加载</a>
+      </div>
     </div>
   </div>
   <div class="post-content" id="writer-board">

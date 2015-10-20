@@ -67,19 +67,42 @@ ul {
 #blog-editor {
   height: 100%; }
 
-.post-title > input {
-  height: 100%;
-  font-size: 30px;
-  background: #f4f4f4;
-  border: none;
-  box-shadow: none;
-  outline: none; }
-  .post-title > input:focus {
+.editor-toolbar::after {
+  content: '';
+  display: block;
+  visibility: hidden;
+  clear: both; }
+
+.post-title {
+  float: left;
+  width: 50%;
+  height: 100%; }
+  .post-title > input {
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    background: #f4f4f4;
     border: none;
     box-shadow: none;
     outline: none; }
+    .post-title > input:focus {
+      border: none;
+      box-shadow: none;
+      outline: none; }
 
 .post-options {
+  float: right;
+  width: 50%; }
+  .post-options > div {
+    display: inline-block; }
+
+.post-tags .tags-storing {
+  display: inline-block; }
+
+.post-tags .tags-inputer {
+  display: inline-block; }
+
+.post-action {
   float: right; }
 
 .post-content, .preview-content {

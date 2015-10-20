@@ -83,8 +83,21 @@ ul {
   height: 100%;
 }
 
+.editor-toolbar {
+  &::after {
+    content: '';
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
+}
+
 .post-title {
+  float: left;
+  width: 50%;
+  height: 100%;
   > input {
+    width: 100%;
     height: 100%;
     font-size: 30px;
     background: #f4f4f4;
@@ -101,6 +114,26 @@ ul {
 
 .post-options {
   float: right;
+  width: 50%;
+  > div {
+    display: inline-block;
+  }
+}
+
+.post-tags {
+  .tags-storing {
+    display: inline-block;
+    > span {
+
+    }
+  }
+  .tags-inputer {
+    display: inline-block;
+  }
+}
+
+.post-action {
+  float: right;;
 }
 
 .post-content, .preview-content {

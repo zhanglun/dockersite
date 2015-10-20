@@ -46,14 +46,27 @@ var editor = function () {
         content: '',
         abstract: '',
         category: '',
-        tags: ''
-      }
+        tags: []
+      },
+      tag_adding: ''
 
     },
     filters: {
       marked: contentMarked
     },
     methods: {
+      // 添加标签
+      'storeTag': function () {
+        var tagStoring = this.$data.tag_adding;
+        // 检查tag是否已经添加
+        var isExist = this.$data.post.tags.some(function ( item) {
+          return item == tagStoring;
+        });
+        if (tagStoring && !isExist) {
+          this.$data.post.tags.push(tagStoring);
+        }
+        this.$data.tag_adding = '';
+      },
       'selectCategory': function (val) {
         this.$data.post.category = val;
       },

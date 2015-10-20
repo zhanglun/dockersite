@@ -79,7 +79,7 @@ Blog.createPost = function (req, res, next) {
     data.abstract = _temp.slice(0, 260);
   }
 
-  data.tags = data.tags.split(',');
+  //data.tags = data.tags.split(',');
   var post = db.Article(data);
   post.save(function (err, reply) {
     if (err) {
