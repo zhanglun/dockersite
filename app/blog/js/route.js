@@ -64,7 +64,7 @@ var VModel = require('./VModel');
       //if (ctx.data.index) {
       //  VModel.mainNav(ctx.data);
       //}
-      VModel[ctx.data.index]();
+      VModel[ctx.data.index](page);
     }
   };
 

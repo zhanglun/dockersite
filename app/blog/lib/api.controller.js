@@ -54,10 +54,15 @@ Blog.getArticleDetail = function (req, res, next) {
       console.log(err);
       res.send(err);
     } else {
-      article = article.toObject();
-      article.ctime = Moment(article.ctime).format('YYYY-MM-DD HH:mm:ss');
-      article.utime = Moment(article.utime).format('YYYY-MM-DD HH:mm:ss');
-      res.send(article);
+      if(!article){
+        res.status(404).json(article);
+        return ;
+      }
+        article = article.toObject();
+        article.ctime = Moment(article.ctime).format('YYYY-MM-DD HH:mm:ss');
+        article.utime = Moment(article.utime).format('YYYY-MM-DD HH:mm:ss');
+        res.send(article);
+
     }
   });
 };

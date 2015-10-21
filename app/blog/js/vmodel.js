@@ -61,6 +61,7 @@ VModel.post = function () {
 VModel.editor = editor;
 
 VModel.article = function () {
+  var page = arguments[0];
   return new Vue({
     el: '#article-detail',
     ready: function () {
@@ -73,6 +74,15 @@ VModel.article = function () {
           res.content = marked(res.content.replace(/\s*<!--\s*more\s*-->\s+/, ''));
           res.abstract = marked(res.abstract);
           _this.$set('article', res);
+        })
+        .fail(function(xhr){
+          if(xhr.status == 404){
+            var title = '404 Not Found!!! Redirecting...';
+            _this.$set('article', {title: title});
+            setInterval(function(){
+              page.redirect('/post');
+            },2000);
+          }
         });
     },
     data: {
