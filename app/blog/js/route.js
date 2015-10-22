@@ -61,9 +61,6 @@ var VModel = require('./VModel');
       $('#content').attr('data-postid', ctx.partials.postid)
         .empty()
         .append(ctx.partials.content);
-      //if (ctx.data.index) {
-      //  VModel.mainNav(ctx.data);
-      //}
       VModel[ctx.data.index](page);
     }
   };
