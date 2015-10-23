@@ -59,7 +59,7 @@ var editor = function () {
       'storeTag': function () {
         var tagStoring = this.$data.tag_adding;
         // 检查tag是否已经添加
-        var isExist = this.$data.post.tags.some(function ( item) {
+        var isExist = this.$data.post.tags.some(function (item) {
           return item == tagStoring;
         });
         if (tagStoring && !isExist) {
@@ -93,7 +93,7 @@ var editor = function () {
           .done(function (res) {
             window.res = res;
             post.title = res.match(/^\btitle.+/)[0].slice(7);
-            post.tags = JSON.parse(res.match(/tags.+/)[0].slice(6)).join(',');
+            post.tags = JSON.parse(res.match(/tags.+/)[0].slice(6));
             var content = res.split('---');
             content.shift();
             post.content = content.join('\n');

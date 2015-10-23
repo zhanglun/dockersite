@@ -54,14 +54,14 @@ Blog.getArticleDetail = function (req, res, next) {
       console.log(err);
       res.send(err);
     } else {
-      if(!article){
+      if (!article) {
         res.status(404).json(article);
-        return ;
+        return;
       }
-        article = article.toObject();
-        article.ctime = Moment(article.ctime).format('YYYY-MM-DD HH:mm:ss');
-        article.utime = Moment(article.utime).format('YYYY-MM-DD HH:mm:ss');
-        res.send(article);
+      article = article.toObject();
+      article.ctime = Moment(article.ctime).format('YYYY-MM-DD HH:mm:ss');
+      article.utime = Moment(article.utime).format('YYYY-MM-DD HH:mm:ss');
+      res.send(article);
 
     }
   });
@@ -77,7 +77,7 @@ Blog.createPost = function (req, res, next) {
   var data = req.body;
   data.content = data.content.replace(/\r/g, '');
   var abstract = data.content.split(/\s*<!--\s*more\s*-->\s+/);
-  if (abstract && abstract.length > 0) {
+  if (abstract && abstract.length > 1) {
     data.abstract = abstract[0];
   } else {
     var _temp = data.content.replace(/[^.*]#+.*/g, '');
