@@ -63,7 +63,7 @@ var editor = function () {
           return item == tagStoring;
         });
         if (tagStoring && !isExist) {
-          this.$data.post.tags.push(tagStoring);
+          this.$data.post.tags.push(tagStoring.trim());
         }
         this.$data.tag_adding = '';
       },

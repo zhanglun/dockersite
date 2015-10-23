@@ -1,18 +1,18 @@
-<!--<header class="banner cover">-->
-  <!--<nav class="main-nav">-->
-    <!--<div class="container">-->
-      <!--<ul class="main-nav-menu" v-nav-highlight="currentpage">-->
-        <!--<li>-->
-          <!--<a href="./post">主页</a>-->
-        <!--</li>-->
-        <!--<li>-->
-          <!--<a href="./write">write</a>-->
-        <!--</li>-->
-        <!--&lt;!&ndash;<li><span id="test">授权快盘</span></li>&ndash;&gt;-->
-      <!--</ul>-->
-    <!--</div>-->
-  <!--</nav>-->
-<!--</header>-->
+<header class="banner">
+  <nav class="main-nav">
+    <div class="container">
+      <ul class="main-nav-menu" v-nav-highlight="currentpage">
+        <li>
+          <a href="./post">主页</a>
+        </li>
+        <li>
+          <a href="./write">write</a>
+        </li>
+        <!--<li><span id="test">授权快盘</span></li>-->
+      </ul>
+    </div>
+  </nav>
+</header>
 <section id="post" class="container">
   <article v-repeat="article in articles">
     <span class="pull-right">{{article.ctime}}</span>

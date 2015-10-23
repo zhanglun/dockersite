@@ -76,15 +76,14 @@ Blog.getArticleDetail = function (req, res, next) {
 Blog.createPost = function (req, res, next) {
   var data = req.body;
   data.content = data.content.replace(/\r/g, '');
-  var abstract = data.content.match(/\s*<!--\s*more\s*-->\s+/);
+  var abstract = data.content.split(/\s*<!--\s*more\s*-->\s+/);
   if (abstract && abstract.length > 0) {
     data.abstract = abstract[0];
   } else {
     var _temp = data.content.replace(/[^.*]#+.*/g, '');
-    data.abstract = _temp.slice(0, 260);
+    data.abstract = _temp.slice(0, 160);
   }
 
-  //data.tags = data.tags.split(',');
   var post = db.Article(data);
   post.save(function (err, reply) {
     if (err) {
