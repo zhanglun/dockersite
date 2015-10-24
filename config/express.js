@@ -33,7 +33,7 @@ module.exports = function (app, config) {
     store: new RedisStore({
       host: config.redis.host,
       port: config.redis.port,
-      pass: confid.redis.password
+      pass: config.redis.password
     }),
     //cookie: { secure: true },
     resave: true,
