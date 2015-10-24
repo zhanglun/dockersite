@@ -25,7 +25,12 @@ var config = {
       name: 'docker-node'
     },
     port: 3000,
-    db: 'mongodb://localhost/docker-node-test'
+    db: 'mongodb://localhost/docker-node-test',
+    redis: {
+      host: '127.0.0.1',
+      port: 6379,
+      password: ''
+    }
   },
 
   production: {
