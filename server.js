@@ -25,16 +25,12 @@ if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   mongoose.connect('mongodb://' + username + ':' + password + '@' + addr + ':' + port + '/' + instance);
   db = mongoose.connection;
 
-  // redis
-
 } else {
   // mongodb
   PORT = 1234;
   mongoose.connect('mongodb://localhost/sitedev');
   db = mongoose.connection;
 
-  // redis
-  // TODO:
 }
 
 var redisClient = redis.createClient(config.redis.port, config.redis.host);
