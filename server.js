@@ -37,6 +37,18 @@ if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   // TODO:
 }
 
+var redisClient = redis.createClient(config.redis.host, config.redis.port);
+redisClient.auth(config.redis.password, function(){
+  console.log('auth redis');
+  console.log(arguments);
+});
+redisClient.on('connect', function(){
+  console.log('redis connected!');
+});
+redisClient.on('error', function(){
+  console.log('redis connect error!!');
+  console.log(arguments);
+});
 db.on('error', function (err) {
   console.log('database connection failed!: ' + err);
 });
