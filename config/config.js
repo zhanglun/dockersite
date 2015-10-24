@@ -37,7 +37,8 @@ var config = {
     db: 'mongodb://localhost/docker-node-production',
     redis: {
       host: process.env.REDIS_PORT,
-      post: process.env.REDIS_PORT_6379_TCP_PORT
+      port: process.env.REDIS_PORT_6379_TCP_PORT,
+      password: process.env.REDIS_PASSWORD
     }
   },
 
