@@ -171,6 +171,7 @@ router.get('/kuaipan/authorize_callback', function (req, res, next) {
     var body = JSON.parse(result.body);
     req.session.access_token = body.oauth_token;
     req.session.oauth_token_secret = body.oauth_token_secret;
+    console.log(req.session);
     res.render('oauth');
   })
     .catch(function (err) {
