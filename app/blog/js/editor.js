@@ -40,12 +40,12 @@ var editor = function () {
 
     },
     data: {
-      categories: [1, 2, 3, 4],
+      categories: [],
       post: {
         title: '',
         content: '',
         abstract: '',
-        category: '',
+        category: '未分类',
         tags: []
       },
       tag_adding: ''

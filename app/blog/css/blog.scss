@@ -141,7 +141,7 @@ ul {
 
 .post-content, .preview-content {
   box-sizing: border-box;
-  height: 100%;
+  height: 500px;
 }
 
 .editor-toolbar {
@@ -171,5 +171,13 @@ ul {
     //  float: right;
     //}
   }
+}
+
+.entry {
+  padding: 1em;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border: 1px solid #d9dadc;
+  background-color: #fff;
 }
 
