@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css"/>
-<script src="/bower_components/codemirror/mode/gfm/gfm.js"></script>
+<script src="/bower_components/codemirror/mode/markdown/markdown.js"></script>
+<!--<script src="/bower_components/codemirror/mode/gfm/gfm.js"></script>-->
 <div id="blog-editor" class="row">
 
   <div class="post-title columns">
@@ -9,9 +10,9 @@
   <div class="post-options">
     <div class="post-category columns large-2">
       <!--<select name="" id="option" v-model="post.category">-->
-        <!--<option v-for="option in categories" v-bind:value="option">-->
-          <!--{{ option }}-->
-        <!--</option>-->
+      <!--<option v-for="option in categories" v-bind:value="option">-->
+      <!--{{ option }}-->
+      <!--</option>-->
       <!--</select>-->
       <!--<input type="text" name="" id="" v-model="post.category"/>-->
     </div>
@@ -32,7 +33,8 @@
     </div>
   </div>
   <!--</div>-->
-  <div class="post-content columns" id="writer-board">
+  <div class="post-content columns">
+    <textarea name="" id="writer-board"></textarea>
   </div>
   <!--<div class="preview-content" v-html="post.content | marked"></div>-->
 </div>

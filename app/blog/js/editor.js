@@ -25,12 +25,13 @@ var editor = function () {
 
 
       // editor
-      var editor = CodeMirror(document.getElementById('writer-board'), {
+      var editor = CodeMirror.fromTextArea(document.getElementById('writer-board'), {
         mode: 'markdown',
         indentUnit: 2,  // 缩进单位，默认2
         smartIndent: true,  // 是否智能缩进
         tabSize: 2,  // Tab缩进，默认4
         showCursorWhenSelecting: true,
+        //lineNumbers: true,
         lineWrapping: 'wrap'
       });
 
