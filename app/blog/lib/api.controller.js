@@ -48,7 +48,6 @@ Blog.getPostList = function (req, res, next) {
  */
 Blog.getArticleDetail = function (req, res, next) {
   var _id = req.params.id;
-  console.log(req.params);
   db.Article.findOne({'_id': _id}, function (err, article) {
     if (err) {
       console.log(err);

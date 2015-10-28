@@ -75,13 +75,13 @@ VModel.article = function () {
           res.abstract = marked(res.abstract);
           _this.$set('article', res);
         })
-        .fail(function(xhr){
-          if(xhr.status == 404){
+        .fail(function (xhr) {
+          if (xhr.status == 404) {
             var title = '404 Not Found!!! Redirecting...';
             _this.$set('article', {title: title});
-            setInterval(function(){
+            setInterval(function () {
               page.redirect('/post');
-            },2000);
+            }, 2000);
           }
         });
     },

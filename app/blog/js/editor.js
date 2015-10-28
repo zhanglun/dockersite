@@ -31,7 +31,6 @@ var editor = function () {
         smartIndent: true,  // 是否智能缩进
         tabSize: 2,  // Tab缩进，默认4
         showCursorWhenSelecting: true,
-        //lineNumbers: true,
         lineWrapping: 'wrap'
       });
 
