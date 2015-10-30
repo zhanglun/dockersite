@@ -45,7 +45,7 @@ module.exports = function (app, config) {
   app.use(methodOverride());
 
   //var pattern = config.root + "{/app/**/controller.js,/app/controllers/*.js}";
-  var controllers = glob.sync(config.root + "{/app/**/controller.js,/app/**/lib/api.controller.js,/app/controllers/*.js}");
+  var controllers = glob.sync(config.root + "{/app/**/controller.js,/app/**/controllers/*.js,/app/controllers/*.js}");
   controllers.forEach(function (controller) {
     require(controller)(app);
   });
