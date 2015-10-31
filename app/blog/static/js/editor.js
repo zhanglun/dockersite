@@ -2,6 +2,7 @@
  * Created by zhanglun on 10/17/15.
  */
 var marked = require('marked');
+
 var contentMarked = function (val) {
   return marked(val);
 };
@@ -22,22 +23,6 @@ var editor = function () {
           });
           _this.$set('categories', _temp);
         });
-
-
-      // editor
-      var editor = CodeMirror.fromTextArea(document.getElementById('writer-board'), {
-        mode: 'markdown',
-        indentUnit: 2,  // 缩进单位，默认2
-        smartIndent: true,  // 是否智能缩进
-        tabSize: 2,  // Tab缩进，默认4
-        showCursorWhenSelecting: true,
-        lineWrapping: 'wrap'
-      });
-
-      editor.setSize('100%', '100%');
-
-      _this.editor = editor;
-
     },
     data: {
       categories: [],
@@ -83,7 +68,7 @@ var editor = function () {
           dataType: 'application/json',
           data: post
         });
-      },
+      }
     }
 
   });

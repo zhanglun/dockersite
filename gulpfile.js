@@ -32,12 +32,12 @@ gulp.task('browserify', function () {
     .pipe(gulp.dest('./app/todovue/dist/'));
 });
 gulp.task('browserify1', function () {
-  gulp.src('./app/blog/js/*.js')
+  gulp.src('./app/blog/static/js/*.js')
     .pipe(browserify({
       insertGlobals: true,
       debug: true
     }))
-    .pipe(gulp.dest('./app/blog/dist/'));
+    .pipe(gulp.dest('./app/blog/static/dist/'));
 });
 
 gulp.task('watch', function () {

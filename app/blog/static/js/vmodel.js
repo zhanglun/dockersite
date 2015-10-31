@@ -1,6 +1,5 @@
 var marked = require('marked');
-var CodeMirror = require('codemirror');
-window.CodeMirror = CodeMirror;
+
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: false,
