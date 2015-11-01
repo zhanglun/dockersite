@@ -1,7 +1,7 @@
 var promise = require('bluebird');
 var express = require('express');
 var Moment = require('moment');
-//var moment = Moment();
+var QnUtil = require('../lib/qiniu.js');
 var request = require('request');
 var router = express.Router();
 var db = require('../models');
@@ -129,3 +129,20 @@ router.get('/tags', function (req, res, next) {
     });
 });
 
+router.get('/list', function (req, res, next) {
+  QnUtil.getFileList('', null, '')
+    .then(function (result) {
+      res.send(result);
+    });
+});
+
+router.get('/list/:filepath', function (req, res, next) {
+  var filepath = req.params.filepath;
+  QnUtil.loadFile(encodeURI(filepath))
+    .then(function (body) {
+      res.status(body.statusCode).send(body);
+    })
+    .catch(function (err) {
+      res.send(err);
+    });
+});

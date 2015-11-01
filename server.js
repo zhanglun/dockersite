@@ -11,10 +11,12 @@ var app = express();
  */
 var PORT;
 var db;
+var env;
 
 if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   PORT = 80;
   app.enable('view cacahe');
+  env = 'production';
 
   // mongodb
   var port = process.env.MONGODB_PORT_27017_TCP_PORT;
@@ -27,6 +29,7 @@ if (process.env.MONGODB_PORT_27017_TCP_PORT) {
 
 } else {
   // mongodb
+  env = 'development';
   PORT = 1234;
   mongoose.connect('mongodb://localhost/sitedev');
   db = mongoose.connection;
@@ -59,6 +62,7 @@ db.on('open', function () {
 
 require('./config/express')(app, config);
 
+console.log('----app config----: env ' + env);
 
 // socket
 var http = require('http').Server(app);

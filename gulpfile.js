@@ -42,12 +42,13 @@ gulp.task('browserify1', function () {
 
 gulp.task('watch', function () {
   gulp.watch('./app/**/css/*.scss', ['sass']);
-  gulp.watch('./app/**/js/*.js', ['browserify', 'browserify1']);
+  gulp.watch('./app/**/static/js/*.js', ['browserify', 'browserify1']);
 });
 
 gulp.task('develop', function () {
   livereload.listen(35730);
   nodemon({
+    exec: 'node --debug',
     script: 'server.js',
     ext: 'js coffee handlebars scss'
   }).on('restart', function () {

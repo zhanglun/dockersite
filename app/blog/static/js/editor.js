@@ -84,44 +84,6 @@ var editor = function () {
           data: post
         });
       },
-      'loadMd': function (post) {
-        var _this = this;
-        $.ajax({
-          method: 'get',
-          url: '/api/blog/kuaipan/download_file?path=/%E8%A7%84%E8%8C%83%E4%B9%8B%E8%B7%AF-normal%20flow.md'
-        })
-          .done(function (res) {
-            window.res = res;
-            post.title = res.match(/^\btitle.+/)[0].slice(7);
-            post.tags = JSON.parse(res.match(/tags.+/)[0].slice(6));
-            var content = res.split('---');
-            content.shift();
-            post.content = content.join('\n');
-            _this.editor.setValue(post.content);
-          }).fail(function (xhr) {
-            console.log(xhr);
-          });
-      },
-      'saveToCloud': function (post) {
-        // TODO: 保存到网盘
-        var file = post.content;
-        var path = '/test/' + post.title + '.md';
-        var data = '';
-        $.ajax({
-          method: 'post',
-          url: '/api/blog/kuaipan/upload_file',
-          dataType: 'json',
-          data: {
-            file: file,
-            path: path
-          }
-        })
-          .done(function (res) {
-            alert('上传成功！')
-          }).fail(function (xhr) {
-            console.log(xhr);
-          });
-      }
     }
 
   });
