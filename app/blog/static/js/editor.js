@@ -2,21 +2,22 @@
  * Created by zhanglun on 10/17/15.
  */
 var marked = require('marked');
+var util = require('./util');
 
 var contentMarked = function (val) {
   return marked(val);
 };
-
+var loadStyleSheet = function (href) {
+  $('head').append('<link rel="stylesheet" href="/bower_components/editor.md/css/editormd.min.css"/>');
+};
 
 var editor = function () {
   return new Vue({
     el: '#blog-editor',
     ready: function () {
       var _this = this;
-      $.ajax({
-        method: 'get',
-        url: '/api/blog/category'
-      })
+      loadStyleSheet();
+      util.getJSON('/api/blog/category')
         .done(function (res) {
           var _temp = res.map(function (item) {
             return item['category'];
@@ -24,6 +25,7 @@ var editor = function () {
           _this.$set('categories', _temp);
         });
     },
+
     data: {
       categories: [],
       post: {
@@ -39,6 +41,8 @@ var editor = function () {
     filters: {
       marked: contentMarked
     },
+
+
     methods: {
       // 添加标签
       'storeTag': function () {
