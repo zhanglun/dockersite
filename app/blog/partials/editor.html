@@ -1,4 +1,3 @@
-
 <div id="blog-editor" class="row">
   <div class="post-title columns">
     <input type="text" placeholder="标题" v-model="post.title">
@@ -34,19 +33,4 @@
   </div>
   <!--<div class="preview-content" v-html="post.content | marked"></div>-->
   <script src="/bower_components/editor.md/editormd.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      var editor = editormd("writer-board", {
-        path : "/bower_components/editor.md/lib/" // Autoload modules mode, codemirror, marked... dependents libs path
-      });
-
-      /*
-       // or
-       var editor = editormd({
-       id   : "editormd",
-       path : "../lib/"
-       });
-       */
-    });
-  </script>
 </div>

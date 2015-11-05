@@ -7,6 +7,15 @@ var util = require('./util');
 var contentMarked = function (val) {
   return marked(val);
 };
+var EDITOR = null;
+
+var initEditor = function () {
+  EDITOR = editormd("writer-board", {
+    path: "/bower_components/editor.md/lib/", // Autoload modules mode, codemirror, marked... dependents libs path
+    saveHTMLToTextarea: true
+  });
+};
+
 var loadStyleSheet = function (href) {
   $('head').append('<link rel="stylesheet" href="/bower_components/editor.md/css/editormd.min.css"/>');
 };
@@ -17,6 +26,7 @@ var editor = function () {
     ready: function () {
       var _this = this;
       loadStyleSheet();
+      initEditor();
       util.getJSON('/api/blog/category')
         .done(function (res) {
           var _temp = res.map(function (item) {
@@ -60,7 +70,8 @@ var editor = function () {
         this.$data.post.category = val;
       },
       'publish': function (post) {
-
+        window.EE= EDITOR;
+        alert(EDITOR.getMarkdown());
         if (!post.title) {
           alert('!!!!');
           return false;
