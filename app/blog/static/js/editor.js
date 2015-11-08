@@ -7,14 +7,21 @@ var util = require('./util');
 var contentMarked = function (val) {
   return marked(val);
 };
-var EDITOR = null;
 
-//var initEditor = function () {
-//  EDITOR = editormd("writer-board", {
-//    path: "/bower_components/editor.md/lib/", // Autoload modules mode, codemirror, marked... dependents libs path
-//    saveHTMLToTextarea: true
-//  });
-//};
+function Editor(container){
+  var metadata = '++++' + '\n' +
+    'title: ' + '\n' +
+    'category: ' + '\n' +
+    'tags: ' + '\n' +
+    'date:' + '\n' +
+    '++++' + '\n';
+
+  return CodeMirror(container, {
+    value: metadata,
+    mode: "markdown",
+    tabSize:2
+  });
+}
 
 
 var editor = function () {
@@ -22,10 +29,11 @@ var editor = function () {
     el: '#blog-editor',
     ready: function () {
       var _this = this;
-      loadStyleSheet();
-      initEditor();
-      util.getJSON('/api/blog/category')
-        .done(function (res) {
+      var editorContainer = document.getElementById('writer-board');
+      var editor = Editor(editorContainer);
+      _this.editor = editor;
+      util.getCategoryList()
+        .then(function (res) {
           var _temp = res.map(function (item) {
             return item['category'];
           });
@@ -67,20 +75,16 @@ var editor = function () {
         this.$data.post.category = val;
       },
       'publish': function (post) {
-        window.EE= EDITOR;
-        alert(EDITOR.getMarkdown());
+
+        var value = this.editor.getValue();
+        var metadata = value.split('++++')[1];
+
         if (!post.title) {
           alert('!!!!');
           return false;
         }
-        post.content = this.editor.getValue();
-        $.ajax({
-          method: 'post',
-          url: '/api/blog/posts',
-          dataType: 'application/json',
-          data: post
-        });
-      }
+        util.createPost(post);
+      },
     }
 
   });

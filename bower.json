@@ -12,6 +12,6 @@
     "foundation": "~5.5.3",
     "page": "visionmedia/page.js#~1.6.3",
     "vue": "~0.12.16",
-    "editor.md": "~1.5.0"
+    "codemirror": "~5.8.0"
   }
 }
