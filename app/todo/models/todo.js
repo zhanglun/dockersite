@@ -18,5 +18,5 @@ var TodoSchema = new Schema({
     lables: []
 });
 
-exports.Todo = mongoose.model('Todo', TodoSchema);
+module.exports = TodoSchema;
 

@@ -24,12 +24,12 @@ gulp.task('sass', function () {
 });
 
 gulp.task('browserify', function () {
-  gulp.src('./app/todovue/js/*.js')
+  gulp.src('./app/todo/js/*.js')
     .pipe(browserify({
       insertGlobals: true,
       debug: true
     }))
-    .pipe(gulp.dest('./app/todovue/dist/'));
+    .pipe(gulp.dest('./app/todo/dist/'));
 });
 gulp.task('browserify1', function () {
   gulp.src('./app/blog/static/js/*.js')

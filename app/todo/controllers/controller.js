@@ -3,7 +3,7 @@ var fs = require('fs');
 var express = require('express');
 var router = express.Router();
 
-var tplPath = require.resolve('./todo.html');
+var tplPath = require.resolve('../todo.html');
 
 function renderHtml(req, res, next){
   fs.stat(tplPath, function (err, stat) {
@@ -18,7 +18,7 @@ function renderFiles(req, res, next){
   var file = req.params.file;
   if (!file) return next();
   var name = req.params.example;
-  var path = join(__dirname, name, file);
+  var path = join(__dirname, '../', name, file);
   fs.stat(path, function (err, stat) {
     if (err) {
       return next();
@@ -29,7 +29,7 @@ function renderFiles(req, res, next){
 
 
 module.exports = function (app) {
-  app.use('/todovue', router);
+  app.use('/todo', router);
 };
 
 // 静态文件
@@ -38,3 +38,6 @@ router.get('/:example/:file(*)', renderFiles);
 // 路由
 router.get('/', renderHtml);
 router.get('/:category', renderHtml);
+router.get('/:category/*', renderHtml);
+router.get('/:category/*/*', renderHtml);
+

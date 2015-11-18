@@ -50,7 +50,7 @@ var app = new Vue({
 });
 
 
-page.base('/todovue');
+page.base('/todo');
 
 page('/', '/inbox');
 page('/inbox', inbox);

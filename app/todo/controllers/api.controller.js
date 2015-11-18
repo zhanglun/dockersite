@@ -1,8 +1,20 @@
-var db = require('../models.js');
-var API = {};
+var express = require('express');
+var router = express.Router();
+var db = require('../models');
 
-API.Todo = {};
-API.Todo.getTasklist = function (req, res, next) {
+module.exports = function (app) {
+  console.log('todo api');
+  app.use('/api/todo', router);
+};
+
+
+
+
+
+
+
+var todoHandler = {};
+todoHandler.getTasklist = function (req, res, next) {
   var querystring = req.query;
   console.log(querystring);
   db.Todo.find(querystring, function (err, list) {
@@ -22,7 +34,7 @@ API.Todo.getTasklist = function (req, res, next) {
  * @param res
  * @param next
  */
-API.Todo.createTask = function (req, res, next) {
+todoHandler.createTask = function (req, res, next) {
   var param = req.body;
   var task = new db.Todo(param);
   task.save(function (err, reply) {
@@ -43,7 +55,7 @@ API.Todo.createTask = function (req, res, next) {
  * @param res
  * @param next
  */
-API.Todo.updateTask = function (req, res, next) {
+todoHandler.updateTask = function (req, res, next) {
   var param = req.body;
   var _id = req.params.id;
   console.log(_id);
@@ -71,7 +83,7 @@ API.Todo.updateTask = function (req, res, next) {
 };
 
 
-API.Todo.deleteTask = function (req, res, next) {
+todoHandler.deleteTask = function (req, res, next) {
   var _id = req.params.id;
   if (!_id) {
     return res.status(400).json({
@@ -93,7 +105,7 @@ API.Todo.deleteTask = function (req, res, next) {
 };
 
 
-API.Todo.getTaskById = function (req, res, next) {
+todoHandler.getTaskById = function (req, res, next) {
   var id = req.params.id;
   db.Todo.find({
     id: id
@@ -109,7 +121,7 @@ API.Todo.getTaskById = function (req, res, next) {
 };
 
 
-API.Todo.getArchivedTasks = function (req, res, next) {
+todoHandler.getArchivedTasks = function (req, res, next) {
   db.Todo.find({category: 'archive'}, function (err, tasks) {
     console.log(tasks);
     if (err) {
@@ -123,4 +135,19 @@ API.Todo.getArchivedTasks = function (req, res, next) {
 };
 
 
-module.exports = API;
+
+
+// task list
+router.get('/tasks', todoHandler.getTasklist);
+
+// 创建 task
+router.post('/tasks', todoHandler.createTask);
+// 获得单个 task
+router.get('/tasks/:id', todoHandler.getTaskById);
+// 更新 task
+router.put('/tasks/:id', todoHandler.updateTask);
+// 删除 task
+router.delete('/tasks/:id', todoHandler.deleteTask);
+
+router.get('/archived', todoHandler.getArchivedTasks);
+
