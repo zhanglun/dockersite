@@ -3,27 +3,23 @@ var router = express.Router();
 var db = require('../models');
 
 module.exports = function (app) {
-  app.use('/api/todo', router);
+  app.use('/api/tasks', router);
 };
 
 
 
+var TaskHandler = {};
 
-
-
-
-var todoHandler = {};
-todoHandler.getTasklist = function (req, res, next) {
+TaskHandler.getTasklist = function (req, res, next) {
   var querystring = req.query;
-  console.log(querystring);
-  db.Todo.find(querystring, function (err, list) {
+  db.Task.find(querystring, function (err, list) {
     if (err) {
-      return res.status(400).json({
+      return res.status(400).jsonp({
         message: err.message,
         code: err
       });
     }
-    return res.status(200).json(list);
+    return res.status(200).jsonp(list);
   });
 };
 
@@ -33,17 +29,17 @@ todoHandler.getTasklist = function (req, res, next) {
  * @param res
  * @param next
  */
-todoHandler.createTask = function (req, res, next) {
+TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
-  var task = new db.Todo(param);
+  var task = new db.Task(param);
   task.save(function (err, reply) {
     if (err) {
-      return res.status(400).json({
+      return res.status(400).jsonp({
         message: err.message,
         code: err
       });
     }
-    return res.status(200).json(reply);
+    return res.status(200).jsonp(reply);
   });
 };
 
@@ -54,82 +50,81 @@ todoHandler.createTask = function (req, res, next) {
  * @param res
  * @param next
  */
-todoHandler.updateTask = function (req, res, next) {
+TaskHandler.updateTask = function (req, res, next) {
   var param = req.body;
   var _id = req.params.id;
-  console.log(_id);
   if (param._id !== _id) {
-    return res.status(400).json({
+    return res.status(400).jsonp({
       message: 'task id is not correct',
       code: 400
     });
   }
   //delete param._id;
-  db.Todo.update({
+  db.Task.update({
     _id: _id
   }, {
     $set: param
   }, function (err, reply) {
     if (err) {
       console.log(err);
-      res.status(400).json({
+      res.status(400).jsonp({
         message: err.message,
         code: err
       });
     }
-    res.status(200).json(reply);
+    res.status(200).jsonp(reply);
   });
 };
 
 
-todoHandler.deleteTask = function (req, res, next) {
+TaskHandler.deleteTask = function (req, res, next) {
   var _id = req.params.id;
   if (!_id) {
-    return res.status(400).json({
+    return res.status(400).jsonp({
       message: 'task id is not correct',
       code: 400
     });
   }
-  db.Todo.findByIdAndRemove(_id, function (err, reply) {
+  db.Task.findByIdAndRemove(_id, function (err, reply) {
 
     if (err) {
       console.log(err);
-      res.status(400).json({
+      res.status(400).jsonp({
         message: err.message,
         code: err
       });
     }
-    res.status(200).json(reply);
+    res.status(200).jsonp(reply);
   });
 };
 
 
-todoHandler.getTaskById = function (req, res, next) {
+TaskHandler.getTaskById = function (req, res, next) {
   var id = req.params.id;
-  db.Todo.find({
+  db.Task.find({
     id: id
   }, function (err, task) {
     if (err) {
-      res.status(400).json({
+      res.status(400).jsonp({
         message: err.message,
         code: err
       });
     }
-    res.status(200).json(task);
+    res.status(200).jsonp(task);
   });
 };
 
 
-todoHandler.getArchivedTasks = function (req, res, next) {
-  db.Todo.find({category: 'archive'}, function (err, tasks) {
+TaskHandler.getArchivedTasks = function (req, res, next) {
+  db.Task.find({category: 'archive'}, function (err, tasks) {
     console.log(tasks);
     if (err) {
-      res.status(400).json({
+      res.status(400).jsonp({
         message: err.message,
         code: err
       });
     }
-    res.status(200).json(tasks);
+    res.status(200).jsonp(tasks);
   });
 };
 
@@ -137,16 +132,15 @@ todoHandler.getArchivedTasks = function (req, res, next) {
 
 
 // task list
-router.get('/tasks', todoHandler.getTasklist);
+router.get('/', TaskHandler.getTasklist);
 
 // 创建 task
-router.post('/tasks', todoHandler.createTask);
+router.post('/', TaskHandler.createTask);
 // 获得单个 task
-router.get('/tasks/:id', todoHandler.getTaskById);
+router.get('/:id', TaskHandler.getTaskById);
 // 更新 task
-router.put('/tasks/:id', todoHandler.updateTask);
+router.put('/:id', TaskHandler.updateTask);
 // 删除 task
-router.delete('/tasks/:id', todoHandler.deleteTask);
+router.delete('/:id', TaskHandler.deleteTask);
 
-router.get('/archived', todoHandler.getArchivedTasks);
-
+router.get('/archived', TaskHandler.getArchivedTasks);
