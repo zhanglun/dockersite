@@ -31,15 +31,20 @@ TaskHandler.getTasklist = function (req, res, next) {
  */
 TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
+  console.log(req);
+  if(!param.title){
+    return res.status(400).jsonp({});
+    return false;
+  }
   var task = new db.Task(param);
   task.save(function (err, reply) {
     if (err) {
-      return res.status(400).jsonp({
+      return res.status(400).json({
         message: err.message,
         code: err
       });
     }
-    return res.status(200).jsonp(reply);
+    return res.status(200).json(reply);
   });
 };
 
@@ -79,6 +84,7 @@ TaskHandler.updateTask = function (req, res, next) {
 
 TaskHandler.deleteTask = function (req, res, next) {
   var _id = req.params.id;
+  console.log(req.params);
   if (!_id) {
     return res.status(400).jsonp({
       message: 'task id is not correct',

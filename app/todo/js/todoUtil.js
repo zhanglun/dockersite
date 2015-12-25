@@ -51,7 +51,8 @@ TodoMethods.create = function (todo) {
   return $.ajax({
     url: '/api/todo/tasks',
     method: 'post',
-    data: todo
+    data: todo,
+    dataType: 'json'
   });
 };
 
