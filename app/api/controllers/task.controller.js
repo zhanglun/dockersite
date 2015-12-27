@@ -135,7 +135,9 @@ TaskHandler.getArchivedTasks = function (req, res, next) {
 };
 
 
-
+// =======================================================================//
+// Routers                                                                //
+// =======================================================================//
 
 // task list
 router.get('/', TaskHandler.getTasklist);
