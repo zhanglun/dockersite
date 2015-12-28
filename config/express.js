@@ -11,7 +11,7 @@ var ejs = require('ejs');
 
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
-
+var passport = require('passport');
 
 module.exports = function (app, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -40,6 +40,10 @@ module.exports = function (app, config) {
     saveUninitialized: true,
     secret: 'zhanglun daocloud!'
   }));
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   app.use(compress());
   app.use(express.static(config.root + '/src'));
   app.use(methodOverride());
