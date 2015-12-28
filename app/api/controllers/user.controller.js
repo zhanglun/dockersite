@@ -26,13 +26,23 @@ UserHandler.autheniticate= function(uid){
 
 };
 router.get('/:username', function(req, res){
-  var param = req.param;
+
+  var username = req.param('username'); // /:username
+
+  var param = req.params; // {username: /:username}
   var data = req.body;
-  console.log(req);
+  console.log(param);
+  res.status(200).json({
+    name: username
+  });
 });
 
 
 
 router.post('/authenticate', function(req, res){
  console.log('user authenticate');
+  res.send(200).json({
+    param: req.param,
+    data: req.body
+  })
 });
