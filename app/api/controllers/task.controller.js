@@ -40,7 +40,6 @@ TaskHandler.getTasklist = function (req, res, next) {
  */
 TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
-  console.log(req);
   if(!param.title){
     return res.status(400).jsonp({});
     return false;
