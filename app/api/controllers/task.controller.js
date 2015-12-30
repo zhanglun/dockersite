@@ -19,15 +19,6 @@ TaskHandler.getTasklist = function (req, res, next) {
         code: err
       });
     }
-    list.sort(function(a, b){
-      if(a.utime > b.utime){
-        return -1;
-      }else if(a.utime < b.utime){
-        return 1;
-      }else{
-        return 0;
-      }
-    });
     return res.status(200).jsonp(list);
   });
 };
