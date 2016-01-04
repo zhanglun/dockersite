@@ -5,12 +5,9 @@ var db = require('../models');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var auth = require('../services/auth');
 
 passport.use(new LocalStrategy(
   function (username, password, done) {
-    console.log(username);
-    console.log(password);
     db.User.findOne({username: username}, function (err, user) {
       if (err) {
         return done(err);
@@ -18,7 +15,6 @@ passport.use(new LocalStrategy(
       if (!user) {
         return done(null, false, {message: 'Incorrect username.'});
       }
-      console.log(user.validPassword(password));
       if (!user.validPassword(password)) {
         return done(null, false, {message: 'Incorrect password.'});
       }
@@ -58,6 +54,9 @@ UserHandler.autheniticate = function (uid) {
 
 };
 
+/**
+ *
+ */
 router.get('/:username', function (req, res) {
 
   var param = req.params; // {username: /:username}
@@ -65,47 +64,58 @@ router.get('/:username', function (req, res) {
   res.status(200).json(param);
 });
 
-
-router.post('/authenticate', function (req, res) {
-  console.log('user authenticate');
-  res.send(200).json({
-    param: req.param,
-    data: req.body
-  })
-});
-
-router.post('/login', passport.authenticate('local'), function (req, res) {
-  res.status(200).json({
-    code: 20000,
-    resource: {
-      message: 'login 成功'
+/**
+ * 登录
+ */
+router.post('/login', function (req, res) {
+  passport.authenticate('local', function (err, user, info) {
+    console.log(arguments);
+    if (err) {
+      res.status(500).json(err);
     }
-  });
+    if (!user) {
+      res.status(401).json({
+        code: '40001',
+        resource: {
+          message: 'no user'
+        }
+      });
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+       return ;
+      }
+      req.session.user = user;
+      req.session.logined = true;
+      res.status(200).json(user);
+    });
+  })(req, res);
 });
 
+/**
+ * 注册
+ */
 router.post('/signup', function (req, res) {
-  console.log(req.body);
   var password = req.body.password;
   var username = req.body.username;
-  if(password && username){
-    db.User.findOne({username: username},function(err, user){
-      if(err){
+  if (password && username) {
+    db.User.findOne({username: username}, function (err, user) {
+      if (err) {
         res.status(500).json(err);
-      } else if(user){
+      } else if (user) {
         res.status(400).json({
           code: '40001',
           resource: {
             message: 'user is existed!'
           }
         });
-      }else{
+      } else {
         var _user = {
           username: username
         };
         var newUser = new db.User(_user);
         newUser.makePasswordSalt(password);
-        newUser.save(function(err, user){
-          console.log(arguments);
+        newUser.save(function (err, user) {
           res.status(200).json(user);
         });
       }
