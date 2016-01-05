@@ -25,7 +25,7 @@
     "passport": "^0.3.2",
     "passport-github": "^1.0.0",
     "passport-local": "^1.0.0",
-    "qiniu": "^6.1.8",
+    "qiniu": "^6.1.9",
     "redis": "^2.1.0",
     "request": "^2.64.0",
     "serve-favicon": "~2.2.0",
