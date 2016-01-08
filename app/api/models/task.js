@@ -15,7 +15,13 @@ var TaskSchema = new Schema({
     category: '',
     completed: {type: Boolean, default: false},
     isOverdue: {type: Boolean, default: false},
-    lables: []
+    lables: [],
+    attachmetnts: [{
+      name: String,
+      url: String,
+      type: String,
+      size: Number
+    }]
 });
 
 module.exports = TaskSchema;
