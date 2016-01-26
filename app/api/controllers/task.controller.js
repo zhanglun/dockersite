@@ -33,7 +33,6 @@ TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
   if(!param.title){
     return res.status(400).jsonp({});
-    return false;
   }
   var task = new db.Task(param);
   task.save(function (err, reply) {
