@@ -5,7 +5,6 @@ var db = require('../models');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-
 passport.use(new LocalStrategy(
   function (username, password, done) {
     db.User.findOne({username: username}, function (err, user) {
@@ -26,7 +25,6 @@ passport.use(new LocalStrategy(
 passport.serializeUser(function (user, done) {//保存user对象
   done(null, user);//可以通过数据库方式操作
 });
-
 passport.deserializeUser(function (user, done) {//删除user对象
   done(null, user);//可以通过数据库方式操作
 });
@@ -60,7 +58,6 @@ UserHandler.autheniticate = function (uid) {
 router.get('/:username', function (req, res) {
 
   var param = req.params; // {username: /:username}
-  var data = req.body;
   res.status(200).json(param);
 });
 

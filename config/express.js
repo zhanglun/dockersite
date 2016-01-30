@@ -28,7 +28,7 @@ module.exports = function (app, config) {
     extended: true
   }));
   app.use(cookieParser());
-  console.log(config.redis);
+  //console.log(config.redis);
   app.use(session({
     store: new RedisStore({
       host: config.redis.host,
@@ -47,6 +47,8 @@ module.exports = function (app, config) {
   app.use(compress());
   app.use(express.static(config.root + '/src'));
   app.use(methodOverride());
+
+  app.set('superSecert', config.secert);
 
   //var pattern = config.root + "{/app/**/controller.js,/app/controllers/*.js}";
   var controllers = glob.sync(config.root + "{/app/**/controllers/*.js,/app/controllers/*.js}");

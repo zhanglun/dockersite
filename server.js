@@ -40,17 +40,19 @@ var redisClient = redis.createClient(config.redis.port, config.redis.host);
 
 if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   redisClient.auth(config.redis.password, function () {
-    console.log('auth redis');
-    console.log(arguments);
+
   });
 }
+
 redisClient.on('connect', function () {
   console.log('redis connected!');
 });
+
 redisClient.on('error', function () {
   console.log('redis connect error!!');
   console.log(arguments);
 });
+
 db.on('error', function (err) {
   console.log('database connection failed!: ' + err);
 });
@@ -63,11 +65,10 @@ db.on('open', function () {
 require('./config/express')(app, config);
 
 console.log('----app config----: env ' + env);
+console.log('Magic happens at http://localhost:' + port);
 
 // socket
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var socketCon = require('./middlewares/chat/connection.js')(io);
 http.listen(PORT, function () {
   console.log('The server is listening on: ' + PORT);
 });
