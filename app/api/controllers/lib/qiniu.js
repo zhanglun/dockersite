@@ -27,16 +27,15 @@ QnUtil.prototype.getToken = function(){
   //putPolicy.callbackUrl = callbackUrl;
   //putPolicy.callbackBody = callbackBody;
   //putPolicy.returnUrl = returnUrl;
-  var body = JSON.stringify({
+  putPolicy.returnBody = JSON.stringify({
     "name": '$(fname)',
     "size": '$(fsize)',
     "type": '$(mimeType)',
     "hash": '$(etag)',
     'key': '$(key)',
     "width": '$(imageInfo.width)',
-    "height": '$(imageInfo.height)',
+    "height": '$(imageInfo.height)'
   });
-  putPolicy.returnBody = body;
   //putPolicy.asyncOps = asyncOps;
   //putPolicy.expires = expires;
 
