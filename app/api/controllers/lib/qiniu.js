@@ -4,14 +4,15 @@ var qiniu = require('qiniu');
 qiniu.conf.ACCESS_KEY = 'NV5FJcwvt4OzP2o-6K2xDLejrYeXkv38lb667OZw';
 qiniu.conf.SECRET_KEY = 'C63IXuCpEtDoyw11pU1IcStBm6RR21nAN8M4duod';
 
-var qiniuClient = new qiniu.rs.Client();
+//var qiniuClient = new qiniu.rs.Client();
 
-var QnUtil = function () {
+function QnUtil() {
   this.conf = {
     bucketName: 'blog',
     host: 'http://7xnrrd.com1.z0.glb.clouddn.com/'
   };
-};
+  this.client = new qiniu.rs.Client();
+}
 
 module.exports = new QnUtil();
 
@@ -20,7 +21,7 @@ module.exports = new QnUtil();
  * 获取上传token
  * @return {[type]} [description]
  */
-QnUtil.prototype.getToken = function(){
+QnUtil.prototype.getToken = function () {
   var _this = this;
   var bucketname = _this.conf.bucketName;
   var putPolicy = new qiniu.rs.PutPolicy(bucketname);
@@ -80,4 +81,26 @@ QnUtil.prototype.loadFile = function (key) {
       }
     })
   });
+};
+
+/**
+ * 删除文件
+ * @param keylist
+ * @returns {Promise}
+ */
+QnUtil.prototype.deleteFile = function (keylist) {
+  var _this = this;
+  var _pathlist = keylist.map(function (key) {
+    return new qiniu.rs.EntryPath(_this.conf.bucketName, key);
+  });
+  return new Promise(function (resolve, reject) {
+    _this.client.batchDelete(_pathlist, function (err, ret) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(ret);
+      }
+    });
+  });
+
 };

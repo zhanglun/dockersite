@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models');
+var QnUtil = require('./lib/qiniu');
 
 module.exports = function (app) {
   app.use('/api/tasks', router);
@@ -89,7 +90,7 @@ TaskHandler.deleteTask = function (req, res, next) {
       code: 400
     });
   }
-  db.Task.findByIdAndRemove(_id, function (err, reply) {
+  db.Task.findByIdAndRemove(_id, function (err, task) {
 
     if (err) {
       console.log(err);
@@ -98,7 +99,16 @@ TaskHandler.deleteTask = function (req, res, next) {
         code: err
       });
     }
-    res.status(200).jsonp(reply);
+    if(task.attachments.length > 0){
+      var _pathlist = task.attachments.map(function(item, i){
+        return item.name;
+      });
+      QnUtil.deleteFile(_pathlist)
+        .then(function(){
+
+        });
+    }
+    res.status(200).jsonp(task);
   });
 };
 
