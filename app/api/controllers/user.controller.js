@@ -23,7 +23,7 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function (user, done) {//保存user对象
-  done(null, user);//可以通过数据库方式操作
+  done(null, user._id);//可以通过数据库方式操作
 });
 passport.deserializeUser(function (user, done) {//删除user对象
   done(null, user);//可以通过数据库方式操作
@@ -66,7 +66,6 @@ router.get('/:username', function (req, res) {
  */
 router.post('/login', function (req, res) {
   passport.authenticate('local', function (err, user, info) {
-    console.log(arguments);
     if (err) {
       res.status(500).json(err);
     }
@@ -80,11 +79,14 @@ router.post('/login', function (req, res) {
     }
     req.logIn(user, function (err) {
       if (err) {
-       return ;
+        return;
       }
-      req.session.user = user;
+      req.session.userid = user._id;
       req.session.logined = true;
-      res.status(200).json(user);
+      var result = {
+        name: user.username
+      };
+      res.status(200).json(result);
     });
   })(req, res);
 });
@@ -116,6 +118,39 @@ router.post('/signup', function (req, res) {
           res.status(200).json(user);
         });
       }
+    });
+
+  }
+
+});
+
+
+router.post('/authenticate', function (req, res) {
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp
+    jwt.verify(token, app.get('superSecret'), function (err, decoded) {
+      if (err) {
+        return res.status(403).json({success: false, message: 'Failed to authenticate token.'});
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+
+  } else {
+
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided.'
     });
 
   }
