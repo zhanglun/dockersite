@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../models');
 var QnUtil = require('./lib/qiniu');
+var Auth = require('../services/auth.js');
 
 module.exports = function (app) {
   app.use('/api/tasks', router);

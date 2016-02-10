@@ -28,7 +28,7 @@ module.exports = function (app, config) {
     extended: true
   }));
   app.use(cookieParser());
-  //console.log(config.redis);
+  app.set('superSecret', config.secert);
   app.use(session({
     store: new RedisStore({
       host: config.redis.host,
