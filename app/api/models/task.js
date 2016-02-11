@@ -9,6 +9,7 @@ var Schema = mongoose.Schema;
 
 var TaskSchema = new Schema({
     title: String,
+    userid: String,
     ctime: {type: Date, default: Date.now},
     deadline:{type: Date, default: Date.now},
     utime: {type: Date, default: Date.now},

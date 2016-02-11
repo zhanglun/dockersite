@@ -13,8 +13,11 @@ module.exports = function (app) {
 var TaskHandler = {};
 
 TaskHandler.getTasklist = function (req, res, next) {
-  var querystring = req.query;
-  db.Task.find(querystring, function (err, list) {
+  //var querystring = req.query;
+  var query = {};
+  query.userid = req.session.user.id;
+  console.log(query);
+  db.Task.find(query, function (err, list) {
     if (err) {
       return res.status(400).jsonp({
         message: err.message,
@@ -33,6 +36,8 @@ TaskHandler.getTasklist = function (req, res, next) {
  */
 TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
+  var user = req.session.user;
+  param.userid = user.id;
   if(!param.title){
     return res.status(400).jsonp({});
   }
@@ -149,7 +154,7 @@ TaskHandler.getArchivedTasks = function (req, res, next) {
 // =======================================================================//
 
 // task list
-router.get('/', TaskHandler.getTasklist);
+router.get('/', Auth.verifyToken, TaskHandler.getTasklist);
 
 // 创建 task
 router.post('/', TaskHandler.createTask);
