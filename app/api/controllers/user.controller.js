@@ -1,5 +1,6 @@
 var express = require('express');
 var jwt = require('jsonwebtoken');
+console.log(jwt);
 var config = require('../../../config/config.js');
 
 var router = express.Router();
@@ -33,15 +34,13 @@ passport.deserializeUser(function (user, done) {//删除user对象
   done(null, user);//可以通过数据库方式操作
 });
 
-
-
 module.exports = function (app) {
   app.use('/api/user', router);
 };
 
 
-var UserHandler = {};
 
+var UserHandler = {};
 
 /**
  * authenticate user
@@ -52,13 +51,23 @@ UserHandler.autheniticate = function (uid) {
 };
 
 /**
- *
+ * 获取用户信息
  */
-router.get('/:username', Auth.verifyToken, function (req, res) {
+router.get('/:id', Auth.verifyToken, function (req, res) {
 
   var param = req.params;
+  db.User.findOne({_id: param.id},{salt: false, password: false, token: false}, function(err, user){
+    if(err){
+      throw err;
+    }
+    if(!user){
+      res.send('no user');
+    }
+    if(user){
+      res.send(user);
+    }
+  });
 
-  res.status(200).json(param);
 });
 
 /**
@@ -66,7 +75,6 @@ router.get('/:username', Auth.verifyToken, function (req, res) {
  */
 router.post('/login', function (req, res) {
   passport.authenticate('local', function (err, user, info) {
-    console.log(arguments);
     if (err) {
       res.status(500).json(err);
     }
@@ -79,12 +87,11 @@ router.post('/login', function (req, res) {
       });
     }
     req.logIn(user, function (err) {
-      console.log(err);
       if (err) {
         return;
       }
       var token = jwt.sign(user, config.secert, {
-        expiresInMinutes: 1440
+        expiresIn: 1440 * 60
       });
       var result = {
         user: {
@@ -137,7 +144,32 @@ router.post('/signup', function (req, res) {
 
 });
 
+/**
+ * 注销
+ */
+router.post('/logout', function(req, res){
+  req.session.user = null;
+  res.send('ok');
+});
 
-router.post('/authenticate', function (req, res) {
-
+/**
+ * 用户认证
+ */
+router.post('/authenticate', Auth.verifyToken, function (req, res) {
+  db.User.findOne({username: username}, function (err, user) {
+    if (err) {
+      return done(err);
+    }
+    if (!user) {
+      return res.status(404).json({message: 'Incorrect username.'});
+    }
+    if (!user.validPassword(password)) {
+      return res.status(401).json({message: 'Incorrect password.'});
+    }
+    return res.status(200).json({
+      type: true,
+      data: user,
+      token: user.token
+    });
+  });
 });
