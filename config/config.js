@@ -1,9 +1,11 @@
 var path = require('path'),
   rootPath = path.normalize(__dirname + '/..'),
   env = process.env.NODE_ENV || 'development';
+
 if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   env = "production";
 }
+
 var config = {
     development: {
       root: rootPath,
@@ -19,7 +21,8 @@ var config = {
       qiniu: {
         ACCESS_KEY: 'NV5FJcwvt4OzP2o-6K2xDLejrYeXkv38lb667OZw',
         SERECT_KEY: 'C63IXuCpEtDoyw11pU1IcStBm6RR21nAN8M4duod'
-      }
+      },
+      secert: 'zhanglun1410@gmail.com'
     },
 
     test: {
@@ -58,10 +61,10 @@ var config = {
         host: process.env.REDIS_PORT_6379_TCP_ADDR,
         port: process.env.REDIS_PORT_6379_TCP_PORT,
         password: process.env.REDIS_PASSWORD
-      }
+      },
+      secert: 'zhanglun1410@gmail.com'
     }
 
-  }
-  ;
+  };
 
 module.exports = config[env];

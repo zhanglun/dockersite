@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models');
+var QnUtil = require('./lib/qiniu');
+var Auth = require('../services/auth.js');
 
 module.exports = function (app) {
   app.use('/api/tasks', router);
@@ -11,8 +13,11 @@ module.exports = function (app) {
 var TaskHandler = {};
 
 TaskHandler.getTasklist = function (req, res, next) {
-  var querystring = req.query;
-  db.Task.find(querystring, function (err, list) {
+  //var querystring = req.query;
+  var query = {};
+  query.userid = req.session.user.id;
+  console.log(query);
+  db.Task.find(query, function (err, list) {
     if (err) {
       return res.status(400).jsonp({
         message: err.message,
@@ -31,6 +36,8 @@ TaskHandler.getTasklist = function (req, res, next) {
  */
 TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
+  var user = req.session.user;
+  param.userid = user.id;
   if(!param.title){
     return res.status(400).jsonp({});
   }
@@ -89,7 +96,7 @@ TaskHandler.deleteTask = function (req, res, next) {
       code: 400
     });
   }
-  db.Task.findByIdAndRemove(_id, function (err, reply) {
+  db.Task.findByIdAndRemove(_id, function (err, task) {
 
     if (err) {
       console.log(err);
@@ -98,7 +105,16 @@ TaskHandler.deleteTask = function (req, res, next) {
         code: err
       });
     }
-    res.status(200).jsonp(reply);
+    if(task.attachments.length > 0){
+      var _pathlist = task.attachments.map(function(item, i){
+        return item.name;
+      });
+      QnUtil.deleteFile(_pathlist)
+        .then(function(){
+
+        });
+    }
+    res.status(200).jsonp(task);
   });
 };
 
@@ -138,7 +154,7 @@ TaskHandler.getArchivedTasks = function (req, res, next) {
 // =======================================================================//
 
 // task list
-router.get('/', TaskHandler.getTasklist);
+router.get('/', Auth.verifyToken, TaskHandler.getTasklist);
 
 // 创建 task
 router.post('/', TaskHandler.createTask);

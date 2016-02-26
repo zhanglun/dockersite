@@ -28,7 +28,7 @@ module.exports = function (app, config) {
     extended: true
   }));
   app.use(cookieParser());
-  console.log(config.redis);
+  app.set('superSecret', config.secert);
   app.use(session({
     store: new RedisStore({
       host: config.redis.host,
@@ -48,6 +48,8 @@ module.exports = function (app, config) {
   app.use(express.static(config.root + '/src'));
   app.use(methodOverride());
 
+  app.set('superSecert', config.secert);
+
   //var pattern = config.root + "{/app/**/controller.js,/app/controllers/*.js}";
   var controllers = glob.sync(config.root + "{/app/**/controllers/*.js,/app/controllers/*.js}");
   controllers.forEach(function (controller) {
@@ -65,15 +67,17 @@ module.exports = function (app, config) {
   if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
-      res.send({
-        message: err.message,
-        error: err,
-        title: 'error'
-      });
+      throw err;
+      //res.send({
+      //  message: err.message,
+      //  error: err,
+      //  title: 'error'
+      //});
     });
   }
 
   app.use(function (err, req, res, next) {
+    console.log(err);
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
