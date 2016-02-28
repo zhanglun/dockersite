@@ -14,12 +14,14 @@ var RedisStore = require('connect-redis')(session);
 var passport = require('passport');
 
 module.exports = function (app, config) {
+
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'ejs');
+  app.set('superSecert', config.secert);
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));
@@ -28,7 +30,6 @@ module.exports = function (app, config) {
     extended: true
   }));
   app.use(cookieParser());
-  app.set('superSecret', config.secert);
   app.use(session({
     store: new RedisStore({
       host: config.redis.host,
@@ -40,17 +41,20 @@ module.exports = function (app, config) {
     saveUninitialized: true,
     secret: 'zhanglun daocloud!'
   }));
-
   app.use(passport.initialize());
   app.use(passport.session());
-
   app.use(compress());
   app.use(express.static(config.root + '/src'));
   app.use(methodOverride());
+  app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+  });
 
-  app.set('superSecert', config.secert);
 
-  //var pattern = config.root + "{/app/**/controller.js,/app/controllers/*.js}";
+
   var controllers = glob.sync(config.root + "{/app/**/controllers/*.js,/app/controllers/*.js}");
   controllers.forEach(function (controller) {
     require(controller)(app);

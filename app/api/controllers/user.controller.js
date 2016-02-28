@@ -155,21 +155,29 @@ router.post('/logout', function(req, res){
 /**
  * 用户认证
  */
-router.post('/authenticate', Auth.verifyToken, function (req, res) {
-  db.User.findOne({username: username}, function (err, user) {
-    if (err) {
-      return done(err);
-    }
-    if (!user) {
-      return res.status(404).json({message: 'Incorrect username.'});
-    }
-    if (!user.validPassword(password)) {
-      return res.status(401).json({message: 'Incorrect password.'});
-    }
-    return res.status(200).json({
-      type: true,
-      data: user,
-      token: user.token
+router.post('/authenticate', function (req, res) {
+
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (token) {
+    jwt.verify(token, config.secert, function (err, decoded) {
+      if (err) {
+        return res.json({
+          success: false,
+          message: 'Failed to authenticate token.'
+        });
+      } else {
+        return res.json({
+          success: true,
+          message: 'Successed to authenticate token.'
+        });
+      }
     });
-  });
+  } else {
+    return res.json({
+      success: false,
+      message: 'no token'
+    });
+  }
+
 });
