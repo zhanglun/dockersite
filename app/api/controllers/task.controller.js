@@ -154,7 +154,8 @@ TaskHandler.getArchivedTasks = function (req, res, next) {
 // =======================================================================//
 
 // task list
-router.get('/', Auth.verifyToken, TaskHandler.getTasklist);
+// router.get('/', Auth.verifyToken, TaskHandler.getTasklist);
+router.get('/', TaskHandler.getTasklist);
 
 // 创建 task
 router.post('/', TaskHandler.createTask);
