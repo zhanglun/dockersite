@@ -24,7 +24,7 @@ TaskHandler.getTasklist = function (req, res, next) {
         code: err
       });
     }
-    return res.status(200).jsonp({adsf: list});
+    return res.status(200).jsonp(list);
   });
 };
 
