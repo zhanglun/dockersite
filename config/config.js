@@ -15,7 +15,7 @@ var config = {
       port: 1234,
       mongodb: {
         host: 'mongodb://localhost/sitedev',
-      } 
+      },
       redis: {
         host: '127.0.0.1',
         post: '6379'

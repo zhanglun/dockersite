@@ -52,14 +52,14 @@ router.post('/login', function (req, res) {
     query.email = body.email;
   }
   if(body.username){
-    query.username = username;
+    query.username = body.username;
   }
    db.User.findOne(query, function (err, user) {
     if (err) {
       res.status(500).json(err);
     }
-    if (!user && !user.validPassword(password)) {
-        res.status(401).json({
+    if (!user || !user.validPassword(body.password)) {
+        return res.status(401).json({
         code: '40001',
         resource: {
           message: 'Wrong user or password!!'
@@ -67,12 +67,13 @@ router.post('/login', function (req, res) {
       });
     }
     
+    
     var token = jwt.sign(user, config.secert, {
         expiresIn: 1440 * 60
       });
       var result = {
         user: {
-          name: user.username
+          email: user
         },
         token: token
       };
