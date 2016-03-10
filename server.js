@@ -13,11 +13,12 @@ var PORT;
 var db;
 var env;
 
+var redisClient = redis.createClient(config.redis.port, config.redis.host);
+
 if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   PORT = 80;
   app.enable('view cacahe');
   env = 'production';
-
   // mongodb
   var port = process.env.MONGODB_PORT_27017_TCP_PORT;
   var addr = process.env.MONGODB_PORT_27017_TCP_ADDR;
@@ -26,23 +27,20 @@ if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   var username = process.env.MONGODB_USERNAME;
   mongoose.connect('mongodb://' + username + ':' + password + '@' + addr + ':' + port + '/' + instance);
   db = mongoose.connection;
+  
+  redisClient.auth(config.redis.password, function () {
+  });
 
 } else {
-  // mongodb
   env = 'development';
-  PORT = 1234;
-  mongoose.connect('mongodb://localhost/sitedev');
+  PORT = config.port;
+  
+  mongoose.connect(config.mongodb.host);
   db = mongoose.connection;
 
 }
 
-var redisClient = redis.createClient(config.redis.port, config.redis.host);
 
-if (process.env.MONGODB_PORT_27017_TCP_PORT) {
-  redisClient.auth(config.redis.password, function () {
-
-  });
-}
 
 redisClient.on('connect', function () {
   console.log('redis connected!');
@@ -61,13 +59,9 @@ db.on('open', function () {
   console.log('database opened!!');
 });
 
-
 require('./config/express')(app, config);
-
 console.log('----app config----: env ' + env);
-console.log('Magic happens at http://localhost:' + port);
 
-// socket
 var http = require('http').Server(app);
 http.listen(PORT, function () {
   console.log('The server is listening on: ' + PORT);

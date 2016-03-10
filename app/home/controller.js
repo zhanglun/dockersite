@@ -19,3 +19,10 @@ router.get('/', function (req, res, next) {
   });
 });
 
+router.get('/ajaxPage/Group.aspx', function(req, res, next){
+  res.status(200).json({
+    msg: 1,
+    data: [{}],
+
+  })
+});
