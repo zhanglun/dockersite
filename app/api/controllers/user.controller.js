@@ -1,38 +1,10 @@
 var express = require('express');
 var jwt = require('jsonwebtoken');
-console.log(jwt);
 var config = require('../../../config/config.js');
 
 var router = express.Router();
 var db = require('../models');
 var Auth = require('../services/auth.js');
-
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-
-passport.use(new LocalStrategy(
-  function (username, password, done) {
-    db.User.findOne({username: username}, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, {message: 'Incorrect username.'});
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, {message: 'Incorrect password.'});
-      }
-      return done(null, user);
-    });
-  }
-));
-
-passport.serializeUser(function (user, done) {//保存user对象
-  done(null, user._id);//可以通过数据库方式操作
-});
-passport.deserializeUser(function (user, done) {//删除user对象
-  done(null, user);//可以通过数据库方式操作
-});
 
 module.exports = function (app) {
   app.use('/api/user', router);
@@ -74,23 +46,28 @@ router.get('/:id', Auth.verifyToken, function (req, res) {
  * 登录
  */
 router.post('/login', function (req, res) {
-  passport.authenticate('local', function (err, user, info) {
+  var body = req.body;
+  var query = {};
+  if(body.email){
+    query.email = body.email;
+  }
+  if(body.username){
+    query.username = username;
+  }
+   db.User.findOne(query, function (err, user) {
     if (err) {
       res.status(500).json(err);
     }
-    if (!user) {
-      res.status(401).json({
+    if (!user && !user.validPassword(password)) {
+        res.status(401).json({
         code: '40001',
         resource: {
-          message: 'no user'
+          message: 'Wrong user or password!!'
         }
       });
     }
-    req.logIn(user, function (err) {
-      if (err) {
-        return;
-      }
-      var token = jwt.sign(user, config.secert, {
+    
+    var token = jwt.sign(user, config.secert, {
         expiresIn: 1440 * 60
       });
       var result = {
@@ -107,8 +84,9 @@ router.post('/login', function (req, res) {
       };
       req.cookies.token = token;
       res.status(200).json(result);
-    });
-  })(req, res);
+    
+   });
+  
 });
 
 /**
