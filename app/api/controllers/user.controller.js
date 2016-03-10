@@ -116,9 +116,9 @@ router.post('/login', function (req, res) {
  */
 router.post('/signup', function (req, res) {
   var password = req.body.password;
-  var username = req.body.username;
-  if (password && username) {
-    db.User.findOne({username: username}, function (err, user) {
+  var email = req.body.email;
+  if (password && email) {
+    db.User.findOne({email: email}, function (err, user) {
       if (err) {
         res.status(500).json(err);
       } else if (user) {
@@ -130,12 +130,21 @@ router.post('/signup', function (req, res) {
         });
       } else {
         var _user = {
-          username: username
+          email: email,
+          username: email
         };
         var newUser = new db.User(_user);
         newUser.makePasswordSalt(password);
         newUser.save(function (err, user) {
-          res.status(200).json(user);
+          var token = jwt.sign(user, config.secert, {
+            expiresIn: 1440 * 60
+          });
+          console.log(res.cookie);
+          res.cookie('token', token);
+          res.status(200).json({
+            email: user.email,
+            name: user.username
+          });
         });
       }
     });
