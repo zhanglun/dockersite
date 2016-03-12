@@ -20,7 +20,7 @@ router.get('/token', function (req, res, next) {
 });
 
 
-router.get('/list', function () {
+router.get('/list', function (req, res, next) {
   QnUtil.getFileList('', null, '')
     .then(function (result) {
       res.send(result);
