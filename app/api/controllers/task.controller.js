@@ -109,10 +109,10 @@ TaskHandler.deleteTask = function (req, res, next) {
       var _pathlist = task.attachments.map(function(item, i){
         return item.name;
       });
-      QnUtil.deleteFile(_pathlist)
-        .then(function(){
+      // QnUtil.deleteFile(_pathlist)
+      //   .then(function(){
 
-        });
+      //   });
     }
     res.status(200).jsonp(task);
   });
@@ -158,7 +158,24 @@ TaskHandler.getArchivedTasks = function (req, res, next) {
 router.get('/', TaskHandler.getTasklist);
 
 // 创建 task
-router.post('/', TaskHandler.createTask);
+router.post('/', function(req, res, next){
+  var param = req.body;
+  var user = req.session.user;
+  param.userid = user.id;
+  if(!param.title){
+    return res.status(400).jsonp({});
+  }
+  var task = new db.Task(param);
+  task.save(function (err, reply) {
+    if (err) {
+      res.status(400).jsonp({
+        message: err.message,
+        code: err
+      });
+    }
+    res.status(200).jsonp(reply);
+  });
+});
 // 获得单个 task
 router.get('/:id', TaskHandler.getTaskById);
 // 更新 task
