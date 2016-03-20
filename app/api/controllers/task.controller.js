@@ -63,13 +63,7 @@ TaskHandler.createTask = function (req, res, next) {
 TaskHandler.updateTask = function (req, res, next) {
   var param = req.body;
   var _id = req.params.id;
-  if (param._id !== _id) {
-    return res.status(400).jsonp({
-      message: 'task id is not correct',
-      code: 400
-    });
-  }
-  //delete param._id;
+  delete param._id;
   db.Task.update({
     _id: _id
   }, {

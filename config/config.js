@@ -14,15 +14,15 @@ var config = {
       },
       port: 1234,
       mongodb: {
-        host: 'mongodb://localhost/sitedev',
+        host: 'mongodb://localhost/sitedev'
       },
       redis: {
         host: '127.0.0.1',
         post: '6379'
       },
       qiniu: {
-        ACCESS_KEY: 'NV5FJcwvt4OzP2o-6K2xDLejrYeXkv38lb667OZw',
-        SERECT_KEY: 'C63IXuCpEtDoyw11pU1IcStBm6RR21nAN8M4duod'
+        ACCESS_KEY: 'bLoheoE20UeRGdBhXkXwl3loi0GgQjDeny1LHW57',
+        SERECT_KEY: 'yD06aKKy3GdFvuka0YA89Usfrw9TRq6cHgcc_M53'
       },
       secert: 'zhanglun1410@gmail.com'
     },
