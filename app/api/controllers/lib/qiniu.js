@@ -1,8 +1,9 @@
 var request = require('request');
 var qiniu = require('qiniu');
+var config = require('../../../../config/config.js');
 
-qiniu.conf.ACCESS_KEY = 'NV5FJcwvt4OzP2o-6K2xDLejrYeXkv38lb667OZw';
-qiniu.conf.SECRET_KEY = 'C63IXuCpEtDoyw11pU1IcStBm6RR21nAN8M4duod';
+qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
+qiniu.conf.SECRET_KEY = config.qiniu.SERECT_KEY;
 
 //var qiniuClient = new qiniu.rs.Client();
 
@@ -28,6 +29,7 @@ QnUtil.prototype.getToken = function () {
   //putPolicy.callbackUrl = callbackUrl;
   //putPolicy.callbackBody = callbackBody;
   //putPolicy.returnUrl = returnUrl;
+  putPolicy.deadline = new Date().getTime() + 3600 * 1000;
   putPolicy.returnBody = JSON.stringify({
     "name": '$(fname)',
     "size": '$(fsize)',

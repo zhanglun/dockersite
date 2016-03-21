@@ -1,6 +1,6 @@
 var request = require('request');
 var qiniu = require('qiniu');
-var config = require('../config.js');
+var config = require('../../../config/config.js');
 
 qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qiniu.SERECT_KEY;
