@@ -64,6 +64,10 @@ var config = {
         port: process.env.REDIS_PORT_6379_TCP_PORT,
         password: process.env.REDIS_PASSWORD
       },
+      qiniu: {
+        ACCESS_KEY: 'bLoheoE20UeRGdBhXkXwl3loi0GgQjDeny1LHW57',
+        SERECT_KEY: 'yD06aKKy3GdFvuka0YA89Usfrw9TRq6cHgcc_M53'
+      },
       secert: 'zhanglun1410@gmail.com'
     }
 
