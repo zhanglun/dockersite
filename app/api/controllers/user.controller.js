@@ -66,8 +66,8 @@ router.post('/login', function (req, res) {
         }
       });
     }
-    
-    
+
+
     var token = jwt.sign(user, config.secert, {
         expiresIn: 1440 * 60
       });
@@ -85,9 +85,9 @@ router.post('/login', function (req, res) {
       };
       req.cookies.token = token;
       res.status(200).json(result);
-    
+
    });
-  
+
 });
 
 /**
@@ -150,14 +150,21 @@ router.post('/authenticate', function (req, res) {
   if (token) {
     jwt.verify(token, config.secert, function (err, decoded) {
       if (err) {
-        return res.json({
+        return res.status(401).json({
           success: false,
-          message: 'Failed to authenticate token.'
+          message:  err.message
         });
       } else {
+        console.log(decoded);
+        var user_data = {
+          username: decoded._doc.username,
+          email: decoded._doc.email,
+          id: decoded._doc._id
+        };
         return res.json({
           success: true,
-          message: 'Successed to authenticate token.'
+          message: 'Successed to authenticate token.',
+          user: user_data
         });
       }
     });
