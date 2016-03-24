@@ -5,12 +5,10 @@ var config = require('../../../../config/config.js');
 qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qiniu.SERECT_KEY;
 
-//var qiniuClient = new qiniu.rs.Client();
-
 function QnUtil() {
   this.conf = {
-    bucketName: 'blog',
-    host: 'http://7xnrrd.com1.z0.glb.clouddn.com/'
+    bucketName: config.qiniu.bucket,
+    host: config.qiniu.host,
   };
   this.client = new qiniu.rs.Client();
 }

@@ -3,7 +3,7 @@ var fs = require('fs');
 var express = require('express');
 var router = express.Router();
 
-var tplPath = require.resolve('./home.html');
+var tplPath = require.resolve('../home.html');
 
 
 module.exports = function (app) {
@@ -19,10 +19,6 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.get('/ajaxPage/Group.aspx', function(req, res, next){
-  res.status(200).json({
-    msg: 1,
-    data: [{}],
-
-  })
+router.get('/home', function(req, res, next){
+  return res.send('hi');
 });

@@ -19,12 +19,12 @@ TaskHandler.getTasklist = function (req, res, next) {
   console.log(query);
   db.Task.find(query, function (err, list) {
     if (err) {
-      return res.status(400).jsonp({
+      res.status(400).json({
         message: err.message,
         code: err
       });
     }
-    return res.status(200).jsonp(list);
+    res.status(200).json(list);
   });
 };
 
@@ -44,12 +44,12 @@ TaskHandler.createTask = function (req, res, next) {
   var task = new db.Task(param);
   task.save(function (err, reply) {
     if (err) {
-      return res.status(400).json({
+      res.status(400).json({
         message: err.message,
         code: err
       });
     }
-    return res.status(200).json(reply);
+    res.status(200).json(reply);
   });
 };
 
