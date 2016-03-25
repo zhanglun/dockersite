@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../models');
 var QnUtil = require('./lib/qiniu');
-var Auth = require('../services/auth.js');
+var Auth = require('../services/auth.service.js');
 
 module.exports = function (app) {
   app.use('/api/tasks', router);
@@ -16,7 +16,6 @@ TaskHandler.getTasklist = function (req, res, next) {
   //var querystring = req.query;
   var query = {};
   query.userid = req.session.user.id;
-  console.log(query);
   db.Task.find(query, function (err, list) {
     if (err) {
       res.status(400).json({
@@ -38,8 +37,10 @@ TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
   var user = req.session.user;
   param.userid = user.id;
-  if(!param.title){
-    return res.status(400).jsonp({});
+  if(!param.title && !param.content){
+    return res.status(400).jsonp({
+      code: 'NO_TITLE_OR_CONTENT'
+    });
   }
   var task = new db.Task(param);
   task.save(function (err, reply) {
@@ -119,12 +120,12 @@ TaskHandler.getTaskById = function (req, res, next) {
     id: id
   }, function (err, task) {
     if (err) {
-      res.status(400).jsonp({
+      res.status(400).json({
         message: err.message,
         code: err
       });
     }
-    res.status(200).jsonp(task);
+    res.status(200).json();
   });
 };
 
@@ -148,8 +149,7 @@ TaskHandler.getArchivedTasks = function (req, res, next) {
 // =======================================================================//
 
 // task list
-// router.get('/', Auth.verifyToken, TaskHandler.getTasklist);
-router.get('/', TaskHandler.getTasklist);
+router.get('/', Auth.verifyToken, TaskHandler.getTasklist);
 
 // 创建 task
 router.post('/', function(req, res, next){

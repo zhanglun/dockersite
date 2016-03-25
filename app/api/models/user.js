@@ -1,10 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 var crypto = require('crypto');
-
-var auth = require('../services/auth');
-console.log(auth);
+var auth = require('../services/auth.service.js');
 
 var User = new Schema({
   username: String,
@@ -14,7 +11,7 @@ var User = new Schema({
 });
 
 /**
- * 实例方法
+ * 实例方法 验证密码
  * @param val
  * @returns {boolean}
  */
@@ -26,6 +23,9 @@ User.methods.validPassword = function(val){
   return this.password == md5.digest('hex');
 };
 
+/**
+ * 加盐加密
+ */
 User.methods.makePasswordSalt = function(password){
 
   var md5 = crypto.createHash('md5');
