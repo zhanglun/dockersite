@@ -13,10 +13,12 @@ module.exports = function (app) {
 var TaskHandler = {};
 
 TaskHandler.getTasklist = function (req, res, next) {
-  //var querystring = req.query;
+  
   var query = {};
-  query.userid = req.session.user.id;
-  db.Task.find(query, function (err, list) {
+  var user = req.user;
+  
+  query.userid = user._id;
+  db.Task.find(query, {content: 0}, function (err, list) {
     if (err) {
       res.status(400).json({
         message: err.message,
@@ -35,8 +37,8 @@ TaskHandler.getTasklist = function (req, res, next) {
  */
 TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
-  var user = req.session.user;
-  param.userid = user.id;
+  var user = req.user;
+  param.userid = user._id;
   if(!param.title && !param.content){
     return res.status(400).jsonp({
       code: 'NO_TITLE_OR_CONTENT'
@@ -117,7 +119,7 @@ TaskHandler.deleteTask = function (req, res, next) {
 TaskHandler.getTaskById = function (req, res, next) {
   var id = req.params.id;
   db.Task.find({
-    id: id
+    _id: id
   }, function (err, task) {
     if (err) {
       res.status(400).json({
@@ -125,7 +127,7 @@ TaskHandler.getTaskById = function (req, res, next) {
         code: err
       });
     }
-    res.status(200).json();
+    res.status(200).json(task[0]);
   });
 };
 
@@ -152,24 +154,7 @@ TaskHandler.getArchivedTasks = function (req, res, next) {
 router.get('/', Auth.verifyToken, TaskHandler.getTasklist);
 
 // 创建 task
-router.post('/', function(req, res, next){
-  var param = req.body;
-  var user = req.session.user;
-  param.userid = user.id;
-  if(!param.title){
-    return res.status(400).jsonp({});
-  }
-  var task = new db.Task(param);
-  task.save(function (err, reply) {
-    if (err) {
-      res.status(400).jsonp({
-        message: err.message,
-        code: err
-      });
-    }
-    res.status(200).jsonp(reply);
-  });
-});
+router.post('/', Auth.verifyToken, TaskHandler.createTask);
 // 获得单个 task
 router.get('/:id', TaskHandler.getTaskById);
 // 更新 task

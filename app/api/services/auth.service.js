@@ -14,6 +14,7 @@ function verifyToken(req, res, next) {
           message: 'Failed to authenticate token.'
         });
       } else {
+        req.user = decoded._doc;
         console.log('verify token success');
         next();
       }
