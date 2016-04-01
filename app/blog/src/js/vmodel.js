@@ -11,9 +11,10 @@ marked.setOptions({
   smartypants: false
 });
 
-var editor = require('./editor.js');
+var editor = require('./marknote.js');
 
 var VModel = {};
+VModel.editor = editor;
 
 VModel.mainNav = function (currentpage) {
   return new Vue({
@@ -36,7 +37,6 @@ VModel.mainNav = function (currentpage) {
   });
 };
 
-
 VModel.post = function () {
   return new Vue({
     el: '#post',
@@ -56,8 +56,6 @@ VModel.post = function () {
     methods: {}
   });
 };
-
-VModel.editor = editor;
 
 VModel.article = function () {
   var page = arguments[0];

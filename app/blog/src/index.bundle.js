@@ -46,15 +46,22 @@
 
 	'use strict';
 	
-	var route = __webpack_require__(1);
+	__webpack_require__(1);
+	var route = __webpack_require__(2);
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var VModel = __webpack_require__(2);
+	var VModel = __webpack_require__(3);
 	
 	(function () {
 	
@@ -132,12 +139,12 @@
 	page();
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var marked = __webpack_require__(3);
+	var marked = __webpack_require__(4);
 	
 	marked.setOptions({
 	  renderer: new marked.Renderer(),
@@ -150,9 +157,10 @@
 	  smartypants: false
 	});
 	
-	var editor = __webpack_require__(4);
+	var editor = __webpack_require__(5);
 	
 	var VModel = {};
+	VModel.editor = editor;
 	
 	VModel.mainNav = function (currentpage) {
 	  return new Vue({
@@ -194,8 +202,6 @@
 	  });
 	};
 	
-	VModel.editor = editor;
-	
 	VModel.article = function () {
 	  var page = arguments[0];
 	  return new Vue({
@@ -228,7 +234,7 @@
 	module.exports = VModel;
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -1520,7 +1526,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1528,15 +1534,21 @@
 	/**
 	 * Created by zhanglun on 10/17/15.
 	 */
-	var marked = __webpack_require__(3);
-	var util = __webpack_require__(5);
+	var marked = __webpack_require__(4);
+	var util = __webpack_require__(6);
 	
 	var contentMarked = function contentMarked(val) {
 	  return marked(val);
 	};
 	
 	function Editor(container) {
-	  var metadata = '++++' + '\n' + 'title: ' + '\n' + 'category: ' + '\n' + 'tags: ' + '\n' + 'date:' + '\n' + '++++' + '\n';
+	  // var metadata = '++++' + '\n' +
+	  //   'title: ' + '\n' +
+	  //   'category: ' + '\n' +
+	  //   'tags: ' + '\n' +
+	  //   'date:' + '\n' +
+	  //   '++++' + '\n';
+	  var metadata = '# MarkNote for you' + '# MarkNote for you' + '\n' + '## MarkNote for you' + '\n' + '### MarkNote for you' + '\n' + '#### MarkNote for you' + '\n' + '##### MarkNote for you' + '\n' + '###### MarkNote for you' + '\n' + '![file-list](https://www.zybuluo.com/static/img/file-list.png)' + '\n' + '- [ ] 支持以 PDF 格式导出文稿' + '\n' + '- [ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率' + '\n' + '- [x] 新增 Todo 列表功能' + '\n' + '- [x] 修复 LaTex 公式渲染问题' + '\n' + '- [x] 新增 LaTex 公式编号功能' + '\n';
 	
 	  return CodeMirror(container, {
 	    value: metadata,
@@ -1577,34 +1589,7 @@
 	      marked: contentMarked
 	    },
 	
-	    methods: {
-	      // 添加标签
-	      'storeTag': function storeTag() {
-	        var tagStoring = this.$data.tag_adding;
-	        // 检查tag是否已经添加
-	        var isExist = this.$data.post.tags.some(function (item) {
-	          return item == tagStoring;
-	        });
-	        if (tagStoring && !isExist) {
-	          this.$data.post.tags.push(tagStoring.trim());
-	        }
-	        this.$data.tag_adding = '';
-	      },
-	      'selectCategory': function selectCategory(val) {
-	        this.$data.post.category = val;
-	      },
-	      'publish': function publish(post) {
-	
-	        var value = this.editor.getValue();
-	        var metadata = value.split('++++')[1];
-	
-	        if (!post.title) {
-	          alert('!!!!');
-	          return false;
-	        }
-	        util.createPost(post);
-	      }
-	    }
+	    methods: {}
 	
 	  });
 	};
@@ -1612,12 +1597,12 @@
 	module.exports = editor;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var constant = __webpack_require__(6);
+	var constant = __webpack_require__(7);
 	var util = {};
 	
 	util.getJSON = function (url, param) {
@@ -1661,7 +1646,7 @@
 	module.exports = util;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';

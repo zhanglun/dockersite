@@ -1,3 +1,7 @@
+html,body{
+  margin:0;
+  padding:0;
+}
 html {
   height: 100%;
   font-size: 14px;
@@ -182,3 +186,27 @@ ul {
   background-color: #fff;
 }
 
+
+.marknote{
+  background:#F8F2E4;
+  &.preview{
+    .area-writing{
+      width: 100%;
+    } 
+  }
+  &.writing{
+    .area-writing{
+      // width: 50%;
+      margin: 0 auto;
+    }
+  }
+  .area-writing{
+    height: 100%;
+  }
+  .CodeMirror{
+    height: 100%;
+    padding: 2em 30%;
+    background: #F8F2E4;
+  }
+}
+ 

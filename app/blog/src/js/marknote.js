@@ -9,13 +9,27 @@ var contentMarked = function (val) {
 };
 
 function Editor(container){
-  var metadata = '++++' + '\n' +
-    'title: ' + '\n' +
-    'category: ' + '\n' +
-    'tags: ' + '\n' +
-    'date:' + '\n' +
-    '++++' + '\n';
-
+  // var metadata = '++++' + '\n' +
+  //   'title: ' + '\n' +
+  //   'category: ' + '\n' +
+  //   'tags: ' + '\n' +
+  //   'date:' + '\n' +
+  //   '++++' + '\n';
+  var metadata = '# MarkNote for you' +
+  
+  '# MarkNote for you' + '\n' + 
+  '## MarkNote for you' + '\n' + 
+  '### MarkNote for you' + '\n' + 
+  '#### MarkNote for you' + '\n' + 
+  '##### MarkNote for you' + '\n' + 
+  '###### MarkNote for you' + '\n' + 
+  '![file-list](https://www.zybuluo.com/static/img/file-list.png)' +'\n' + 
+  '- [ ] 支持以 PDF 格式导出文稿' + '\n' + 
+  '- [ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率' + '\n' + 
+  '- [x] 新增 Todo 列表功能' + '\n' + 
+  '- [x] 修复 LaTex 公式渲染问题' + '\n' + 
+  '- [x] 新增 LaTex 公式编号功能' + '\n'; 
+  
   return CodeMirror(container, {
     value: metadata,
     mode: "markdown",
@@ -59,32 +73,7 @@ var editor = function () {
 
 
     methods: {
-      // 添加标签
-      'storeTag': function () {
-        var tagStoring = this.$data.tag_adding;
-        // 检查tag是否已经添加
-        var isExist = this.$data.post.tags.some(function (item) {
-          return item == tagStoring;
-        });
-        if (tagStoring && !isExist) {
-          this.$data.post.tags.push(tagStoring.trim());
-        }
-        this.$data.tag_adding = '';
-      },
-      'selectCategory': function (val) {
-        this.$data.post.category = val;
-      },
-      'publish': function (post) {
-
-        var value = this.editor.getValue();
-        var metadata = value.split('++++')[1];
-
-        if (!post.title) {
-          alert('!!!!');
-          return false;
-        }
-        util.createPost(post);
-      },
+      
     }
 
   });
