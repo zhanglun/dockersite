@@ -2,5 +2,7 @@
 **/database/**
 **/.idea/**
 **/.sass-cache/**
+**/bower_components/**
 *.swp
+
 

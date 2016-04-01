@@ -36,6 +36,7 @@ module.exports = function (app) {
   app.use('/blog', router);
 };
 
+
 // 静态文件
 router.get('/:example/:file(*)', renderFiles);
 
