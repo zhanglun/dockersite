@@ -41,7 +41,7 @@ function Editor(container){
     tabSize:2,
     lineWrapping: true,
     theme: 'tomorrow-night-eighties',
-    // cursorHeight: 0.85
+    autofocus: true
   });
 
   marknote.setOption("extraKeys", {

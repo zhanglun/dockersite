@@ -46,34 +46,22 @@
 
 	'use strict';
 	
-	__webpack_require__(3);
-	var route = __webpack_require__(14);
+	__webpack_require__(1);
+	var route = __webpack_require__(2);
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */
+/* 1 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var VModel = __webpack_require__(15);
+	var VModel = __webpack_require__(3);
 	
 	(function () {
 	
@@ -151,12 +139,12 @@
 	page();
 
 /***/ },
-/* 15 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var marked = __webpack_require__(16);
+	var marked = __webpack_require__(4);
 	
 	marked.setOptions({
 	  renderer: new marked.Renderer(),
@@ -169,7 +157,7 @@
 	  smartypants: false
 	});
 	
-	var editor = __webpack_require__(17);
+	var editor = __webpack_require__(5);
 	
 	var VModel = {};
 	VModel.editor = editor;
@@ -246,7 +234,7 @@
 	module.exports = VModel;
 
 /***/ },
-/* 16 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -1538,7 +1526,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 17 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1546,8 +1534,8 @@
 	/**
 	 * Created by zhanglun on 10/17/15.
 	 */
-	var marked = __webpack_require__(16);
-	var util = __webpack_require__(18);
+	var marked = __webpack_require__(4);
+	var util = __webpack_require__(6);
 	
 	var contentMarked = function contentMarked(val) {
 	  return marked(val);
@@ -1567,10 +1555,10 @@
 	    mode: "markdown",
 	    tabSize: 2,
 	    lineWrapping: true,
-	    theme: 'tomorrow-night-eighties'
+	    theme: 'tomorrow-night-eighties',
+	    autofocus: true
 	  });
 	
-	  // cursorHeight: 0.85
 	  marknote.setOption("extraKeys", {
 	    Tab: function Tab(cm) {
 	      var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
@@ -1621,12 +1609,12 @@
 	module.exports = editor;
 
 /***/ },
-/* 18 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var constant = __webpack_require__(19);
+	var constant = __webpack_require__(7);
 	var util = {};
 	
 	util.getJSON = function (url, param) {
@@ -1670,7 +1658,7 @@
 	module.exports = util;
 
 /***/ },
-/* 19 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
