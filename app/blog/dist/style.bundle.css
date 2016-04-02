@@ -1,47 +1,38 @@
 /*
  * Font Face
  */
-
 @font-face {
   font-family: 'Lato-Bold';
   src: url(./fonts/01dcf602cb7f7116bde159f25c4bbe89.ttf) format('truetype');
 }
-
 @font-face {
   font-family: 'Lato-BoldItalic';
   src: url(./fonts/43a81383c08ee2cbc3276b5ec66647f4.ttf) format('truetype');
 }
-
 @font-face {
   font-family: 'Lato-Heavy';
   src: url(./fonts/41fa1cec6a7f583753f7b32a8cf4ac72.ttf) format('truetype');
 }
-
 @font-face {
   font-family: 'Lato-HeavyItalic';
   src: url(./fonts/712225cd04f796c2c2efb65d4f92845d.ttf) format('truetype');
 }
-
 @font-face {
   font-family: 'GentiumBk-Regular';
   src: url(./fonts/6ff06b9791bba2ce044fbd6035770b9e.ttf) format('truetype');
 }
-
 @font-face {
   font-family: 'GentiumBk-RegularItalic';
   src: url(./fonts/06e5db0cd0987ca21d967907a889bfdf.ttf) format('truetype');
 }
-
 @font-face {
   font-family: 'GentiumBk-Bold';
   src: url(./fonts/38a591dcca7e25aec98758df29d630a3.ttf) format('truetype');
 }
-
 @font-face {
   font-family: 'GentiumBk-BoldItalic';
   src: url(./fonts/a6b2e3de4519ac6e39e0613a2cafda2d.ttf) format('truetype');
 }
-
 *,
 *:before,
 *:after {
@@ -49,19 +40,15 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   -webkit-font-feature-settings: 'liga' 1, 'kern';
   font-feature-settings: 'liga' 1, 'kern';
   font: 19px/28px "GentiumBk-Regular";
-  color: rgb(0, 0, 0);
+  color: #000000;
 }
-
 .preview {
   word-wrap: break-word;
 }
-
-
 h1 strong,
 h2 strong,
 h3 strong,
@@ -72,7 +59,6 @@ h6 strong {
   font-weight: normal;
   font-style: normal;
 }
-
 h1 em,
 h2 em,
 h3 em,
@@ -83,7 +69,6 @@ h6 em {
   font-weight: normal;
   font-style: normal;
 }
-
 h1 strong em,
 h2 strong em,
 h3 strong em,
@@ -94,34 +79,27 @@ h6 strong em {
   font-weight: normal;
   font-style: normal;
 }
-
 /*
  * Paragraph
  */
-
 p {
   padding: 0 0 30px 0;
 }
-
-strong {
+.cm-strong {
   font-family: "GentiumBk-Bold";
   font-weight: normal;
   font-style: normal;
 }
-
-em strong,
-strong em {
+.cm-em.cm-strong {
   font-family: "GentiumBk-BoldItalic";
   font-weight: normal;
   font-style: normal;
 }
-
-em {
+.cm-em {
   font-family: "GentiumBk-RegularItalic";
   font-weight: normal;
   font-style: normal;
 }
-
 img {
   padding: 0;
   max-width: 100%;
@@ -129,138 +107,79 @@ img {
   display: block;
   margin: 0 0 30px 0;
 }
-
-hr {
+.cm-hr {
   margin: 0 0 30px 0;
 }
-
 a {
-  background-image: linear-gradient(to bottom, transparent 50%, rgba(158, 158, 158, .4) 50%);
+  background-image: linear-gradient(to bottom, transparent 50%, rgba(158, 158, 158, 0.4) 50%);
   background-repeat: repeat-x;
   -webkit-background-size: 2px 2px;
   background-size: 2px 2px;
   background-position: 0 90%;
-  color: rgb(50, 196, 47);
-  text-shadow: 1px 0 rgb(253, 253, 253), 2px 0 rgb(253, 253, 253), -1px 0 rgb(253, 253, 253), -2px 0 rgb(253, 253, 253);
+  color: #32c42f;
+  text-shadow: 1px 0 #fdfdfd, 2px 0 #fdfdfd, -1px 0 #fdfdfd, -2px 0 #fdfdfd;
   text-decoration: none;
-  transition: background-image .2s ease-in-out;
+  transition: background-image 0.2s ease-in-out;
 }
-
 /*
  * Access Denied
  */
-
 .access_denied {
-	background-image: none;
+  background-image: none;
 }
-
 .access_denied img {
-	border: 1px dashed gray;
-	border-radius:7px;
-	margin: 10px 0;
-	padding: 30px 60px;
+  border: 1px dashed gray;
+  border-radius: 7px;
+  margin: 10px 0;
+  padding: 30px 60px;
 }
-
 /*
  * Lists
  */
-
 ul,
 ol {
   padding: 0 0 30px 28px;
 }
-
 /*
  * Quotes
  */
-
-blockquote {
+.cm-quote {
   margin: 0 0 30px 0;
   padding: 0 0 0 15px;
-  border-left: 2px solid rgb(0, 0, 0);
+  border-left: 2px solid #000000;
 }
-
 blockquote p:last-child {
   padding: 0;
 }
-
 /*
  * Code
  */
-
 pre {
   white-space: pre-wrap;
   font: 16px/28px Menlo, Monaco, monospace, serif;
   padding: 15px;
   margin: 0 0 30px 0;
 }
-
-code {
+.cm-comment {
   padding: 2px;
   font: 16px/28px Menlo, Monaco, monospace, serif;
 }
-pre code {
-  background: none;
-  color: inherit;
-  border-radius: 0;
-}
-
-h1 code,
-h2 code,
-h3 code,
-h4 code,
-h5 code,
-h6 code {
-  font: Menlo, Monaco, monospace, serif;
-  font-weight: bold;
-  font-style: normal;
-}
-
-h1 code {
-  font-size: 24px;
-  line-height: 34px;
-}
-
-h2 code {
-  font-size: 20px;
-  line-height: 31px;
-}
-
-h3 code {
-  font-size: 17px;
-  line-height: 24px;
-}
-
-h4 code {
-  font-size: 16px;
-  line-height: 23px;
-}
-
-h5 code {
-  font-size: 15px;
-  line-height: 21px;
-}
-
-h6 code {
-  font-size: 14px;
-  line-height: 19px;
-}
-
 /*
  * Tables
  */
 table {
-	margin: 10px 0 40px 0;
-	border-collapse: collapse;
-	width: 100%;
-	table-layout: auto;
+  margin: 10px 0 40px 0;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
 }
-td,th {
-	border: 1px solid #ddd;
-	padding: 3px 10px;
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 3px 10px;
 }
 th {
-	padding: 5px 10px;
+  padding: 5px 10px;
 }
 .cm-s-tomorrow-night-eighties div.CodeMirror-selected {
   background: #2D2D2D;
@@ -338,6 +257,61 @@ th {
 .cm-s-tomorrow-night-eighties .CodeMirror-matchingbracket {
   text-decoration: underline;
   color: white !important;
+}
+.cm-s-tomorrow-night-eighties .cm-header {
+  display: inline-block;
+  font-family: "Lato-Bold";
+  font-weight: normal;
+  font-style: normal;
+  padding: 0 0 30px 0;
+}
+.cm-s-tomorrow-night-eighties .cm-header-1 {
+  font-size: 26px;
+  line-height: 34px;
+}
+.cm-s-tomorrow-night-eighties .cm-header-2 {
+  font-size: 24px;
+  line-height: 31px;
+}
+.cm-s-tomorrow-night-eighties .cm-header-3 {
+  font-size: 19px;
+  line-height: 24px;
+}
+.cm-s-tomorrow-night-eighties .cm-header-4 {
+  font-size: 18px;
+  line-height: 23px;
+}
+.cm-s-tomorrow-night-eighties .cm-header-5 {
+  font-size: 15px;
+  line-height: 21px;
+  text-transform: uppercase;
+}
+.cm-s-tomorrow-night-eighties .cm-header-6 {
+  font-size: 14px;
+  line-height: 19px;
+  text-transform: uppercase;
+}
+/* custom */
+.marknote {
+  min-height: 100%;
+  background: #F8F2E4;
+}
+.marknote.preview .area-writing {
+  width: 100%;
+}
+.marknote.writing .area-writing {
+  margin: 0 auto;
+}
+.marknote .area-writing {
+  height: 100%;
+  width: 50%;
+}
+.marknote .CodeMirror {
+  height: auto;
+  background: #F8F2E4;
+}
+.marknote .CodeMirror-scroll {
+  padding-top: 30px;
 }
 html,
 body {
@@ -465,24 +439,6 @@ ul {
   margin-bottom: 50px;
   border: 1px solid #d9dadc;
   background-color: #fff;
-}
-.marknote {
-  min-height: 100%;
-  background: #F8F2E4;
-}
-.marknote.preview .area-writing {
-  width: 100%;
-}
-.marknote.writing .area-writing {
-  margin: 0 auto;
-}
-.marknote .area-writing {
-  height: 100%;
-  width: 50%;
-}
-.marknote .CodeMirror {
-  height: 100%;
-  background: #F8F2E4;
 }
 
 /*# sourceMappingURL=style.bundle.css.map*/

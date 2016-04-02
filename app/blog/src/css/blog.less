@@ -1,4 +1,4 @@
-@import 'print.css';
+@import './base';
 @import "./marknote";
 
 html,body{
@@ -181,32 +181,4 @@ ul {
   margin-bottom: 50px;
   border: 1px solid #d9dadc;
   background-color: #fff;
-}
-
-
-.marknote{
-  min-height:100%;
-  background:#F8F2E4;
-  &.preview{
-    .area-writing{
-      width: 100%;
-    }
-  }
-  &.writing{
-    .area-writing{
-      // width: 50%;
-      margin: 0 auto;
-    }
-  }
-  .area-writing{
-    height: 100%;
-    width: 50%;
-    // padding-top: 20px;
-  }
-  .CodeMirror{
-    // padding: 30px 15%;
-    // box-sizing: border-box;
-    height: 100%;
-    background: #F8F2E4;
-  }
 }
