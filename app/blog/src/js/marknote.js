@@ -36,11 +36,12 @@ function Editor(container){
   '```\n';
 
   var marknote = CodeMirror(container, {
-    value: metadata,
+    // value: metadata,
     mode: "markdown",
     tabSize:2,
     lineWrapping: true,
-    theme: 'tomorrow-night-eighties'
+    theme: 'tomorrow-night-eighties',
+    // cursorHeight: 0.85
   });
 
   marknote.setOption("extraKeys", {
