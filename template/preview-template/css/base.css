@@ -1,0 +1,694 @@
+/*
+ * Font Face
+ */
+
+@font-face {
+  font-family: 'Lato-Bold';
+  src: url('../fonts/lato/Lato-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato-BoldItalic';
+  src: url('../fonts/lato/Lato-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato-Heavy';
+  src: url('../fonts/lato/Lato-Heavy.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato-HeavyItalic';
+  src: url('../fonts/lato/Lato-HeavyItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'GentiumBk-Regular';
+  src: url('../fonts/gentium/GenBkBasR.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'GentiumBk-RegularItalic';
+  src: url('../fonts/gentium/GenBkBasI.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'GentiumBk-Bold';
+  src: url('../fonts/gentium/GenBkBasB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'GentiumBk-BoldItalic';
+  src: url('../fonts/gentium/GenBkBasBI.ttf') format('truetype');
+}
+
+/*
+ * Preview
+ */
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  -webkit-font-feature-settings: 'liga' 1, 'kern';
+  font-feature-settings: 'liga' 1, 'kern';
+}
+
+.preview {
+  word-wrap: break-word;
+}
+
+/*
+ * Headings
+ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lato-Bold";
+  font-weight: normal;
+  font-style: normal;
+}
+
+h5,
+h6 {
+  text-transform: uppercase;
+}
+
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+h5 strong,
+h6 strong {
+  font-family: "Lato-Heavy";
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 em,
+h2 em,
+h3 em,
+h4 em,
+h5 em,
+h6 em {
+  font-family: "Lato-BoldItalic";
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 strong em,
+h2 strong em,
+h3 strong em,
+h4 strong em,
+h5 strong em,
+h6 strong em {
+  font-family: "Lato-HeavyItalic";
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+ * Paragraph
+ */
+
+strong {
+  font-family: "GentiumBk-Bold";
+  font-weight: normal;
+  font-style: normal;
+}
+
+em strong,
+strong em {
+  font-family: "GentiumBk-BoldItalic";
+  font-weight: normal;
+  font-style: normal;
+}
+
+em {
+  font-family: "GentiumBk-RegularItalic";
+  font-weight: normal;
+  font-style: normal;
+}
+
+img {
+  padding: 0;
+  border-radius: 3px;
+  max-width: 100%;
+  height: auto;
+  display: auto;
+}
+
+.broken_image_link {
+	width: 32px;
+}
+
+.access_denied {
+	background-image: none;
+}
+
+.access_denied:hover {
+	background-image: none;
+}
+
+.access_denied img {
+	border: 1px dashed gray;
+	border-radius:7px;
+	margin: 10px 0;
+	padding: 30px 60px;
+}
+
+/*
+ * Lists
+ */
+
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/*
+ * Code
+ */
+
+pre {
+  white-space: pre-wrap;
+}
+
+code {
+  padding: 2px;
+}
+pre code {
+  background: none;
+  color: inherit;
+  border-radius: 0;
+}
+
+.linked-code,
+.linked-code:hover,
+.linked-code:visited {
+  background-image: none;
+  text-shadow: none;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  font: Menlo, Monaco, monospace, serif;
+  font-weight: bold;
+  font-style: normal;
+}
+
+/*
+ * Quotes
+ */
+
+blockquote p:last-child {
+  padding: 0;
+}
+
+/*
+ * Tables
+ */
+
+table {
+	font-family: "Lato-Regular", "Helvetica Neue";
+	font-size: .8em;
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 1em 0; }
+
+td,
+th {
+	padding: 0; }
+
+table {
+	background-color: transparent; }
+
+caption {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left; }
+
+th {
+	text-align: left; }
+
+table {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 20px; }
+
+table > thead > tr > th,
+table > tbody > tr > th,
+table > tfoot > tr > th,
+table > thead > tr > td,
+table > tbody > tr > td,
+table > tfoot > tr > td {
+	padding: 8px;
+	line-height: 1.5;
+	vertical-align: top; }
+
+table > caption + thead > tr:first-child > th,
+table > colgroup + thead > tr:first-child > th,
+table > thead:first-child > tr:first-child > th,
+table > caption + thead > tr:first-child > td,
+table > colgroup + thead > tr:first-child > td,
+table > thead:first-child > tr:first-child > td {
+	border-top: 1;
+}
+
+/*
+ * Small
+ */
+ 
+@media all and (max-width: 773px) {
+ 
+  .preview {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 30px 60px 0 60px;
+  }
+
+  body {
+    font: 19px/28px "GentiumBk-Regular";
+  }
+
+  /*
+   * Headings
+   */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding: 2px 0 9px 0;
+  }
+
+  h1 {
+    font-size: 27px;
+    line-height: 34px;
+  }
+
+  h2 {
+    font-size: 23px;
+    line-height: 31px;
+  }
+
+  h3 {
+    font-size: 19px;
+    line-height: 24px;
+  }
+
+  h4 {
+    font-size: 17px;
+    line-height: 23px;
+  }
+
+  h5 {
+    font-size: 15px;
+    line-height: 21px;
+  }
+
+  h6 {
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  /*
+   * Paragraph
+   */
+
+  p {
+    padding: 0 0 10px 0;
+  }
+
+  hr {
+    margin: 0 0 30px 0;
+  }
+
+  img {
+    margin: 0 0 5px 0;
+  }
+
+  /*
+   * Lists
+   */
+
+  ul,
+  ol {
+    padding: 0 0 9px 28px;
+  }
+
+  /*
+   * Code
+   */
+
+  pre {
+    font: 14px/28px Menlo, Monaco, monospace, serif;
+    padding: 15px;
+    margin: 0 0 30px 0;
+  }
+
+  code {
+    font: 14px/28px Menlo, Monaco, monospace, serif;
+  }
+
+  h1 code {
+    font-size: 24px;
+    line-height: 34px;
+  }
+
+  h2 code {
+    font-size: 20px;
+    line-height: 31px;
+  }
+
+  h3 code {
+    font-size: 17px;
+    line-height: 24px;
+  }
+
+  h4 code {
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  h5 code {
+    font-size: 15px;
+    line-height: 21px;
+  }
+
+  h6 code {
+    font-size: 14px;
+    line-height: 19px;
+  }
+
+  /*
+   * Quotes
+   */
+  blockquote {
+    margin: 0 0 1em;
+    padding: .65em 1em; }
+  blockquote p:last-child {
+    padding: 0; }
+  }
+
+/*
+ * Medium
+ */
+
+@media all and (min-width: 773px) {
+	
+  .preview {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 60px 0 60px;
+  }
+
+  body {
+    font: 21px/31px "GentiumBk-Regular";
+  }
+
+  /*
+   * Headings
+   */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding: 5px 0 12px 0;
+  }
+
+  h1 {
+    font-size: 31px;
+    line-height: 38px;
+  }
+
+  h2 {
+    font-size: 27px;
+    line-height: 35px;
+  }
+
+  h3 {
+    font-size: 23px;
+    line-height: 31px;
+  }
+
+  h4 {
+    font-size: 21px;
+    line-height: 28px;
+  }
+
+  h5 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  h6 {
+    font-size: 15px;
+    line-height: 23px;
+  }
+
+  /*
+   * Paragraph
+   */
+
+  p {
+    padding: 0 0 13px 0;
+  }
+
+  hr {
+    margin: 0 0 40px 0;
+  }
+
+  img {
+    margin: 0 0 7px 0;
+  }
+
+  /*
+   * Lists
+   */
+
+  ul,
+  ol {
+    padding: 0 0 12px 28px;
+  }
+
+  /*
+   * Code
+   */
+
+  pre {
+    font: 16px/30px Menlo, Monaco, monospace, serif;
+    padding: 20px;
+    margin: 0 0 40px 0;
+  }
+
+  code {
+    font: 16px/30px Menlo, Monaco, monospace, serif;
+  }
+
+  h1 code {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  h2 code {
+    font-size: 24px;
+    line-height: 35px;
+  }
+
+  h3 code {
+    font-size: 21px;
+    line-height: 31px;
+  }
+
+  h4 code {
+    font-size: 19px;
+    line-height: 28px;
+  }
+
+  h5 code {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  h6 code {
+    font-size: 15px;
+    line-height: 23px;
+  }
+
+  /*
+   * Quotes
+   */
+
+	blockquote {
+		margin: 0 0 1em;
+		padding: .65em 1em; }
+	blockquote p:last-child {
+		padding: 0; }
+	}
+
+/*
+ * Large
+ */
+
+@media all and (min-width: 915px) {
+  
+  .preview {
+    max-width: 904px;
+    margin: 0 auto;
+    padding: 50px 63px 0 63px;
+  }
+
+  body {
+    font: 23px/35px "GentiumBk-Regular";
+  }
+
+  /*
+   * Headings
+   */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding: 8px 0 15px 0;
+  }
+
+  h1 {
+    font-size: 38px;
+    line-height: 44px;
+  }
+
+  h2 {
+    font-size: 34px;
+    line-height: 42px;
+  }
+
+  h3 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  h4 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  h5 {
+    font-size: 22px;
+    line-height: 31px;
+  }
+
+  h6 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  /*
+   * Paragraph
+   */
+
+  p {
+    padding: 0 0 16px 0;
+  }
+
+  hr {
+    margin: 0 0 50px 0;
+  }
+
+  img {
+    margin: 0 0 10px 0;
+  }
+
+  /*
+   * Lists
+   */
+
+  ul,
+  ol {
+    padding: 0 0 15px 28px;
+  }
+
+  /*
+   * Code
+   */
+
+  pre {
+    font: 18px/33px Menlo, Monaco, monospace, serif;
+    padding: 25px;
+    margin: 0 0 50px 0;
+  }
+
+  code {
+    font: 18px/33px Menlo, Monaco, monospace, serif;
+  }
+
+  h1 code {
+    font-size: 34px;
+    line-height: 44px;
+  }
+
+  h2 code {
+    font-size: 31px;
+    line-height: 42px;
+  }
+
+  h3 code {
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  h4 code {
+    font-size: 23px;
+    line-height: 34px;
+  }
+
+  h5 code {
+    font-size: 22px;
+    line-height: 31px;
+  }
+
+  h6 code {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  /*
+   * Quotes
+   */
+
+	blockquote {
+		margin: 0 0 1em;
+		padding: .65em 1em; }
+	blockquote p:last-child {
+		padding: 0; }
+	}
+
+
+
+
+

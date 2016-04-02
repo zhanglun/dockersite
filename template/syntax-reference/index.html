@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Markdown Syntax Reference</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<div class="syntax">
+
+<h1 id="markdownbasics">Markdown Basics</h1>
+
+<p>Markdown is an easy-to-read and easy-to-use syntax for styling all forms of writing.</p>
+
+<h2 id="paragraphs">Paragraphs</h2>
+
+<p>A paragraph is simply one or more consecutive lines of text, separated by one or more blank lines. Normal paragraphs should not be indented with spaces or tabs.</p>
+
+<p>If you want to insert a <code>&lt;br /&gt;</code> break tag using Markdown, end a line with two or more spaces, then type return.</p>
+
+<h2 id="headings">Headings</h2>
+
+<p>Create a heading by adding one or more <code>#</code> symbols before your heading text. The number of <code>#</code> you use will determine the size of the heading.</p>
+
+<pre><code># This is an H1
+## This is an H2
+###### This is an H6
+</code></pre>
+
+<h2 id="blockquotes">Blockquotes</h2>
+
+<p>Indicate blockquotes with a <code>&gt;</code>.</p>
+
+<pre><code>To quote Jean-Luc Picard:
+&gt; Make it so.
+</code></pre>
+
+<p>Blockquotes can be nested by adding additional levels of <code>&gt;</code>.</p>
+
+<pre><code>&gt; This is the first level of quoting.
+&gt;
+&gt; &gt; This is a nested blockquote.
+&gt;
+&gt; Back to the first level.
+</code></pre>
+
+<h2 id="boldanditalics">Bold and Italics</h2>
+
+<p>You can make text <strong>bold</strong> or <em>italic</em>. Both <strong>bold</strong> and <em>italic</em> can use either an asterisk <code>*</code> or an underscore <code>_</code> to style text.</p>
+
+<pre><code>**bold** or *italic*
+__bold__ or _italic_
+</code></pre>
+
+<p>You can combine both <strong>bold</strong> and <em>italic</em> to nest one within the other. </p>
+
+<pre><code>**The same character _must_ be used to open and close bold or italic text.**
+</code></pre>
+
+<h2 id="lists">Lists</h2>
+
+<p>Markdown supports unordered (bulleted) and ordered (numbered) lists.</p>
+
+<h3 id="unorderedlists">Unordered lists</h3>
+
+<p>Make unordered (bulleted) lists by prepending list items with an asterisk <code>*</code> or hyphen <code>-</code>.</p>
+
+<pre><code>* Item
+* Item
+* Item
+
+- Item
+- Item
+- Item
+</code></pre>
+
+<p>Lists can also contain multiple paragraphs. Indent each new parapgrah by 4 spaces or 1 tab.</p>
+
+<pre><code>*   A list item.
+
+    With multiple paragraphs.
+
+*   Another item in the same list.
+</code></pre>
+
+<h3 id="orderedlists">Ordered lists</h3>
+
+<p>Make ordered lists by using regular numbers, followed by periods, as list marker.</p>
+
+<pre><code>1. Item one
+2. Item two
+3. Item three
+</code></pre>
+
+<h3 id="nestedlists">Nested lists</h3>
+
+<p>You can nest lists by indenting list items by four spaces.</p>
+
+<pre><code>1. Item one
+    1. First nested item
+    2. Second nested item
+2. Item two
+    * Unordered nested item
+        1. Ordered item
+        2. Second ordered item
+        3. Consider creating a new list
+    * Another unordered nested item
+3. Item three
+</code></pre>
+
+<h2 id="tables">Tables</h2>
+
+<p>While the core Markdown specification does not support tables, they can often be useful. The following example shows how a table can be created.</p>
+
+<pre><code>| Heading 1 | Heading 2 | Heading 3 |
+| --------- | :-------: | :-------: |
+| Hello     | Very cool | Hello     |
+| More data | Spanning Data ||
+</code></pre>
+<p>Which generates the following table</p>
+<table>
+	<colgroup>
+		<col style="text-align:left;"/>
+		<col style="text-align:center;"/>
+		<col style="text-align:center;"/>
+	</colgroup>
+	
+	<thead>
+		<tr>
+			<th style="text-align:left;">Heading 1</th>
+			<th style="text-align:center;">Heading 2</th>
+			<th style="text-align:center;">Heading 3</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr>
+			<td style="text-align:left;">Hello</td>
+			<td style="text-align:center;">Very cool</td>
+			<td style="text-align:center;">Hello</td>
+		</tr>
+		<tr>
+			<td style="text-align:left;">More data</td>
+			<td style="text-align:center;" colspan="2">Spanning Data</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The requirments for tables are:</p>
+<ul>
+<li>There must be at least one <code>|</code> per line</li>
+<li>The second line must contain only <code>|</code>,<code>-</code>,<code>:</code>,<code>.</code> or spaces</li>
+<li> A <code>:</code> can be used to the right of the column <code>-</code> to right justify the column contents, or at each end to center the column contents</li>
+<li>Cell content must only be on one line</li>
+<li>No blank lines</li>
+<li>Columns are seperated by <code>|</code></li>
+<li>The first line of the table, and the alignment/divider line, must start at the beginning of the line</li>
+</ul>
+
+<h2 id="links">Links</h2>
+
+<p>Markdown supports two styles for creating links: <em>inline</em> and <em>reference</em>. Use square brackets <code>[</code> <code>]</code> to delimit the text you want to turn into a link. Titles are optional.</p>
+
+<h3 id="inlinelinks">Inline links</h3>
+
+<p>Inline-style links use parentheses immediately after the link text.</p>
+
+<pre><code>An [example](http://url.com/ &quot;Title&quot;)
+</code></pre>
+
+<h3 id="referencelinks">Reference links</h3>
+
+<p>Reference-style links allow you to refer to your links by names, which you define elsewhere in your document:</p>
+
+<pre><code>Here at [71Squared][1], we use [Focused][2] as our Markdown editor of choice.
+
+[1]: https://71squared.com/ "71Squared"
+[2]: https://71squared.com/focused/ "Focused"
+</code></pre>
+
+<h3 id="emaillinks">Email links</h3>
+
+<pre><code>An example &lt;email@address.com&gt; link
+</code></pre>
+
+<h2 id="images">Images</h2>
+
+<p>Image syntax is very much like link syntax. As with links, titles are optional.</p>
+
+<p>If any alt text is present, a visible caption is generated in HTML below the image using the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements available in HTML5.</p>
+
+<h3 id="inline-styleimages">Inline-style images</h3>
+
+<pre><code>![alt caption text](/path/to/img.jpg &quot;Title&quot;)
+</code></pre>
+
+<h3 id="reference-styleimages">Reference-style images</h3>
+
+<pre><code>![alt caption text][id]
+
+[id]: /path/to/img.jpg &quot;Title&quot;
+</code></pre>
+
+<h2 id="code">Code</h2>
+
+<h3 id="inlinecode">Inline code</h3>
+
+<p>In a regular paragraph, you can create <code>&lt;code&gt;</code> span by wrapping text in backtick <code>`</code> quotes.</p>
+
+<pre><code>An example of inline `&lt;code&gt;`
+</code></pre>
+
+<p>Any ampersands <code>&amp;</code> and angle brackets <code>&lt;</code> <code>&gt;</code> will automatically be translated into HTML entities.</p>
+
+<h3 id="fencedcodeblocks">Fenced code blocks</h3>
+
+<p>To specify an entire block of pre-formatted code, indent every line of the block by 4 spaces or 1 tab.</p>
+
+<p>You can also create a fenced code block by wrapping the code with 3 backticks <code>```</code>.</p>
+
+<pre><code>```
+An example fenced code block
+```
+</code></pre>
+
+<h2 id="abbreviations">Abbreviations</h2>
+
+<p>Abbreviations are defined using the following syntax.</p>
+
+<pre><code>*[HTML]: HyperText Markup Language<br>*[W3C]:  World Wide Web Consortium</code></pre>
+
+<p>To use the abbreviation simply place text you placed between the <pre><code>[</code></pre> <pre><code>]</code></pre> in your text.</p>
+
+<h2 id="horizontalrules">Horizontal rules</h2>
+
+<p>Make a horizontal rule using three or more dashes <code>-</code> or asterisks <code>*</code>.</p>
+
+<pre><code>---
+
+* * *
+
+- - - -
+</code></pre>
+
+</div>
+
+</body>
+</html>

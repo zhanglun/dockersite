@@ -1,0 +1,157 @@
+/*
+ * Preview
+ */
+
+body {
+  background: rgb(247, 242, 228);
+  color: rgb(72, 47, 25);
+}
+
+/*
+ * Paragraph
+ */
+
+a,
+a:visited {
+  background-image: linear-gradient(to bottom, transparent 50%, rgba(158, 158, 158, .4) 50%);
+  background-repeat: repeat-x;
+  -webkit-background-size: 2px 2px;
+  background-size: 2px 2px;
+  background-position: 0 90%;
+  color: rgb(54, 120, 234);
+/*  text-shadow: 1px 0 rgb(247, 242, 228), 2px 0 rgb(247, 242, 228), -1px 0 rgb(247, 242, 228), -2px 0 rgb(247, 242, 228);*/
+  text-decoration: none;
+  transition: background-image .2s ease-in-out;    
+}
+
+a:hover {
+  background-image: linear-gradient(to bottom, transparent 50%, rgb(54, 120, 234) 50%);
+}
+
+hr {
+  height: 0px;
+  padding: 0;
+  border: none;
+  border-top: medium double rgba(72, 47, 25, 0.56);
+  color: rgba(72, 47, 25, 0.47);
+  text-align: center;
+}
+
+::selection {
+  background: rgba(212, 207, 195, 0.6);
+}
+
+/*
+ * Code
+ */
+
+pre,
+code {
+  background: rgba(16, 16, 16, 0.03);
+  color: rgb(72, 47, 25);
+  border-radius: 5px;
+}
+
+pre {
+	border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+a.linked-code code,
+a.linked-code:visited code {
+  color: rgb(196, 47, 75)!important;
+}
+
+a.linked-code:hover code {
+  color: rgb(171, 41, 65)!important;
+}
+
+/*
+ * Quotes
+ */
+
+blockquote {
+	background: rgba(54, 120, 234, 0.1);
+	border-left: 5px solid rgba(54, 120, 234, 1);
+	border-radius: 3px;
+}
+
+/*
+ * Tables
+ */
+caption {
+	color: #482f19; }
+
+table > thead > tr > th,
+table > tbody > tr > th,
+table > tfoot > tr > th,
+table > thead > tr > td,
+table > tbody > tr > td,
+table > tfoot > tr > td {
+	border-top: 1px solid rgba(72, 47, 25, 0.12); }
+
+table > thead > tr > th {
+	vertical-align: bottom;
+	border-bottom: 2px solid rgba(72, 47, 25, 0.12); }
+
+table > tbody + tbody {
+	border-top: 2px solid rgba(72, 47, 25, 0.12); }
+
+table table {
+	background-color: #f7f2e4; }
+
+table > tbody > tr:nth-of-type(odd) {
+	background-color: #e2dccd; }
+
+/*
+ * Small
+ */
+
+@media all and (max-width: 772px) {
+
+  hr:after {
+    content: "×";
+    background: rgb(247, 242, 228);
+    position: relative; 
+    display: inline-block;
+    top: -15px;  
+    font-size: 22px;
+    padding: 0 10px;
+  }
+
+}
+
+/*
+ * Medium
+ */
+
+@media all and (min-width: 772px) {
+
+  hr:after {
+    content: "×";
+    background: rgb(247, 242, 228);
+    position: relative; 
+    display: inline-block;
+    top: -17px;  
+    font-size: 22px;
+    padding: 0 10px;
+  }
+
+}
+
+/*
+ * Large
+ */
+
+@media all and (min-width: 912px) {
+
+  hr:after {
+    content: "×";
+    background: rgb(247, 242, 228);
+    position: relative; 
+    display: inline-block;
+    top: -19px;  
+    font-size: 22px;
+    padding: 0 10px;
+  }
+
+}

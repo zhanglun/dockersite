@@ -4,24 +4,25 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, 'src');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'dist');
+var BUILD_PATH = 'dist';
 
 module.exports = {
   entry: {
     index: APP_PATH + '/index.js'
   },
   output: {
-    path: APP_PATH,
-    publicPath: '/build',
+    path: BUILD_PATH,
+    // publicPath: '/build',
     filename: './[name].bundle.js'
   },
   module: {
     loaders: [{
       test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-      loader: 'file-loader?name=/build/fonts/[hash].[ext]'
+      loader: 'file-loader?name=./fonts/[hash].[ext]'
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
-        'file?hash=sha512&digest=hex&name=/build/images/[hash].[ext]',
+        'file?hash=sha512&digest=hex&name=/images/[hash].[ext]',
         'image-webpack?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}, svgo:{plugins:[{removeViewBox: false},{removeEmptyAttrs: false}]}}',
         // 'url?limit=10000&&hash=sha512&digest=hex&name=/build/images/[hash].[ext]'
       ]
@@ -55,6 +56,6 @@ module.exports = {
   //   plugins: ['transform-runtime']
   // },
   plugins: [
-    new ExtractTextPlugin('style.bundle.css')
+    new ExtractTextPlugin('./style.bundle.css')
   ]
 }

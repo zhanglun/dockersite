@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/build";
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -46,22 +46,34 @@
 
 	'use strict';
 	
-	__webpack_require__(1);
-	var route = __webpack_require__(2);
+	__webpack_require__(2);
+	var route = __webpack_require__(14);
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 2 */
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var VModel = __webpack_require__(3);
+	var VModel = __webpack_require__(15);
 	
 	(function () {
 	
@@ -139,12 +151,12 @@
 	page();
 
 /***/ },
-/* 3 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var marked = __webpack_require__(4);
+	var marked = __webpack_require__(16);
 	
 	marked.setOptions({
 	  renderer: new marked.Renderer(),
@@ -157,7 +169,7 @@
 	  smartypants: false
 	});
 	
-	var editor = __webpack_require__(5);
+	var editor = __webpack_require__(17);
 	
 	var VModel = {};
 	VModel.editor = editor;
@@ -234,7 +246,7 @@
 	module.exports = VModel;
 
 /***/ },
-/* 4 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -1526,7 +1538,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 5 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1534,8 +1546,8 @@
 	/**
 	 * Created by zhanglun on 10/17/15.
 	 */
-	var marked = __webpack_require__(4);
-	var util = __webpack_require__(6);
+	var marked = __webpack_require__(16);
+	var util = __webpack_require__(18);
 	
 	var contentMarked = function contentMarked(val) {
 	  return marked(val);
@@ -1548,13 +1560,24 @@
 	  //   'tags: ' + '\n' +
 	  //   'date:' + '\n' +
 	  //   '++++' + '\n';
-	  var metadata = '# MarkNote for you' + '# MarkNote for you' + '\n' + '## MarkNote for you' + '\n' + '### MarkNote for you' + '\n' + '#### MarkNote for you' + '\n' + '##### MarkNote for you' + '\n' + '###### MarkNote for you' + '\n' + '![file-list](https://www.zybuluo.com/static/img/file-list.png)' + '\n' + '- [ ] 支持以 PDF 格式导出文稿' + '\n' + '- [ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率' + '\n' + '- [x] 新增 Todo 列表功能' + '\n' + '- [x] 修复 LaTex 公式渲染问题' + '\n' + '- [x] 新增 LaTex 公式编号功能' + '\n';
+	  var metadata = '# MarkNote for you\n' + '# MarkNote for you' + '\n' + '## MarkNote for you' + '\n' + '### MarkNote for you' + '\n' + '#### MarkNote for you' + '\n' + '##### MarkNote for you' + '\n' + '###### MarkNote for you' + '\n' + '![file-list](https://www.zybuluo.com/static/img/file-list.png)' + '\n\n' + '- [ ] 支持以 PDF 格式导出文稿' + '\n' + '- [ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率' + '\n' + '- [x] 新增 Todo 列表功能' + '\n' + '- [x] 修复 LaTex 公式渲染问题' + '\n' + '- [x] 新增 LaTex 公式编号功能' + '\n\n' + '```js\n' + 'let Code=()=>{\n' + '  console.log("hello world");\n' + '}\n' + '```\n';
 	
-	  return CodeMirror(container, {
+	  var marknote = CodeMirror(container, {
 	    value: metadata,
 	    mode: "markdown",
-	    tabSize: 2
+	    tabSize: 2,
+	    lineWrapping: true,
+	    theme: 'tomorrow-night-eighties'
 	  });
+	
+	  marknote.setOption("extraKeys", {
+	    Tab: function Tab(cm) {
+	      var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+	      cm.replaceSelection(spaces);
+	    }
+	  });
+	
+	  return marknote;
 	}
 	
 	var editor = function editor() {
@@ -1597,12 +1620,12 @@
 	module.exports = editor;
 
 /***/ },
-/* 6 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var constant = __webpack_require__(7);
+	var constant = __webpack_require__(19);
 	var util = {};
 	
 	util.getJSON = function (url, param) {
@@ -1646,7 +1669,7 @@
 	module.exports = util;
 
 /***/ },
-/* 7 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
