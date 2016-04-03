@@ -8,6 +8,7 @@ var FileSchema = new Schema({
   children_id: [],
   create_time: {type: Date, default: Date.now},
   update_time: {type: Date, defauly: Date.now},
+  type: String
 });
 
 module.exports = FileSchema;

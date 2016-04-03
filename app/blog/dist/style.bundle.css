@@ -221,6 +221,10 @@ th {
 .marknote.preview .area-writing {
   width: 100%;
 }
+.marknote.writing .area-writing {
+  width: 50%;
+  margin: 0 auto;
+}
 .marknote .area-writing {
   height: 100%;
   width: 50%;

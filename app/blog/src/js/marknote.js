@@ -37,7 +37,7 @@ function Editor(container) {
     '```\n';
 
   var marknote = CodeMirror(container, {
-    value: metadata,
+    // value: metadata,
     mode: {
       name: 'markdown',
       allowAtxHeaderWithoutSpace: true
