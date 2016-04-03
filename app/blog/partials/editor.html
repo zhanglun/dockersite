@@ -1,8 +1,11 @@
 <script src="/bower_components/codemirror/lib/codemirror.js"></script>
 <link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css">
 <script src="/bower_components/codemirror/mode/markdown/markdown.js"></script>
+
+<!-- <script src="/bower_components/ace/lib/ace/ace.js"></script> -->
+
 <div id="blog-editor" class="marknote writing">
   <div id="writer-board" class="area-writing">
   </div>
-  <!--<div class="preview-content" v-html="post.content | marked"></div>-->
+  <div class="preview-content" v-html="post.content | marked"></div>
 </div>

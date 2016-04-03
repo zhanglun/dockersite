@@ -221,15 +221,12 @@ th {
 .marknote.preview .area-writing {
   width: 100%;
 }
-.marknote.writing .area-writing {
-  margin: 0 auto;
-}
 .marknote .area-writing {
   height: 100%;
   width: 50%;
 }
 .marknote .CodeMirror {
-  height: auto;
+  height: 100%;
   background: #F8F2E4;
 }
 .marknote .CodeMirror-scroll {
