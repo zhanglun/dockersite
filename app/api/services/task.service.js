@@ -1,6 +1,5 @@
 var db = require('../models');
 var Promise = require('bluebird');
-// Promise.promisifyAll(require("mongoose"));
 
 var task = {};
 
@@ -18,7 +17,7 @@ task.getList = function(arguments) {
 
 task.get = function(query) {
   db.Task.findOneAsync(query)
-  then(function(task) {
+    .then(function(task) {
       return task;
     })
     .catch(function(err) {
