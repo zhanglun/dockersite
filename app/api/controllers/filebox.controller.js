@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models');
-var FileService = require('../services/file.service.js');
+var FileBoxService = require('../services/filebox.service.js');
 
 module.exports = function(app) {
   app.use('/api/file', router);
 };
 
 router.get('/', function(req, res, next){
-  FileService.get()
-    .then(function(file) {
+  FileBoxService.get()
+    .then(function(files) {
       res.status(200).json(files);
     })
     .catch(function(err) {
@@ -25,7 +25,7 @@ router.get('/:id', function(req, res, next) {
       _id: id
     };
   }
-  FileService.get(query)
+  FileBoxService.get(query)
     .then(function(file) {
       res.status(200).json(files);
     })
@@ -38,8 +38,18 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var param = req.body;
-  FileService.add(param)
+  FileBoxService.add(param)
   .then(function(file){
     res.status(200).json(file);
   });
+});
+
+router.get('/a/deleteall', function(req, res, next){
+  db.File.removeAsync({})
+    .then(function(res){
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+  res.send('delete all');
 });
