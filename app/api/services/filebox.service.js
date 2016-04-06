@@ -15,7 +15,7 @@ var getFileExt = function(name){
 fileBox.save = function(file){
   return file.saveAsync()
     .then(function(file){
-      return file;
+      return file[0];
     })
     .catch(function(err){
       return err;
@@ -34,14 +34,21 @@ fileBox.get = function(query){
 
 fileBox.getOne = function(query){
   return db.File.findOneAsync(query)
-    .then(function(files){
-      return files;
+    .then(function(file){
+      return file;
     })
     .catch(function(err){
       return  err;
     });
 };
 
+fileBox.update = function(query, update){
+  return db.File.updateAsync(query, update)
+    .then(function(req){
+      console.log(req);
+    });
+    
+}
 
 fileBox.add = function(param){
   var name = param.name;
@@ -73,6 +80,13 @@ fileBox.add = function(param){
         }
       }  
       return fileBox.save(newfile);   
+    })
+    .then(function(file){
+      
+      // 更新上级目录
+       fileBox.update({_id: parent_id}, {$push: {children_id: file._id}});
+       return file;  
+      
     });
 
 };

@@ -18,16 +18,13 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/:id', function(req, res, next) {
-  var id = req.param.id;
-  var query = {};
-  if(id){
-    query = {
-      _id: id
-    };
-  }
-  FileBoxService.get(query)
+  var id = req.params.id;
+  var query = {
+    _id:id
+  };
+  FileBoxService.getOne(query)
     .then(function(file) {
-      res.status(200).json(files);
+      res.status(200).json(file);
     })
     .catch(function(err) {
       res.status(500).json(err);
