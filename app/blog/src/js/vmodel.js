@@ -44,7 +44,7 @@ VModel.post = function () {
       var _this = this;
       $.ajax({
         method: 'get',
-        url: '/api/blog/posts'
+        url: '/api/articles'
       })
         .done(function (res) {
           _this.$set('articles', res);
