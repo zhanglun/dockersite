@@ -46,22 +46,34 @@
 
 	'use strict';
 	
-	__webpack_require__(1);
-	var route = __webpack_require__(2);
+	__webpack_require__(3);
+	var route = __webpack_require__(14);
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */,
+/* 3 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 2 */
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var VModel = __webpack_require__(3);
+	var VModel = __webpack_require__(15);
 	
 	(function () {
 	
@@ -139,12 +151,12 @@
 	page();
 
 /***/ },
-/* 3 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var marked = __webpack_require__(4);
+	var marked = __webpack_require__(16);
 	
 	marked.setOptions({
 	  renderer: new marked.Renderer(),
@@ -157,7 +169,7 @@
 	  smartypants: false
 	});
 	
-	var editor = __webpack_require__(5);
+	var editor = __webpack_require__(17);
 	
 	var VModel = {};
 	VModel.editor = editor;
@@ -234,7 +246,7 @@
 	module.exports = VModel;
 
 /***/ },
-/* 4 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -1526,7 +1538,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 5 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1534,8 +1546,8 @@
 	/**
 	 * Created by zhanglun on 10/17/15.
 	 */
-	var marked = __webpack_require__(4);
-	var util = __webpack_require__(6);
+	var marked = __webpack_require__(16);
+	var util = __webpack_require__(18);
 	// var Ace = require('ace');
 	
 	var contentMarked = function contentMarked(val) {
@@ -1613,12 +1625,12 @@
 	module.exports = editor;
 
 /***/ },
-/* 6 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var constant = __webpack_require__(7);
+	var constant = __webpack_require__(19);
 	var util = {};
 	
 	util.getJSON = function (url, param) {
@@ -1662,7 +1674,7 @@
 	module.exports = util;
 
 /***/ },
-/* 7 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';

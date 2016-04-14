@@ -216,7 +216,7 @@ th {
 /* custom */
 .marknote {
   min-height: 100%;
-  background: #F8F2E4;
+  background: #fff;
 }
 .marknote.preview .area-writing {
   width: 100%;
@@ -231,7 +231,6 @@ th {
 }
 .marknote .CodeMirror {
   height: 100%;
-  background: #F8F2E4;
 }
 .marknote .CodeMirror-scroll {
   padding-top: 30px;
