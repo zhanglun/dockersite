@@ -71,7 +71,7 @@ Blog.createArticle = function (req, res, next) {
   var article = db.Article(data);
   blogService.createArticle(article)
     .then(function(article){
-      return res.status(200).json(article);
+      return res.status(201).json(article);
     })
     .catch(function(err){
       return res.status(500).json(err.message)

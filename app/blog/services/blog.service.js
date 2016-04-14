@@ -8,10 +8,12 @@ function convertObjectIdToId(target){
     target = target.map(function(item){
       item.id = item._id;
       delete item._id;
+      delete item.__v;
       return item
     });
   }else{
       target.id = target._id;
+      delete target.__v;
       delete target._id;
   }
   return target;
@@ -58,6 +60,7 @@ Blog.createArticle = function(article){
       return err;
     });
 }
+
 
 
 module.exports = Blog;

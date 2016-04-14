@@ -10,10 +10,10 @@ var Schema = mongoose.Schema;
 var TaskSchema = new Schema({
     title: String,
     content: String,
-    userid: String,
-    createtime: {type: Date, default: Date.now},
+    user_id: String,
+    create_time: {type: Date, default: Date.now},
     deadline:{type: Date, default: Date.now},
-    updatetime: {type: Date, default: Date.now},
+    update_time: {type: Date, default: Date.now},
     category: '',
     completed: {type: Boolean, default: false},
     isoverdue: {type: Boolean, default: false},
