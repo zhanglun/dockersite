@@ -29,7 +29,6 @@ var Blog = {};
 Blog.getArticleList = function (req, res, next) {
   blogService.getArticleList()
     .then(function(list){
-      console.log(list);
       return res.status(200).json(list);
     });
 };
@@ -41,9 +40,13 @@ Blog.getArticleList = function (req, res, next) {
  * @param next
  */
 Blog.getArticleDetail = function (req, res, next) {
+  var id = req.params.id;
   blogService.getArticleDetail(id)
     .then(function(article){
       res.send(article);
+    })
+    .catch(function(err){
+      res.send(err);
     });
 
 };
@@ -74,7 +77,30 @@ Blog.createArticle = function (req, res, next) {
       return res.status(201).json(article);
     })
     .catch(function(err){
-      return res.status(500).json(err.message)
+      return res.status(500).json(err.message);
+    });
+};
+
+Blog.modifyArticle = function(req, res, next){
+  var update = req.body;
+  var id = req.params.id;
+  blogService.modifyArticle(id, update)
+    .then(function(article){
+        return res.status(200).json(article);
+    })
+    .catch(function(err){
+      return res.status(500).json(err);
+    });
+};
+
+Blog.deleteArticle = function(req, res, next){
+  var id = req.params.id;
+  blogService.deleteArticle(id)
+    .then(function(article){
+      return res.status(204).json(article);
+    })
+    .catch(function(err){
+      return res.status(500).json(err.message);
     });
 };
 
@@ -95,13 +121,21 @@ Blog.getCategoryList = function (req, res, next) {
     });
 };
 
+router.get('/', function(req, res, next){
+  res.send('Hello, API!');
+});
+
 // 博客主页数据
 router.get('/articles', Blog.getArticleList);
-// 单个博文
-router.get('/articles/:id', Blog.getArticleDetail);
-
 // 添加新的博文
 router.post('/articles', Blog.createArticle);
+
+// 单个博文
+router.get('/articles/:id', Blog.getArticleDetail);
+// 修改
+router.put('/articles/:id', Blog.modifyArticle);
+// 删除
+router.delete('/articles/:id', Blog.deleteArticle);
 
 // router.get('/category', Blog.getCategoryList);
 

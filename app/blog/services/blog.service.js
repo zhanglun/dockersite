@@ -17,7 +17,7 @@ function convertObjectIdToId(target){
       delete target._id;
   }
   return target;
-};
+}
 
 Blog.getArticleList = function(){
   return db.Article.find({}).execAsync()
@@ -61,6 +61,28 @@ Blog.createArticle = function(article){
     });
 }
 
+Blog.modifyArticle = function(id, update){
+  return db.Article.findByIdAndUpdateAsync(id, update, {new :true})
+    .then(function(article){
+      article = convertObjectIdToId(article);
+      return article;
+    })
+    .catch(function(err){
+      console.log(err);
+      return err;
+    });
+}
+
+Blog.deleteArticle = function(id){
+  return db.Article.findOneAndRemoveAsync({_id: id})
+    .then(function(article){
+      article = convertObjectIdToId(article);
+      return article;
+    })
+    .catch(function(err){
+      return err;
+    });
+};
 
 
 module.exports = Blog;
