@@ -18,11 +18,13 @@ function renderHtml(req, res, next) {
 
 function renderFiles(req, res, next) {
   var file = req.params.file;
+  console.log(file);
   if (!file) {
     return next();
   }
   var name = req.params.example;
   var path = join(__dirname, '../', name, file);
+  console.log(path);
   fs.stat(path, function (err, stat) {
     if (err) {
       return next();
@@ -41,8 +43,12 @@ module.exports = function (app) {
 router.get('/:example/:file(*)', renderFiles);
 
 // 路由
-router.get('/', renderHtml);
-router.get('/post', renderHtml);
+router.get('/admin', function(req, res, next){
+  res.send('Hi, Admin!');
+});
+
+router.get('/app', renderHtml);
+router.get('/app/*', renderHtml);
 // router.get('/:category', renderHtml);
 // router.get('/:category/*', renderHtml);
 // router.get('/:category/*/*', renderHtml);
