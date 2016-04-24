@@ -20,7 +20,7 @@ function convertObjectIdToId(target) {
 }
 
 Blog.getArticleList = function () {
-  return db.Article.find({}).execAsync()
+  return db.Article.find({}, {title: 1, tags: 1, category:1}).execAsync()
     .then(function (list) {
       list = list.map(function (item) {
         item = item.toObject();

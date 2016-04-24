@@ -47,7 +47,9 @@ router.get('/admin', function(req, res, next){
   res.send('Hi, Admin!');
 });
 
-router.get('/app', renderHtml);
+router.get('/app', function(req, res, next){
+  res.send('app !');
+});
 router.get('/app/*', renderHtml);
 // router.get('/:category', renderHtml);
 // router.get('/:category/*', renderHtml);
