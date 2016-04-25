@@ -47,7 +47,6 @@
 	'use strict';
 	
 	__webpack_require__(1);
-	var route = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./js/route\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 /***/ },
 /* 1 */

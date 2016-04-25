@@ -5,7 +5,7 @@ var router = express.Router();
 
 var db = require('../models');
 
-var tplPath = require.resolve('../partials/blog.html');
+var tplPath = require.resolve('../views/app.html');
 
 function renderHtml(req, res, next) {
   fs.stat(tplPath, function (err, stat) {
@@ -48,14 +48,11 @@ router.get('/admin', function(req, res, next){
 });
 
 router.get('/app', function(req, res, next){
-  res.send('app !');
+  // res.send('app !');
+  renderHtml(req, res);
 });
+
 router.get('/app/*', renderHtml);
 // router.get('/:category', renderHtml);
 // router.get('/:category/*', renderHtml);
 // router.get('/:category/*/*', renderHtml);
-
-
-
-
-
