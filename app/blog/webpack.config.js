@@ -58,4 +58,5 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('./style.bundle.css')
   ]
-}
+};
+
