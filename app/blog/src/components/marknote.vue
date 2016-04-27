@@ -1,5 +1,5 @@
 <style style="less">
-  @import "./css/marknote";
+  @import "../css/marknote.less";
 </style>
 <template>
   <div id="blog-editor" class="marknote writing">
@@ -10,8 +10,9 @@
   </div>
 </template>
 <script>
-  let marked = require('marked');
-  let util = require('./util');
+  import marked from 'marked';
+  // import util from './util';
+
   let contentMarked = function(val) {
     return marked(val);
   };
@@ -38,7 +39,7 @@
     return marknote;
   }
 
-  exports default {
+  export default {
     data(){
       return {
 
@@ -48,8 +49,9 @@
     ready(){
       console.log('Mole inited!');
     },
+
     methods: {
-      
+
     }
   }
 
