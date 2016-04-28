@@ -3,6 +3,9 @@
 </style>
 <template>
   <div class="container">
+    <div class="marknote-title">
+      <input type="text" v-model="title">
+    </div>
     <div class="marknote marknote--editing">
       <div class="marknote-blackboard">
       </div>
@@ -50,7 +53,10 @@
     data(){
       return {
         editor: null,
+        article: null,
         content: '',
+        title: '',
+        currentId: '',
       }
     },
 
@@ -59,7 +65,7 @@
     },
 
     ready(){
-      console.log('Editor inited!');
+
       let vm = this;
       let editor = new Editor('.marknote-blackboard', 'Hi~');
 
@@ -69,11 +75,18 @@
 
       vm.editor = editor;
 
-      vm.$http.get('articles/' + vm.$route.params.id)
-        .then(function(res){
-          vm.article = res.data;
-          editor.setOption('value', res.data.content);
-        })
+      if(vm.$route.params.id){
+        vm.currentId = vm.$route.params.id;
+        vm.$http.get('articles/' + vm.$route.params.id)
+          .then(function(res){
+            vm.$data.article = res.data;
+
+            vm.$data.title = res.data.title;
+            vm.$data.content = res.data.content;
+            editor.setOption('value', res.data.content);
+          });
+      }
+
     },
 
     methods: {
@@ -83,11 +96,19 @@
         let value = vm.editor.getDoc().getValue();
 
         param.content = value;
+        param.title = vm.title;
 
-        vm.$http.put('articles/' + vm.$route.params.id, param)
-          .then(function(req){
-            console.log(req);
-          });
+        if(vm.currentId){
+          vm.$http.put('articles/' + vm.$route.params.id, param)
+            .then(function(req){
+              console.log(req);
+            });
+        } else {
+          vm.$http.post('articles', param)
+            .then(function(req){
+              console.log(req);
+            });
+        }
 
       }
     },

@@ -42,6 +42,7 @@
       background: #737272;
       margin: 0 2px;
       cursor: pointer;
+      font-size: 20px;
     }
   }
 </style>

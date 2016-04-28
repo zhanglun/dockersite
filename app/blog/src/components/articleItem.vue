@@ -2,7 +2,10 @@
     <div class="article-item">
       <div class="article-metadata">
         <div class="article-metadata-createtime">
-          {{article.create_time}}
+          createTime: {{article.create_time}}
+        </div>
+        <div class="article-metadata-updatetime">
+          updateTime: {{article.update_time}}
         </div>
       </div>
       <h2 class="article-title">

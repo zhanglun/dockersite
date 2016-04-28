@@ -83,6 +83,7 @@ Blog.createArticle = function (req, res, next) {
 
 Blog.modifyArticle = function(req, res, next){
   var update = req.body;
+  update.update_time = new Date();
   var id = req.params.id;
   blogService.modifyArticle(id, update)
     .then(function(article){
