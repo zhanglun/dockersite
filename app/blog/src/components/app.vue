@@ -1,8 +1,9 @@
 <template>
-  <div class="app">
-    <a v-link="{path: '/articles' }">list</a>
-    <a v-link="{path: '/editor'}">editor</a>
-    <router-view></router-view>
+  <div>
+    <div class="wrapper">
+
+      <router-view></router-view>
+    </div>
   </div>
 
 </template>
@@ -24,3 +25,10 @@
 
   }
 </script>
+<style>
+  .wrapper{
+    width: 860px;
+    margin: 0 auto;
+    padding: 50px 0 0;
+  }
+</style>

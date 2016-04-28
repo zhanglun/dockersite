@@ -17,19 +17,29 @@ Vue.http.headers.common.Authorization = 'Basic YXBpOnBhc3N3b3Jk';
 
 const router = new Router();
 router.map({
+
   '/articles': {
     component: ArticleListView
   },
+
   '/articles/:id': {
     name: 'articles',
     component: ArticleDetailView
   },
+
   '/editor': {
     component: MarkNoteView
+  },
+
+  '/editor/:id': {
+    name: 'editor',
+    component: MarkNoteView
   }
+
 });
 
 router.redirect({
+  '*': '/articles'
 });
 
 router.start(AppView, '#app');

@@ -1,6 +1,42 @@
+
+@archorColor: #444;
+
 /*
  * Font Face
  */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('../fonts/materialIcons/Material Icons'), local('../fonts/materialIcons/MaterialIcons-Regular'), url("../fonts/materialIcons/MaterialIcons-Regular.woff2") format('woff2'), url("../fonts/materialIcons/MaterialIcons-Regular.woff") format('woff'), url("../fonts/materialIcons/MaterialIcons-Regular.ttf") format('truetype');
+}
+
+
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
 
 @font-face {
   font-family: 'Lato-Bold';
@@ -42,25 +78,27 @@
   src: url('../fonts/gentium/GenBkBasBI.ttf') format('truetype');
 }
 
-*,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+// *,
+// *:before,
+// *:after {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
 
 body {
   -webkit-font-feature-settings: 'liga' 1, 'kern';
   font-feature-settings: 'liga' 1, 'kern';
-  font: 19px/28px "GentiumBk-Regular";
-  color: rgb(0, 0, 0);
+  // font: 19px/28px "GentiumBk-Regular";
+  // background: #F3F3F3;
+  background: #f4f4f4;
+  font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", Heiti, "黑体", "Microsof YaHei", "微软雅黑", SimSun, "宋体", sans-serif;
+  color: #707070;
 }
 
 .preview {
   word-wrap: break-word;
 }
-
 
 h1 strong,
 h2 strong,
@@ -95,6 +133,7 @@ h6 strong em {
   font-style: normal;
 }
 
+
 /*
  * Paragraph
  */
@@ -109,7 +148,7 @@ p {
   font-style: normal;
 }
 
-.cm-em.cm-strong{
+.cm-em.cm-strong {
   font-family: "GentiumBk-BoldItalic";
   font-weight: normal;
   font-style: normal;
@@ -133,32 +172,33 @@ img {
   margin: 0 0 30px 0;
 }
 
-a {
-  background-image: linear-gradient(to bottom, transparent 50%, rgba(158, 158, 158, .4) 50%);
-  background-repeat: repeat-x;
-  -webkit-background-size: 2px 2px;
-  background-size: 2px 2px;
-  background-position: 0 90%;
-  color: rgb(50, 196, 47);
-  text-shadow: 1px 0 rgb(253, 253, 253), 2px 0 rgb(253, 253, 253), -1px 0 rgb(253, 253, 253), -2px 0 rgb(253, 253, 253);
-  text-decoration: none;
-  transition: background-image .2s ease-in-out;
-}
+// a {
+//   background-image: linear-gradient(to bottom, transparent 50%, rgba(158, 158, 158, .4) 50%);
+//   background-repeat: repeat-x;
+//   -webkit-background-size: 2px 2px;
+//   background-size: 2px 2px;
+//   background-position: 0 90%;
+//   color: rgb(50, 196, 47);
+//   text-shadow: 1px 0 rgb(253, 253, 253), 2px 0 rgb(253, 253, 253), -1px 0 rgb(253, 253, 253), -2px 0 rgb(253, 253, 253);
+//   text-decoration: none;
+//   transition: background-image .2s ease-in-out;
+// }
 
 /*
  * Access Denied
  */
 
 .access_denied {
-	background-image: none;
+  background-image: none;
 }
 
 .access_denied img {
-	border: 1px dashed gray;
-	border-radius:7px;
-	margin: 10px 0;
-	padding: 30px 60px;
+  border: 1px dashed gray;
+  border-radius: 7px;
+  margin: 10px 0;
+  padding: 30px 60px;
 }
+
 
 /*
  * Lists
@@ -168,6 +208,7 @@ ul,
 ol {
   padding: 0 0 30px 28px;
 }
+
 
 /*
  * Quotes
@@ -182,6 +223,7 @@ ol {
 blockquote p:last-child {
   padding: 0;
 }
+
 
 /*
  * Code
@@ -243,16 +285,24 @@ pre {
 /*
  * Tables
  */
+
 table {
-	margin: 10px 0 40px 0;
-	border-collapse: collapse;
-	width: 100%;
-	table-layout: auto;
+  margin: 10px 0 40px 0;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
 }
-td,th {
-	border: 1px solid #ddd;
-	padding: 3px 10px;
-}
+
+td,
 th {
-	padding: 5px 10px;
+  border: 1px solid #ddd;
+  padding: 3px 10px;
+}
+
+th {
+  padding: 5px 10px;
+}
+
+a{
+  color: @archorColor;
 }

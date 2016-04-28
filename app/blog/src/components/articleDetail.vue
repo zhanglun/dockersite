@@ -1,27 +1,44 @@
 <template>
-  <div class="article">
-    <h1>{{article.title}}</h1>
+  <div class="container">
+    <floatcontroller :article="article"></floatcontroller>
+    <div class="article">
+      <h1>{{article.title}}</h1>
+      <div v-html="content | marked"></div>
+    </div>
   </div>
 </template>
 
 <script>
 
+  import marked from 'marked';
+  import FloatController from './floatController.vue';
+
   export default {
     data(){
       return {
-        article: {}
+        article: {},
+        content: '',
       }
     },
+
+    filters: {
+      marked: marked
+    },
+
     ready(){
       let vm = this;
-      console.log(vm.$route.params);
       vm.$http.get('articles/' + vm.$route.params.id)
         .then(function(res){
-          console.log(res);
           vm.article = res.data;
+          vm.content = res.data.content;
         })
 
     },
-    methods: {}
+    components: {
+      floatcontroller: FloatController,
+    },
+    methods: {
+
+    }
   }
 </script>

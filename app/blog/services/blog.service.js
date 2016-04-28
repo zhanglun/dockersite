@@ -24,8 +24,8 @@ Blog.getArticleList = function () {
     .then(function (list) {
       list = list.map(function (item) {
         item = item.toObject();
-        item.ctime = Moment(item.ctime).format('YYYY-MM-DD HH:mm:ss');
-        item.utime = Moment(item.utime).format('YYYY-MM-DD HH:mm:ss');
+        item.create_time = Moment(item.create_time).format('YYYY-MM-DD HH:mm:ss');
+        item.update_time = Moment(item.update_time).format('YYYY-MM-DD HH:mm:ss');
         return item;
       });
       list = convertObjectIdToId(list);
@@ -38,8 +38,8 @@ Blog.getArticleDetail = function (id) {
   return db.Article.findOneAsync({'_id': id})
     .then(function (article) {
       article = article.toObject();
-      article.ctime = Moment(article.ctime).format('YYYY-MM-DD HH:mm:ss');
-      article.utime = Moment(article.utime).format('YYYY-MM-DD HH:mm:ss');
+      article.create_time = Moment(article.create_time).format('YYYY-MM-DD HH:mm:ss');
+      article.update_time = Moment(article.update_time).format('YYYY-MM-DD HH:mm:ss');
       article = convertObjectIdToId(article);
       return article;
     })

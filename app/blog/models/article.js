@@ -10,10 +10,10 @@ var Schema = mongoose.Schema;
 var Article = new Schema({
   title: String,
   content: String,
-  abstract: String,
+  digest: String,
   author: String,
-  ctime: {type: Date, default: Date.now},
-  utime: {type: Date, default: Date.now},
+  create_time: {type: Date, default: Date.now},
+  update_time: {type: Date, default: Date.now},
   category: String,
   tags: []
 });
