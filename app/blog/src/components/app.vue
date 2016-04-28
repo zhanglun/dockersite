@@ -1,10 +1,7 @@
-<styll lang="less">
-
-</style>
 <template>
   <div class="app">
-    <a v-link="{name: 'articles', params: {id: 123} }">123</a>
-    <a v-link="{path: 'editor'}">editor</a>
+    <a v-link="{path: '/articles' }">list</a>
+    <a v-link="{path: '/editor'}">editor</a>
     <router-view></router-view>
   </div>
 

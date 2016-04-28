@@ -1,25 +1,28 @@
-require('./css/blog.less');
-
+import './css/blog.less';
 
 import Vue from 'vue';
 import Router from 'vue-router';
+import VueResource from 'vue-resource';
 
 import AppView from './components/app.vue';
 import MarkNoteView from './components/marknote.vue';
-import ArticleView  from './components/article.vue';
-import ArticlesView from './components/articles.vue';
+import ArticleListView  from './components/articleList.vue';
+import ArticleDetailView from './components/articleDetail.vue';
 
 Vue.use(Router);
+Vue.use(VueResource);
 
-var router = new Router();
+Vue.http.options.root = 'http://localhost:1234/blog/api';
+Vue.http.headers.common.Authorization = 'Basic YXBpOnBhc3N3b3Jk';
 
+const router = new Router();
 router.map({
   '/articles': {
-    component: ArticlesView
+    component: ArticleListView
   },
   '/articles/:id': {
     name: 'articles',
-    component: ArticleView
+    component: ArticleDetailView
   },
   '/editor': {
     component: MarkNoteView
@@ -27,8 +30,6 @@ router.map({
 });
 
 router.redirect({
-  // '/': 'articles'
 });
-// var App = Vue.extend({});
 
 router.start(AppView, '#app');
