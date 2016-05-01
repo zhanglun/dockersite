@@ -3,16 +3,16 @@
 </style>
 <template>
   <div class="container">
+    <div class="marknote-controller">
+      <button @click="updateArticle()">确定</button>
+    </div>
     <div class="marknote-title">
-      <input type="text" v-model="title">
+      <input type="text" v-model="title" class="marknote-title-input" placeholder="输入文章标题">
     </div>
     <div class="marknote marknote--editing">
       <div class="marknote-blackboard">
       </div>
-      <div class="marknote-preview" v-html="content | marked"></div>
-    </div>
-    <div class="note-controller">
-      <button @click="updateArticle()">确定</button>
+      <!--<div class="marknote-preview" v-html="content | marked"></div>-->
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@
       tabSize: 2,
       lineWrapping: true,
       theme: 'tomorrow-night-eighties',
-      autofocus: true,
+      autofocus: true
     });
 
     marknote.setOption("extraKeys", {
@@ -118,13 +118,4 @@
 </script>
 
 <style lang="less">
-  .marknote{
-    display: flex;
-    &-blackboard{
-      width: 50%;
-    }
-    &-preview{
-      width: 50%;
-    }
-  }
 </style>

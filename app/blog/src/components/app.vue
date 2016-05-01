@@ -1,32 +1,24 @@
 <template>
-  <div>
-    <div class="wrapper">
-
-      <router-view></router-view>
-    </div>
+  <div class="wrapper">
+    <router-view></router-view>
   </div>
-
 </template>
 <script>
   export default {
     data(){
-      return {
-
-      }
+      return {}
     },
 
     ready(){
 
     },
 
-    methods: {
-
-    }
+    methods: {}
 
   }
 </script>
 <style>
-  .wrapper{
+  .wrapper {
     width: 860px;
     margin: 0 auto;
     padding: 50px 0 0;

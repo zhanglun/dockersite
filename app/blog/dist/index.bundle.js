@@ -14598,8 +14598,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -14617,7 +14617,7 @@
 	
 	
 	// module
-	exports.push([module.id, "\n.wrapper{\n  width: 860px;\n  margin: 0 auto;\n  padding: 50px 0 0;\n}\n", "", {"version":3,"sources":["/./src/components/app.vue?c6462114"],"names":[],"mappings":";AA4BA;EACA,aAAA;EACA,eAAA;EACA,kBAAA;CACA","file":"app.vue","sourcesContent":["<template>\n  <div>\n    <div class=\"wrapper\">\n\n      <router-view></router-view>\n    </div>\n  </div>\n\n</template>\n<script>\n  export default {\n    data(){\n      return {\n\n      }\n    },\n\n    ready(){\n\n    },\n\n    methods: {\n\n    }\n\n  }\n</script>\n<style>\n  .wrapper{\n    width: 860px;\n    margin: 0 auto;\n    padding: 50px 0 0;\n  }\n</style>\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "\n.wrapper {\n  width: 860px;\n  margin: 0 auto;\n  padding: 50px 0 0;\n}\n", "", {"version":3,"sources":["/./src/components/app.vue?138a4802"],"names":[],"mappings":";AAoBA;EACA,aAAA;EACA,eAAA;EACA,kBAAA;CACA","file":"app.vue","sourcesContent":["<template>\n  <div class=\"wrapper\">\n    <router-view></router-view>\n  </div>\n</template>\n<script>\n  export default {\n    data(){\n      return {}\n    },\n\n    ready(){\n\n    },\n\n    methods: {}\n\n  }\n</script>\n<style>\n  .wrapper {\n    width: 860px;\n    margin: 0 auto;\n    padding: 50px 0 0;\n  }\n</style>\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -14868,7 +14868,7 @@
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n  <div class=\"wrapper\">\n\n    <router-view></router-view>\n  </div>\n</div>\n\n";
+	module.exports = "\n<div class=\"wrapper\">\n  <router-view></router-view>\n</div>\n";
 
 /***/ },
 /* 50 */
@@ -14916,8 +14916,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./marknote.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./marknote.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./marknote.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./marknote.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -14949,7 +14949,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".cm-s-tomorrow-night-eighties  .cm-header{\n  display: inline-block;\n  font-family: \"Lato-Bold\";\n  font-weight: normal;\n  font-style: normal;\n  &-1 {\n    font-size: 44px;\n    line-height: 54px;\n  }\n\n  &-2 {\n    font-size: 42px;\n    line-height: 50px;\n  }\n\n  &-3 {\n    font-size: 40px;\n    line-height: 30px;\n  }\n\n  &-4 {\n    font-size: 38px;\n    line-height: 42px;\n  }\n\n  &-5 {\n    font-size: 30px;\n    line-height: 34px;\n    text-transform: uppercase;\n  }\n\n  &-6 {\n    font-size: 24px;\n    line-height: 28px;\n    text-transform: uppercase;\n  }\n}\n\n\n/* custom */\n.marknote{\n  .CodeMirror{\n    height: 100%;\n  }\n}\n", "", {"version":3,"sources":["/./src/css/marknote.less"],"names":[],"mappings":"AAAA;EACE,sBAAsB;EACtB,yBAAyB;EACzB,oBAAoB;EACpB,mBAAmB;EACnB;IACE,gBAAgB;IAChB,kBAAkB;GACnB;;EAED;IACE,gBAAgB;IAChB,kBAAkB;GACnB;;EAED;IACE,gBAAgB;IAChB,kBAAkB;GACnB;;EAED;IACE,gBAAgB;IAChB,kBAAkB;GACnB;;EAED;IACE,gBAAgB;IAChB,kBAAkB;IAClB,0BAA0B;GAC3B;;EAED;IACE,gBAAgB;IAChB,kBAAkB;IAClB,0BAA0B;GAC3B;CACF;;;AAGD,YAAY;AACZ;EACE;IACE,aAAa;GACd;CACF","file":"marknote.less","sourcesContent":[".cm-s-tomorrow-night-eighties  .cm-header{\n  display: inline-block;\n  font-family: \"Lato-Bold\";\n  font-weight: normal;\n  font-style: normal;\n  &-1 {\n    font-size: 44px;\n    line-height: 54px;\n  }\n\n  &-2 {\n    font-size: 42px;\n    line-height: 50px;\n  }\n\n  &-3 {\n    font-size: 40px;\n    line-height: 30px;\n  }\n\n  &-4 {\n    font-size: 38px;\n    line-height: 42px;\n  }\n\n  &-5 {\n    font-size: 30px;\n    line-height: 34px;\n    text-transform: uppercase;\n  }\n\n  &-6 {\n    font-size: 24px;\n    line-height: 28px;\n    text-transform: uppercase;\n  }\n}\n\n\n/* custom */\n.marknote{\n  .CodeMirror{\n    height: 100%;\n  }\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".cm-s-tomorrow-night-eighties .cm-header {\n\n}\n\n/* custom */\n.marknote {\n  .CodeMirror {\n    height: 100%;\n    background: @baseBcakgroundColor;\n  }\n\n}\n\n.marknote {\n  display: flex;\n  padding: 1em 0.8em;\n  &-title {\n    padding: 1em 0.8em;\n    &-input {\n      width: 100%;\n      padding: 4px;\n      font-size: 2em;\n      outline: none;\n      border: none;\n      background: none;\n    }\n  }\n  &-blackboard {\n    width: 100%;\n  }\n  &-preview {\n    width: 50%;\n  }\n}\n", "", {"version":3,"sources":["/./src/css/marknote.less"],"names":[],"mappings":"AAAA;;CAEC;;AAED,YAAY;AACZ;EACE;IACE,aAAa;IACb,iCAAiC;GAClC;;CAEF;;AAED;EACE,cAAc;EACd,mBAAmB;EACnB;IACE,mBAAmB;IACnB;MACE,YAAY;MACZ,aAAa;MACb,eAAe;MACf,cAAc;MACd,aAAa;MACb,iBAAiB;KAClB;GACF;EACD;IACE,YAAY;GACb;EACD;IACE,WAAW;GACZ;CACF","file":"marknote.less","sourcesContent":[".cm-s-tomorrow-night-eighties .cm-header {\n\n}\n\n/* custom */\n.marknote {\n  .CodeMirror {\n    height: 100%;\n    background: @baseBcakgroundColor;\n  }\n\n}\n\n.marknote {\n  display: flex;\n  padding: 1em 0.8em;\n  &-title {\n    padding: 1em 0.8em;\n    &-input {\n      width: 100%;\n      padding: 4px;\n      font-size: 2em;\n      outline: none;\n      border: none;\n      background: none;\n    }\n  }\n  &-blackboard {\n    width: 100%;\n  }\n  &-preview {\n    width: 50%;\n  }\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -14970,8 +14970,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=1!./marknote.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=1!./marknote.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=1!./marknote.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=1!./marknote.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -14989,7 +14989,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".marknote {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n.marknote-blackboard {\n  width: 50%;\n}\n.marknote-preview {\n  width: 50%;\n}\n", "", {"version":3,"sources":["/./src/components/marknote.vue"],"names":[],"mappings":"AAAA;EACE,qBAAc;EAAd,sBAAc;EAAd,qBAAc;EAAd,cAAc;CACf;AACD;EACE,WAAW;CACZ;AACD;EACE,WAAW;CACZ","file":"marknote.vue","sourcesContent":[".marknote {\n  display: flex;\n}\n.marknote-blackboard {\n  width: 50%;\n}\n.marknote-preview {\n  width: 50%;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"marknote.vue","sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -15102,7 +15102,7 @@
 	      }
 	    }
 	  }
-
+	
 	};
 
 /***/ },
@@ -18724,7 +18724,7 @@
 /* 64 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n  <div class=\"marknote-title\">\n    <input type=\"text\" v-model=\"title\">\n  </div>\n  <div class=\"marknote marknote--editing\">\n    <div class=\"marknote-blackboard\">\n    </div>\n    <div class=\"marknote-preview\" v-html=\"content | marked\"></div>\n  </div>\n  <div class=\"note-controller\">\n    <button @click=\"updateArticle()\">确定</button>\n  </div>\n</div>\n";
+	module.exports = "\n<div class=\"container\">\n  <div class=\"marknote-controller\">\n    <button @click=\"updateArticle()\">确定</button>\n  </div>\n  <div class=\"marknote-title\">\n    <input type=\"text\" v-model=\"title\" class=\"marknote-title-input\" placeholder=\"输入文章标题\">\n  </div>\n  <div class=\"marknote marknote--editing\">\n    <div class=\"marknote-blackboard\">\n    </div>\n    <!--<div class=\"marknote-preview\" v-html=\"content | marked\"></div>-->\n  </div>\n</div>\n";
 
 /***/ },
 /* 65 */
@@ -18771,8 +18771,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./articleList.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./articleList.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./articleList.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./articleList.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -18885,8 +18885,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./articleItem.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./articleItem.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./articleItem.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./articleItem.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -18982,8 +18982,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./floatController.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./floatController.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./floatController.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/less-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./floatController.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});

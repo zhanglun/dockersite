@@ -64,7 +64,7 @@
 body {
   -webkit-font-feature-settings: 'liga' 1, 'kern';
   font-feature-settings: 'liga' 1, 'kern';
-  background: #f4f4f4;
+  background: #F3F3F3;
   font-family: Helvetica, Tahoma, Arial, STXihei, "\534E\6587\7EC6\9ED1", Heiti, "\9ED1\4F53", "Microsof YaHei", "\5FAE\8F6F\96C5\9ED1", SimSun, "\5B8B\4F53", sans-serif;
   color: #707070;
 }
@@ -265,41 +265,31 @@ th {
 a {
   color: #444;
 }
-.cm-s-tomorrow-night-eighties .cm-header {
-  display: inline-block;
-  font-family: "Lato-Bold";
-  font-weight: normal;
-  font-style: normal;
-}
-.cm-s-tomorrow-night-eighties .cm-header-1 {
-  font-size: 44px;
-  line-height: 54px;
-}
-.cm-s-tomorrow-night-eighties .cm-header-2 {
-  font-size: 42px;
-  line-height: 50px;
-}
-.cm-s-tomorrow-night-eighties .cm-header-3 {
-  font-size: 40px;
-  line-height: 30px;
-}
-.cm-s-tomorrow-night-eighties .cm-header-4 {
-  font-size: 38px;
-  line-height: 42px;
-}
-.cm-s-tomorrow-night-eighties .cm-header-5 {
-  font-size: 30px;
-  line-height: 34px;
-  text-transform: uppercase;
-}
-.cm-s-tomorrow-night-eighties .cm-header-6 {
-  font-size: 24px;
-  line-height: 28px;
-  text-transform: uppercase;
-}
 /* custom */
 .marknote .CodeMirror {
   height: 100%;
+  background: #F3F3F3;
+}
+.marknote {
+  display: flex;
+  padding: 1em 0.8em;
+}
+.marknote-title {
+  padding: 1em 0.8em;
+}
+.marknote-title-input {
+  width: 100%;
+  padding: 4px;
+  font-size: 2em;
+  outline: none;
+  border: none;
+  background: none;
+}
+.marknote-blackboard {
+  width: 100%;
+}
+.marknote-preview {
+  width: 50%;
 }
 html,
 body {
