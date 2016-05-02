@@ -4,7 +4,17 @@
 <template>
   <div class="container">
     <div class="marknote-controller">
-      <button @click="updateArticle()">确定</button>
+      <button @click="updateArticle()" class="marknote-btn marknote-btn__default">确定</button>
+    </div>
+    <div class="marknote-metadata">
+      <div class="marknote-metadata--catrgory">
+        <i class="material-icons">book</i>
+        Category
+      </div>
+      <div class="marknote-metadata--tags">
+        <i class="material-icons">label</i>
+        Tags
+      </div>
     </div>
     <div class="marknote-title">
       <input type="text" v-model="title" class="marknote-title-input" placeholder="输入文章标题">
