@@ -24,6 +24,7 @@ function convertObjectIdToId(target){
 task.getList = function(arguments) {
   return db.Task.findAsync(arguments[0], arguments[1])
     .then(function(res) {
+      console.log(res);
       res = convertObjectIdToId(res);
       return res;
     })

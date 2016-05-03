@@ -30,7 +30,8 @@ router.get('/:id', Auth.verifyToken, function(req, res) {
   var param = req.params;
   db.User.findOne({ _id: param.id }, { salt: false, password: false, token: false }, function(err, user) {
     if (err) {
-      throw err;
+      console.log(err);
+      // throw err;
     }
     if (!user) {
       res.send('no user');
@@ -109,15 +110,15 @@ router.post('/signup', function(req, res) {
           }
         });
       } else {
-        
+
         var _user = {
           email: email,
           username: email
         };
-        
+
         var newUser = new db.User(_user);
         newUser.makePasswordSalt(password);
-        
+
         newUser.save(function(err, user) {
           var token = jwt.sign(user, config.secert, {
             expiresIn: 1440 * 60
@@ -125,7 +126,7 @@ router.post('/signup', function(req, res) {
           res.status(200).json({
             user: {
               email: user.email,
-              name: user.username,  
+              name: user.username,
             },
             token: token
           });
