@@ -10,23 +10,48 @@ module.exports = function(app) {
   app.use('/api/user', router);
 };
 
-
-
-var UserHandler = {};
-
 /**
- * authenticate user
- * @param uid
+ * 用户认证
  */
-UserHandler.autheniticate = function(uid) {
+router.get('/authenticate', function(req, res) {
 
-};
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (token) {
+    jwt.verify(token, config.secert, function(err, decoded) {
+      if (err) {
+        return res.status(401).json({
+          success: false,
+          message: err.message
+        });
+      } else {
+        var user_data = {
+          username: decoded._doc.username,
+          email: decoded._doc.email,
+          id: decoded._doc._id
+        };
+
+        return res.status(200).json({
+          success: true,
+          message: 'Successed to authenticate token.',
+          user: user_data
+        });
+      }
+    });
+  } else {
+    return res.json({
+      success: false,
+      message: 'no token'
+    });
+  }
+
+});
 
 /**
  * 获取用户信息
  */
 router.get('/:id', Auth.verifyToken, function(req, res) {
-
+  console.log('what the fuck!!!');
   var param = req.params;
   db.User.findOne({ _id: param.id }, { salt: false, password: false, token: false }, function(err, user) {
     if (err) {
@@ -144,41 +169,4 @@ router.post('/signup', function(req, res) {
 router.post('/logout', function(req, res) {
   req.session.user = null;
   res.send('ok');
-});
-
-/**
- * 用户认证
- */
-router.post('/authenticate', function(req, res) {
-
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-  if (token) {
-    jwt.verify(token, config.secert, function(err, decoded) {
-      if (err) {
-        return res.status(401).json({
-          success: false,
-          message: err.message
-        });
-      } else {
-        var user_data = {
-          username: decoded._doc.username,
-          email: decoded._doc.email,
-          id: decoded._doc._id
-        };
-
-        return res.status(200).json({
-          success: true,
-          message: 'Successed to authenticate token.',
-          user: user_data
-        });
-      }
-    });
-  } else {
-    return res.json({
-      success: false,
-      message: 'no token'
-    });
-  }
-
 });
