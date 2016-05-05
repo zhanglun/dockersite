@@ -10,7 +10,7 @@ function convertObjectIdToId(target){
       item.id = item._id;
       delete item._id;
       delete item.__v;
-      return item
+      return item;
     });
   }else{
       target = target.toObject();
@@ -19,12 +19,11 @@ function convertObjectIdToId(target){
       delete target.__v;
   }
   return target;
-};
+}
 
-task.getList = function(arguments) {
-  return db.Task.findAsync(arguments[0], arguments[1])
+task.getList = function(query, field, options) {
+  return db.Task.findAsync(query, field, {update_time: -1})
     .then(function(res) {
-      console.log(res);
       res = convertObjectIdToId(res);
       return res;
     })

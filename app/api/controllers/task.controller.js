@@ -18,18 +18,19 @@ TaskHandler.getTasklist = function(req, res, next) {
   var query = {};
   var user = req.user;
 
-  query.userid = user._id;
+  query.user_id = user._id;
 
   TaskService.getList(query, {
       content: 0
     })
     .then(function(list) {
+      console.log(list);
       res.status(200).json(list);
     })
     .catch(function(err) {
       res.status(400).json({
         message: err
-      })
+      });
     });
 };
 
@@ -42,12 +43,14 @@ TaskHandler.getTasklist = function(req, res, next) {
 TaskHandler.createTask = function(req, res, next) {
   var param = req.body;
   var user = req.user;
-  param.userid = user._id;
+  console.log(user);
+  param.user_id = user._id;
   if (!param.title && !param.content) {
     return res.status(400).jsonp({
       code: 'NO_TITLE_OR_CONTENT'
     });
   }
+  console.log(param);
   var task = new db.Task(param);
   task.save(function(err, reply) {
     if (err) {
