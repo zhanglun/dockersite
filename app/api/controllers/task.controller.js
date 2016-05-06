@@ -15,7 +15,7 @@ var TaskHandler = {};
 
 TaskHandler.getTasklist = function(req, res, next) {
 
-  var query = {};
+  var query = req.query;
   var user = req.user;
 
   query.user_id = user._id;
@@ -43,14 +43,13 @@ TaskHandler.getTasklist = function(req, res, next) {
 TaskHandler.createTask = function(req, res, next) {
   var param = req.body;
   var user = req.user;
-  console.log(user);
   param.user_id = user._id;
   if (!param.title && !param.content) {
     return res.status(400).jsonp({
       code: 'NO_TITLE_OR_CONTENT'
     });
   }
-  console.log(param);
+
   var task = new db.Task(param);
   task.save(function(err, reply) {
     if (err) {
@@ -59,6 +58,9 @@ TaskHandler.createTask = function(req, res, next) {
         code: err
       });
     }
+    reply = reply.toObject();
+    reply.id = reply._id;
+    delete reply._id;
     res.status(200).json(reply);
   });
 };
