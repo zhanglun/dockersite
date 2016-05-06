@@ -21,7 +21,6 @@ function convertObjectIdToId(target) {
 }
 
 task.getList = function (query, field, options) {
-  console.log(query);
   return db.Task
     .find(query, field)
     .sort({ update_time: -1 })
@@ -46,9 +45,17 @@ task.get = function (query) {
     });
 };
 
-
-task.create = function () {
-
+task.create = function (param) {
+  var task = new db.Task(param);
+  return task.saveAsync()
+    .then(function (task) {
+      task = task.toObject();
+      task.id = task._id;
+      return task;
+    })
+    .catch(function (err) {
+      return err;
+    });
 };
 
 

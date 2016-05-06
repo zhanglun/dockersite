@@ -24,11 +24,10 @@ TaskHandler.getTasklist = function(req, res, next) {
       content: 0
     })
     .then(function(list) {
-      console.log(list);
       res.status(200).json(list);
     })
     .catch(function(err) {
-      res.status(400).json({
+      res.status(500).json({
         message: err
       });
     });
@@ -49,20 +48,15 @@ TaskHandler.createTask = function(req, res, next) {
       code: 'NO_TITLE_OR_CONTENT'
     });
   }
-
-  var task = new db.Task(param);
-  task.save(function(err, reply) {
-    if (err) {
-      res.status(400).json({
-        message: err.message,
-        code: err
+  TaskService.create(param)
+    .then(function(task){
+      res.status(200).json(task);
+    })
+    .catch(function(err) {
+      res.status(500).json({
+        message: err
       });
-    }
-    reply = reply.toObject();
-    reply.id = reply._id;
-    delete reply._id;
-    res.status(200).json(reply);
-  });
+    });
 };
 
 
