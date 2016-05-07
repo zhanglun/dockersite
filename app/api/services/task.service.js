@@ -48,9 +48,10 @@ task.get = function (query) {
 task.create = function (param) {
   var task = new db.Task(param);
   return task.saveAsync()
-    .then(function (task) {
+    .spread(function (task) {
       task = task.toObject();
       task.id = task._id;
+      console.log(task);
       return task;
     })
     .catch(function (err) {

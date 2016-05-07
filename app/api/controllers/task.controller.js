@@ -50,6 +50,7 @@ TaskHandler.createTask = function(req, res, next) {
   }
   TaskService.create(param)
     .then(function(task){
+      console.log(task);
       res.status(200).json(task);
     })
     .catch(function(err) {
@@ -89,33 +90,6 @@ TaskHandler.updateTask = function(req, res, next) {
 
 TaskHandler.deleteTask = function(req, res, next) {
   var id = req.params.id;
-  // console.log(req.params);
-  // if (!_id) {
-  //   return res.status(400).jsonp({
-  //     message: 'task id is not correct',
-  //     code: 400
-  //   });
-  // }
-  // db.Task.findByIdAndRemove(_id, function(err, task) {
-
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(400).jsonp({
-  //       message: err.message,
-  //       code: err
-  //     });
-  //   }
-  //   if (task.attachments.length > 0) {
-  //     var _pathlist = task.attachments.map(function(item, i) {
-  //       return item.name;
-  //     });
-  //     // QnUtil.deleteFile(_pathlist)
-  //     //   .then(function(){
-
-  //     //   });
-  //   }
-  //   res.status(200).jsonp(task);
-  // });
   TaskService.delete({_id: id})
     .then(function(task){
       res.status(200).json(task);
