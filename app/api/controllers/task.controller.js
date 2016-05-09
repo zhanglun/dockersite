@@ -50,7 +50,6 @@ TaskHandler.createTask = function(req, res, next) {
   }
   TaskService.create(param)
     .then(function(task){
-      console.log(task);
       res.status(200).json(task);
     })
     .catch(function(err) {

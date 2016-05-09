@@ -51,7 +51,6 @@ task.create = function (param) {
     .spread(function (task) {
       task = task.toObject();
       task.id = task._id;
-      console.log(task);
       return task;
     })
     .catch(function (err) {
