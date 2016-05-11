@@ -48,12 +48,13 @@ task.get = function (query) {
 task.create = function (param) {
   var task = new db.Task(param);
   return task.saveAsync()
-    .spread(function (task) {
+    .then(function (task) {
       task = task.toObject();
       task.id = task._id;
       return task;
     })
     .catch(function (err) {
+      console.log('err', err);
       return err;
     });
 };
