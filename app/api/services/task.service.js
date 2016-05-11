@@ -58,6 +58,12 @@ task.create = function (param) {
     });
 };
 
+task.update = function(id, param){
+  return db.Task.updateAsync({_id: id}, {$set: param})
+    .then(function(task){
+      return task;  
+    });
+}
 
 task.delete = function (query) {
   return db.Task.findOneAndRemoveAsync(query)

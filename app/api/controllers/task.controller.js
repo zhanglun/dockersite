@@ -5,7 +5,7 @@ var QnUtil = require('./lib/qiniu');
 var Auth = require('../services/auth.service.js');
 var TaskService = require('../services/task.service.js');
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.use('/api/tasks', router);
 };
 
@@ -13,7 +13,7 @@ module.exports = function(app) {
 
 var TaskHandler = {};
 
-TaskHandler.getTasklist = function(req, res, next) {
+TaskHandler.getTasklist = function (req, res, next) {
 
   var query = req.query;
   var user = req.user;
@@ -21,12 +21,12 @@ TaskHandler.getTasklist = function(req, res, next) {
   query.user_id = user._id;
 
   TaskService.getList(query, {
-      content: 0
-    })
-    .then(function(list) {
+    content: 0
+  })
+    .then(function (list) {
       res.status(200).json(list);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       res.status(500).json({
         message: err
       });
@@ -39,7 +39,7 @@ TaskHandler.getTasklist = function(req, res, next) {
  * @param res
  * @param next
  */
-TaskHandler.createTask = function(req, res, next) {
+TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
   var user = req.user;
   param.user_id = user._id;
@@ -49,10 +49,10 @@ TaskHandler.createTask = function(req, res, next) {
     });
   }
   TaskService.create(param)
-    .then(function(task){
+    .then(function (task) {
       res.status(200).json(task);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       res.status(500).json({
         message: err
       });
@@ -66,24 +66,15 @@ TaskHandler.createTask = function(req, res, next) {
  * @param res
  * @param next
  */
-TaskHandler.updateTask = function(req, res, next) {
+TaskHandler.updateTask = function (req, res, next) {
   var param = req.body;
   var _id = req.params.id;
-  delete param._id;
-  db.Task.update({
-    _id: _id
-  }, {
-    $set: param
-  }, function(err, reply) {
-    if (err) {
-      console.log(err);
-      res.status(400).jsonp({
-        message: err.message,
-        code: err
-      });
-    }
-    res.status(200).jsonp(reply);
-  });
+  delete param.id;
+  param.update_time = new Date();
+  TaskService.update(_id, param)
+    .then(function(task){
+      res.status(200).json(task);
+    });
 };
 
 
