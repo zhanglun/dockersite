@@ -13,38 +13,10 @@ module.exports = function(app) {
 /**
  * 用户认证
  */
-router.get('/authenticate', function(req, res) {
-
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-  if (token) {
-    jwt.verify(token, config.secert, function(err, decoded) {
-      if (err) {
-        return res.status(401).json({
-          success: false,
-          message: err.message
-        });
-      } else {
-        var user_data = {
-          username: decoded._doc.username,
-          email: decoded._doc.email,
-          id: decoded._doc._id
-        };
-
-        return res.status(200).json({
-          success: true,
-          message: 'Successed to authenticate token.',
-          user: user_data
-        });
-      }
-    });
-  } else {
-    return res.json({
-      success: false,
-      message: 'no token'
-    });
-  }
-
+router.get('/authenticate', Auth.verifyToken, function(req, res) {
+  res.status(200).json({
+    user: req.user
+  });
 });
 
 /**
