@@ -11,35 +11,25 @@ module.exports = function(app) {
 };
 
 /**
- * 用户认证
- */
-router.get('/authenticate', Auth.verifyToken, function(req, res) {
-  res.status(200).json({
-    user: req.user
-  });
-});
-
-/**
  * 获取用户信息
  */
 router.get('/:id', Auth.verifyToken, function(req, res) {
-  console.log('what the fuck!!!');
   var param = req.params;
-  db.User.findOne({ _id: param.id }, { salt: false, password: false, token: false }, function(err, user) {
-    if (err) {
-      console.log(err);
-      // throw err;
-    }
+  console.log(param);
+  db.User.findOne({ _id: param.id }, {_id: 1, email: 1, username: 1}, function(err, user) {
     if (!user) {
-      res.send('no user');
+      res.status(200).json({
+        messager: 'no user'
+      });
     }
     if (user) {
+      user = user.toObject();
+      user.id = user._id;
+      delete user._id;
       res.send(user);
     }
   });
-
 });
-
 
 /**
  * 登录
