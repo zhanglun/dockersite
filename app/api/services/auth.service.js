@@ -14,7 +14,13 @@ function verifyToken(req, res, next) {
           message: 'Failed to authenticate token.'
         });
       } else {
-        req.user = decoded._doc;
+        var user = {
+          id: decoded._doc._id,
+          email: decoded._doc.email,
+          username: decoded._doc.username,
+          avatar: decoded._doc.avatar,
+        };
+        req.user = user;
         console.log('verify token success');
         next();
       }

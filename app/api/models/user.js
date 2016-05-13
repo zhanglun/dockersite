@@ -7,7 +7,8 @@ var User = new Schema({
   username: String,
   salt: String,
   email: String,
-  password: String
+  password: String,
+  avatar: String,
 });
 
 /**

@@ -1,6 +1,7 @@
 var express = require('express');
 var jwt = require('jsonwebtoken');
 var config = require('../../../config/config.js');
+var gravatar = require('gravatar');
 
 var router = express.Router();
 var db = require('../models');
@@ -16,7 +17,7 @@ module.exports = function(app) {
 router.get('/:id', Auth.verifyToken, function(req, res) {
   var param = req.params;
   console.log(param);
-  db.User.findOne({ _id: param.id }, {_id: 1, email: 1, username: 1}, function(err, user) {
+  db.User.findOne({ _id: param.id }, {_id: 1, email: 1, username: 1, avatar: 1}, function(err, user) {
     if (!user) {
       res.status(200).json({
         messager: 'no user'
@@ -25,6 +26,7 @@ router.get('/:id', Auth.verifyToken, function(req, res) {
     if (user) {
       user = user.toObject();
       user.id = user._id;
+      user.avatar = gravatar.url(user.email);
       delete user._id;
       res.send(user);
     }
@@ -100,7 +102,8 @@ router.post('/signup', function(req, res) {
 
         var _user = {
           email: email,
-          username: email
+          username: email,
+          avatar: gravatar.url(email)
         };
 
         var newUser = new db.User(_user);
