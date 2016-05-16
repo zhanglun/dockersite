@@ -54,7 +54,6 @@ Blog.createArticle = function(article) {
   var newArticle = db.Article(article);
   return newArticle.saveAsync()
     .then(function(result) {
-      // result -> [article, 1]
       article = convertObjectIdToId(result[0]);
       return article;
     })

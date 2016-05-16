@@ -1,11 +1,12 @@
 var db = require('../models');
 var jwt  = require('jsonwebtoken');
 var config = require('../../../config/config.js');
+var gravatar = require('gravatar');
 
 
 function verifyToken(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
+  console.log('verifyToken start');
   if (token) {
     jwt.verify(token, config.secert, function (err, decoded) {
       if (err) {
@@ -18,7 +19,7 @@ function verifyToken(req, res, next) {
           id: decoded._doc._id,
           email: decoded._doc.email,
           username: decoded._doc.username,
-          avatar: decoded._doc.avatar,
+          avatar: gravatar.url(decoded._doc.email)
         };
         req.user = user;
         console.log('verify token success');
