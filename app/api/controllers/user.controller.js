@@ -26,7 +26,7 @@ router.get('/:id', Auth.verifyToken, function(req, res) {
     if (user) {
       user = user.toObject();
       user.id = user._id;
-      user.avatar = gravatar.url(user.email);
+      user.avatar = gravatar.url(user.email, {protocol: 'http', s: '100'});
       delete user._id;
       res.send(user);
     }
@@ -103,7 +103,7 @@ router.post('/signup', function(req, res) {
         var _user = {
           email: email,
           username: email,
-          avatar: gravatar.url(email)
+          avatar: gravatar.url(email, {protocol: 'http', s: '100'}),
         };
 
         var newUser = new db.User(_user);

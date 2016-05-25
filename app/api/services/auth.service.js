@@ -1,5 +1,6 @@
 var db = require('../models');
 var jwt  = require('jsonwebtoken');
+var gravatar = require('gravatar');
 var config = require('../../../config/config.js');
 
 
@@ -18,7 +19,8 @@ function verifyToken(req, res, next) {
           id: decoded._doc._id,
           email: decoded._doc.email,
           username: decoded._doc.username,
-          avatar: decoded._doc.avatar,
+          // avatar: decoded._doc.avatar,
+          avatar: gravatar.url(decoded._doc.email, {protocol: 'http', s: '100'})
         };
         req.user = user;
         console.log('verify token success');
