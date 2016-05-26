@@ -21,9 +21,11 @@ function convertObjectIdToId(target) {
 }
 
 task.getList = function (query, field, options) {
+  var _sort = query.completed ? {update_time: 1} : {create_time: -1};
+  console.log(_sort);
   return db.Task
     .find(query, field)
-    .sort({ update_time: -1 })
+    .sort(_sort)
     .execAsync()
     .then(function (res) {
       res = convertObjectIdToId(res);
@@ -62,7 +64,7 @@ task.create = function (param) {
 task.update = function(id, param){
   return db.Task.updateAsync({_id: id}, {$set: param})
     .then(function(task){
-      return task;  
+      return task;
     });
 }
 

@@ -19,7 +19,6 @@ function verifyToken(req, res, next) {
           id: decoded._doc._id,
           email: decoded._doc.email,
           username: decoded._doc.username,
-          // avatar: decoded._doc.avatar,
           avatar: gravatar.url(decoded._doc.email, {protocol: 'http', s: '100'})
         };
         req.user = user;
