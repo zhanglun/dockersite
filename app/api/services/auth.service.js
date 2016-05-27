@@ -2,11 +2,12 @@ var db = require('../models');
 var jwt  = require('jsonwebtoken');
 var gravatar = require('gravatar');
 var config = require('../../../config/config.js');
+var gravatar = require('gravatar');
 
 
 function verifyToken(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
+  console.log('verifyToken start');
   if (token) {
     jwt.verify(token, config.secert, function (err, decoded) {
       if (err) {
