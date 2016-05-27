@@ -10,7 +10,7 @@ function convertObjectIdToId(target) {
       item.id = item._id;
       delete item._id;
       delete item.__v;
-      return item
+      return item;
     });
   } else {
     target.id = target._id;
