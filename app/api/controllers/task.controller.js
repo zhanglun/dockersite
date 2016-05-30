@@ -9,8 +9,6 @@ module.exports = function (app) {
   app.use('/api/tasks', router);
 };
 
-
-
 var TaskHandler = {};
 
 TaskHandler.getTasklist = function (req, res, next) {
@@ -77,7 +75,13 @@ TaskHandler.updateTask = function (req, res, next) {
     });
 };
 
-
+/**
+ * 删除task
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 TaskHandler.deleteTask = function(req, res, next) {
   var id = req.params.id;
   TaskService.delete({_id: id})
@@ -89,6 +93,13 @@ TaskHandler.deleteTask = function(req, res, next) {
     });
 };
 
+/**
+ * 通过id获取task
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 TaskHandler.getTaskById = function(req, res, next) {
   var id = req.params.id;
   TaskService.get({
@@ -120,6 +131,9 @@ TaskHandler.getArchivedTasks = function(req, res, next) {
   });
 };
 
+TaskHandler.getCategories = function(req, res, next){
+  
+};
 
 // =======================================================================//
 // Routers                                                                //
