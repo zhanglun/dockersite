@@ -34,12 +34,13 @@ function convertObjectIdToId(target) {
 }
 
 task.getList = function(query, field, options) {
-  var _sort = query.completed ? {
-    update_time: -1
-  } : {
-    create_time: -1
-  };
+  // var _sort = query.completed ? {
+  //   update_time: -1
+  // } : {
+  //   create_time: -1
+  // };
   console.log(_sort);
+  var _sort = {create_time: -1};
   return db.Task
     .find(query, field)
     .sort(_sort)
