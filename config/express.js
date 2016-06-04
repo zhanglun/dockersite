@@ -68,7 +68,6 @@ module.exports = function (app, config) {
 
   if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
-      console.log('---->');
       res.status(err.status || 500);
       // throw err;
       res.send({
@@ -81,7 +80,6 @@ module.exports = function (app, config) {
   }
 
   app.use(function (err, req, res, next) {
-      console.log('---->2');
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -89,6 +87,4 @@ module.exports = function (app, config) {
       title: 'error'
     });
   });
-
-
 };

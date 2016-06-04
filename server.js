@@ -1,6 +1,7 @@
 var express = require('express');
 var config = require('./config/config');
 var glob = require('glob');
+var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 var redis = require('redis');
 
@@ -27,14 +28,14 @@ if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   var username = process.env.MONGODB_USERNAME;
   mongoose.connect('mongodb://' + username + ':' + password + '@' + addr + ':' + port + '/' + instance);
   db = mongoose.connection;
-  
+
   redisClient.auth(config.redis.password, function () {
   });
 
 } else {
   env = 'development';
   PORT = config.port;
-  
+
   mongoose.connect(config.mongodb.host);
   db = mongoose.connection;
 
