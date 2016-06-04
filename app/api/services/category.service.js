@@ -20,7 +20,7 @@ category.getList = function(userid) {
 
 category.get = function(categoryid) {
   return new Promise(function(resolve, reject) {
-    db.Category.find({
+    db.Category.findOne({
       _id: categoryid
     }, function(err, category) {
       if (err) {
@@ -66,8 +66,18 @@ category.update = function(categoryid, param) {
   });
 };
 
-category.delete = function() {
-  return new Promise();
+category.remove = function(categoryid) {
+  return new Promise(function(resolve, reject) {
+    db.Category.remove({
+      _id: categoryid
+    }, function(err, reply) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(reply);
+      }
+    });
+  });
 };
 
 module.exports = category;

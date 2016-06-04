@@ -54,3 +54,11 @@ router.put('/:id', function(req, res, next){
       res.status(200).json(category);
     });
 });
+
+router.delete('/:id', function(req, res, next){
+  var categoryId = req.params.id;
+  categoriesService.remove(categoryId)
+    .then(function(category){
+      res.status(200).json(category);
+    });
+});
