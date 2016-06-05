@@ -1,5 +1,6 @@
 var db = require('../models');
 var Moment = require('moment');
+var UtilTool = require('../util/tool');
 
 var task = {};
 
@@ -69,8 +70,7 @@ task.create = function(param) {
   var task = new db.Task(param);
   return task.saveAsync()
     .then(function(task) {
-      task = task.toObject();
-      task.id = task._id;
+      task = UtilTool.convertObjectIdToId(task);
       return task;
     })
     .catch(function(err) {

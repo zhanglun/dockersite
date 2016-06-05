@@ -132,7 +132,7 @@ TaskHandler.getArchivedTasks = function(req, res, next) {
 };
 
 TaskHandler.getCategories = function(req, res, next){
-  
+
 };
 
 // =======================================================================//

@@ -14,7 +14,7 @@ var TaskSchema = new Schema({
     create_time: {type: Date, default: Date.now},
     deadline:{type: Date, default: Date.now},
     update_time: {type: Date, default: Date.now},
-    category: '',
+    list_id: String,
     completed: {type: Boolean, default: false},
     isoverdue: {type: Boolean, default: false},
     lables: [],
@@ -22,4 +22,3 @@ var TaskSchema = new Schema({
 });
 
 module.exports = TaskSchema;
-
