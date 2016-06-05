@@ -1,32 +1,31 @@
 var db = require('../models');
-var Moment = require('moment');
+var UtilTool = require('../util/tool');
 
 var category = {};
 
 category.getList = function(userid) {
   return new Promise(function(resolve, reject) {
-    db.Category.find({}, function(err, list) {
+    db.List.find({}, function(err, lists) {
       if (err) {
         reject(err);
       } else {
-        resolve(list);
+        lists = UtilTool.convertObjectIdToId(lists);
+        resolve(lists);
       }
     });
-  });
-  return db.Task.find({
-    userid
   });
 };
 
 category.get = function(categoryid) {
   return new Promise(function(resolve, reject) {
-    db.Category.findOne({
+    db.List.findOne({
       _id: categoryid
-    }, function(err, category) {
+    }, function(err, list) {
       if (err) {
         reject(err);
       } else {
-        resolve(category);
+        list = UtilTool.convertObjectIdToId(list);
+        resolve(list);
       }
     });
   });
@@ -34,12 +33,13 @@ category.get = function(categoryid) {
 
 category.create = function(param) {
   return new Promise(function(resolve, reject) {
-    var category = new db.Category(param);
-    category.save(function(err, category) {
+    var category = new db.List(param);
+    category.save(function(err, list) {
       if (err) {
         reject(err);
       } else {
-        resolve(category);
+        list = UtilTool.convertObjectIdToId(list);
+        resolve(list);
       }
     });
   });
@@ -49,18 +49,18 @@ category.update = function(categoryid, param) {
   var _update = {};
   param.name ? _update.name = param.name : null;
   return new Promise(function(resolve, reject) {
-    db.Category.findOneAndUpdate({
+    db.List.findOneAndUpdate({
       _id: categoryid
     }, {
       $set: _update
     }, {
       new: true
     }, function(err, reply) {
-      console.log(arguments);
       if (err) {
         reject(err);
       } else {
-        resolve(reply);
+        list = UtilTool.convertObjectIdToId(list);
+        resolve(list);
       }
     });
   });
@@ -68,7 +68,7 @@ category.update = function(categoryid, param) {
 
 category.remove = function(categoryid) {
   return new Promise(function(resolve, reject) {
-    db.Category.remove({
+    db.List.remove({
       _id: categoryid
     }, function(err, reply) {
       if (err) {

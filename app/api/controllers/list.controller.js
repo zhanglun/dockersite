@@ -1,17 +1,17 @@
-var express = require('express');
+var express = require( 'express' );
 var router = express.Router();
 var db = require('../models');
 
 var Auth = require('../services/auth.service.js');
-var categoriesService = require('../services/category.service.js');
+var listService = require('../services/list.service.js');
 
 module.exports = function(app) {
-  app.use('/api/categories', router);
+  app.use('/api/lists', router);
 };
 
 
 router.get('/', function(req, res, next) {
-  categoriesService.getList()
+  listService.getList()
     .then(function(list) {
       res.status(200).json(list);
     })
@@ -21,9 +21,9 @@ router.get('/', function(req, res, next) {
 });
 router.get('/:id', function(req, res, next) {
   var categoryId = req.params.id;
-  categoriesService.get(categoryId)
-    .then(function(category) {
-      res.status(200).json(category);
+  listService.get(categoryId)
+    .then(function(list) {
+      res.status(200).json(list);
     })
     // .catch(function(err){
     //
@@ -37,9 +37,9 @@ router.post('/', function(req, res, next) {
       message: 'no name'
     });
   }
-  categoriesService.create(param)
-    .then(function(category) {
-      res.status(200).json(category);
+  listService.create(param)
+    .then(function(list) {
+      res.status(200).json(list);
     })
     // .catch(function(err){
     //   res.status(err.status).send({});
@@ -49,16 +49,16 @@ router.post('/', function(req, res, next) {
 router.put('/:id', function(req, res, next){
   var categoryId = req.params.id;
   var param = req.body;
-  categoriesService.update(categoryId, param)
-    .then(function(category){
-      res.status(200).json(category);
+  listService.update(categoryId, param)
+    .then(function(list){
+      res.status(200).json(list);
     });
 });
 
 router.delete('/:id', function(req, res, next){
   var categoryId = req.params.id;
-  categoriesService.remove(categoryId)
-    .then(function(category){
-      res.status(200).json(category);
+  listService.remove(categoryId)
+    .then(function(list){
+      res.status(200).json(list);
     });
 });
