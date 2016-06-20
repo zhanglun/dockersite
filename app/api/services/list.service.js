@@ -56,7 +56,8 @@ category.update = function(categoryid, param) {
       $set: _update
     }, {
       new: true
-    }, function(err, reply) {
+    }, function(err, list) {
+      console.log(arguments);
       if (err) {
         reject(err);
       } else {

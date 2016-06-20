@@ -121,6 +121,7 @@ router.post('/signup', function(req, res) {
             token: token
           });
         });
+        // TODO: 用户注册时，自动创建一个 inbox 的 list
       }
     });
 
