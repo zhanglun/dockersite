@@ -49,6 +49,8 @@ router.post('/', function(req, res, next) {
 router.put('/:id', function(req, res, next){
   var categoryId = req.params.id;
   var param = req.body;
+  console.log(param);
+  console.log(categoryId);
   listService.update(categoryId, param)
     .then(function(list){
       res.status(200).json(list);
