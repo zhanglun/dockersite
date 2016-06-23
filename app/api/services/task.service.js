@@ -1,6 +1,7 @@
 var db = require('../models');
 var Moment = require('moment');
 var UtilTool = require('../util/tool');
+var listService = require('./list.service.js');
 
 var task = {};
 
@@ -71,6 +72,7 @@ task.create = function(param) {
   return task.saveAsync()
     .then(function(task) {
       task = UtilTool.convertObjectIdToId(task);
+      listService.updateTotal(1);
       return task;
     })
     .catch(function(err) {

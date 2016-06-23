@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
     //
     // });
 });
+
 router.get('/:id', function(req, res, next) {
   var categoryId = req.params.id;
   listService.get(categoryId)

@@ -82,4 +82,9 @@ category.remove = function(categoryid) {
   });
 };
 
+
+category.updateTotalTaskCount = function(id, count){
+
+};
+
 module.exports = category;
