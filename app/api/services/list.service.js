@@ -82,6 +82,9 @@ category.remove = function(categoryid) {
   });
 };
 
+
+
+
 /**
  * test
  * @param  {[type]} id    [description]
@@ -113,6 +116,23 @@ category.initTotalTaskCount = function(id, count){
   });
 };
 
-category.initTotalTaskCount('575438ddcb9036a0c0fcf801');
+/**
+ * [updateTotalCount description]
+ * @param  {[type]} id    [description]
+ * @param  {[type]} count [description]
+ * @return {[type]}       [description]
+ */
+category.updateTaskCount = function(id, param){
+  var promise = db.List.findById(id);
+
+  promise.then(function(list){
+    list.task_count_total  += (param.total || 0);
+    list.task_count_completed  += (param.completed || 0);
+    list.task_count_archived  += (param.archived || 0);
+  });
+
+}
+
+// category.updateTaskCount('5754d3a807fb99e02cffbc09');
 
 module.exports = category;

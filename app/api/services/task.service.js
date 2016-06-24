@@ -72,7 +72,7 @@ task.create = function(param) {
   return task.saveAsync()
     .then(function(task) {
       task = UtilTool.convertObjectIdToId(task);
-      listService.updateTotal(1);
+      // listService.updateTaskCount(param.list_id, {total: 1});
       return task;
     })
     .catch(function(err) {
@@ -95,6 +95,7 @@ task.update = function(id, param) {
 task.delete = function(query) {
   return db.Task.findOneAndRemoveAsync(query)
     .then(function(task) {
+      // listService.updateTaskCount(param.list_id, {total: -1});
       return task;
     })
     .catch(function(err) {
