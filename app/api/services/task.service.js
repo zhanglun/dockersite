@@ -10,10 +10,10 @@ function convertObjectIdToId(target) {
     target = target.map(function(item) {
       item = item.toObject();
       item.id = item._id;
-      if(item.update_time){
+      if (item.update_time) {
         item.update_time = Moment(item.update_time).format('YYYY-MM-DD HH:mm:ss');
       }
-      if(item.create_time){
+      if (item.create_time) {
         item.create_time = Moment(item.create_time).format('YYYY-MM-DD HH:mm:ss');
       }
       delete item._id;
@@ -23,10 +23,10 @@ function convertObjectIdToId(target) {
   } else {
     target = target.toObject();
     target.id = target._id;
-    if(target.update_time){
+    if (target.update_time) {
       target.update_time = Moment(target.update_time).format('YYYY-MM-DD HH:mm:ss');
     }
-    if(target.create_time){
+    if (target.create_time) {
       target.create_time = Moment(target.create_time).format('YYYY-MM-DD HH:mm:ss');
     }
     delete target._id;
@@ -42,7 +42,7 @@ task.getList = function(query, field, options) {
   //   create_time: -1
   // };
   console.log(_sort);
-  var _sort = {create_time: -1};
+  var _sort = { create_time: -1 };
   return db.Task
     .find(query, field)
     .sort(_sort)
@@ -72,7 +72,7 @@ task.create = function(param) {
   return task.saveAsync()
     .then(function(task) {
       task = UtilTool.convertObjectIdToId(task);
-      // listService.updateTaskCount(param.list_id, {total: 1});
+      listService.updateTaskCount(param.list_id, { total: 1 })
       return task;
     })
     .catch(function(err) {
@@ -95,7 +95,7 @@ task.update = function(id, param) {
 task.delete = function(query) {
   return db.Task.findOneAndRemoveAsync(query)
     .then(function(task) {
-      // listService.updateTaskCount(param.list_id, {total: -1});
+      listService.updateTaskCount(param.list_id, {total: -1});
       return task;
     })
     .catch(function(err) {

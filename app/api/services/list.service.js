@@ -125,10 +125,13 @@ category.initTotalTaskCount = function(id, count){
 category.updateTaskCount = function(id, param){
   var promise = db.List.findById(id);
 
-  promise.then(function(list){
+  return promise.then(function(list){
     list.task_count_total  += (param.total || 0);
     list.task_count_completed  += (param.completed || 0);
     list.task_count_archived  += (param.archived || 0);
+    return list.save(function(){
+      return arguments
+    });
   });
 
 }
