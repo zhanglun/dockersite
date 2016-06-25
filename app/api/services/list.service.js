@@ -91,27 +91,27 @@ category.remove = function(categoryid) {
  * @param  {[type]} count [description]
  * @return {[type]}       [description]
  */
-category.initTotalTaskCount = function(id, count){
-  return new Promise(function(resolve, reject){
-    var promise = db.List.findById(id);
-    promise.then(function(list){
-      db.Task.find({list_id: id}).exec()
-        .then(function(tasks){
-          var task_completed = 0;
-          var task_total = 0;
-          task_total = tasks.length;
-          tasks.map(function(item){
-            if(item.completed){
-              task_completed += 1;
-            }
-          });
-          list.task_count_completed = task_completed;
-          list.task_count_total = task_total;
-          list.save(function(){
-            console.log(arguments);
-          });
+category.initTotalTaskCount = function(id, count) {
+  var promise = db.List.findById(id);
+  promise.then(function(list) {
+    db.Task.find({
+        list_id: id
+      }).exec()
+      .then(function(tasks) {
+        var task_completed = 0;
+        var task_total = 0;
+        task_total = tasks.length;
+        tasks.map(function(item) {
+          if (item.completed) {
+            task_completed += 1;
+          }
         });
-    });
+        list.task_count_completed = task_completed;
+        list.task_count_total = task_total;
+        list.save(function() {
+          console.log(arguments);
+        });
+      });
 
   });
 };
@@ -122,20 +122,19 @@ category.initTotalTaskCount = function(id, count){
  * @param  {[type]} count [description]
  * @return {[type]}       [description]
  */
-category.updateTaskCount = function(id, param){
+category.updateTaskCount = function(id, param) {
   var promise = db.List.findById(id);
 
-  return promise.then(function(list){
-    list.task_count_total  += (param.total || 0);
-    list.task_count_completed  += (param.completed || 0);
-    list.task_count_archived  += (param.archived || 0);
-    return list.save(function(){
-      return arguments
-    });
+  promise.then(function(list) {
+    list.task_count_total += (param.total || 0);
+    list.task_count_completed += (param.completed || 0);
+    list.task_count_archived += (param.archived || 0);
+    console.log(list);
+    list.save();
   });
 
 }
 
-// category.updateTaskCount('5754d3a807fb99e02cffbc09');
+category.initTotalTaskCount('57543ac014462731c40460d0');
 
 module.exports = category;

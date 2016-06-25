@@ -95,7 +95,8 @@ task.update = function(id, param) {
 task.delete = function(query) {
   return db.Task.findOneAndRemoveAsync(query)
     .then(function(task) {
-      listService.updateTaskCount(param.list_id, {total: -1});
+      console.log(1111);
+      listService.updateTaskCount(task.list_id, {total: -1});
       return task;
     })
     .catch(function(err) {
