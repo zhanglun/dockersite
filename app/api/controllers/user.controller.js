@@ -12,6 +12,13 @@ module.exports = function(app) {
 };
 
 /**
+ * 用户认证
+ */
+router.get('/authenticate', Auth.verifyToken, function(req, res) {
+  res.status(200).json(req.user);
+});
+
+/**
  * 获取用户信息
  */
 router.get('/:id', Auth.verifyToken, function(req, res) {
@@ -62,12 +69,8 @@ router.post('/login', function(req, res) {
     var token = jwt.sign(user, config.secert, {
       expiresIn: 1440 * 60
     });
-    var result = {
-      user: {
-        email: user
-      },
-      token: token
-    };
+    var result =  user;
+    result.token = token;
 
     req.session.logined = true;
     req.session.user = {
