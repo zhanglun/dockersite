@@ -66,7 +66,7 @@ module.exports = function (app, config) {
   });
 
 
-  if (app.get('env') === 'development') {
+  if (app.get('env') === 'production') {
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
       // throw err;
@@ -79,12 +79,12 @@ module.exports = function (app, config) {
     });
   }
 
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err,
-      title: 'error'
-    });
-  });
+  // app.use(function (err, req, res, next) {
+  //   res.status(err.status || 500);
+  //   res.send({
+  //     message: err.message,
+  //     error: err,
+  //     title: 'error'
+  //   });
+  // });
 };

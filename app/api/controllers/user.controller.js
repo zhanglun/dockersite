@@ -6,17 +6,11 @@ var gravatar = require('gravatar');
 var router = express.Router();
 var db = require('../models');
 var Auth = require('../services/auth.service.js');
+var UtilTool = require('../util/tool');
 
 module.exports = function(app) {
   app.use('/api/user', router);
 };
-
-/**
- * 用户认证
- */
-router.get('/authenticate', Auth.verifyToken, function(req, res) {
-  res.status(200).json(req.user);
-});
 
 /**
  * 获取用户信息
@@ -24,7 +18,7 @@ router.get('/authenticate', Auth.verifyToken, function(req, res) {
 router.get('/:id', Auth.verifyToken, function(req, res) {
   var param = req.params;
   console.log(param);
-  db.User.findOne({ _id: param.id }, {_id: 1, email: 1, username: 1, avatar: 1}, function(err, user) {
+  db.User.findOne({ _id: param.id }, { _id: 1, email: 1, username: 1, avatar: 1 }, function(err, user) {
     if (!user) {
       res.status(200).json({
         messager: 'no user'
@@ -33,7 +27,7 @@ router.get('/:id', Auth.verifyToken, function(req, res) {
     if (user) {
       user = user.toObject();
       user.id = user._id;
-      user.avatar = gravatar.url(user.email, {protocol: 'http', s: '100'});
+      user.avatar = gravatar.url(user.email, { protocol: 'http', s: '100' });
       delete user._id;
       res.send(user);
     }
@@ -65,11 +59,10 @@ router.post('/login', function(req, res) {
       });
     }
 
-
     var token = jwt.sign(user, config.secert, {
       expiresIn: 1440 * 60
     });
-    var result =  user;
+    var result = UtilTool.convertObjectIdToId(user);
     result.token = token;
 
     req.session.logined = true;
@@ -106,7 +99,7 @@ router.post('/signup', function(req, res) {
         var _user = {
           email: email,
           username: email,
-          avatar: gravatar.url(email, {protocol: 'http', s: '100'}),
+          avatar: gravatar.url(email, { protocol: 'http', s: '100' }),
         };
 
         var newUser = new db.User(_user);

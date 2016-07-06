@@ -9,3 +9,10 @@ module.exports = function(app) {
 router.get('/', function(req, res, next) {
   res.send('Hello! The API is at http://localhost:' + '1234' + '/api');
 });
+
+/**
+ * 用户认证
+ */
+router.get('/authenticate', Auth.verifyToken, function(req, res) {
+  res.status(200).json(req.user);
+});
