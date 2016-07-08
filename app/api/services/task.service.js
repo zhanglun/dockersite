@@ -41,7 +41,6 @@ task.getList = function(query, field, options) {
   // } : {
   //   create_time: -1
   // };
-  console.log(_sort);
   var _sort = { create_time: -1 };
   return db.Task
     .find(query, field)
@@ -49,11 +48,8 @@ task.getList = function(query, field, options) {
     .execAsync()
     .then(function(res) {
       res = convertObjectIdToId(res);
+      listService.initTotalTaskCount(query.list_id);
       return res;
-    })
-    .then(function(res){
-     listService.initTotalTaskCount(query.list_id);
-     return res;
     })
     .catch(function(err) {
       return err;
@@ -86,20 +82,30 @@ task.create = function(param) {
 };
 
 task.update = function(id, param) {
-  return db.Task.updateAsync({
+  return new Promise(function(resolve, reject) {
+    db.Task.findOneAndUpdate({
       _id: id
     }, {
       $set: param
-    })
-    .then(function(task) {
-      return task;
+    }, {
+      new: true
+    }, function(err, task) {
+      console.log(task);
+      if (err) {
+        reject(err);
+      } else {
+        task = UtilTool.convertObjectIdToId(task);
+        resolve(task);
+      }
     });
+  });
 };
 
 task.delete = function(query) {
   return db.Task.findOneAndRemoveAsync(query)
     .then(function(task) {
-      listService.updateTaskCount(task.list_id, {total: -1});
+      listService.updateTaskCount(task.list_id, { total: -1 });
+      task = UtilTool.convertObjectIdToId(task);
       return task;
     })
     .catch(function(err) {

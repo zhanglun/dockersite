@@ -46,7 +46,6 @@ category.create = function(param) {
 };
 
 category.update = function(categoryid, param) {
-  console.log(arguments);
   var _update = {};
   param.name ? _update.name = param.name : null;
   return new Promise(function(resolve, reject) {
