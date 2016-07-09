@@ -100,6 +100,7 @@ task.delete = function(query) {
   return db.Task.findOneAndRemoveAsync(query)
     .then(function(task) {
       listService.updateTaskCount(task.list_id, {total: -1});
+      task = convertObjectIdToId(task);
       return task;
     })
     .catch(function(err) {
