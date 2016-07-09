@@ -9,7 +9,7 @@ var Auth = require('../services/auth.service.js');
 var UtilTool = require('../util/tool');
 
 module.exports = function(app) {
-  app.use('/api/user', router);
+  app.use('/api/users', router);
 };
 
 /**
