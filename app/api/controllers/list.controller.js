@@ -10,7 +10,7 @@ module.exports = function(app) {
 };
 
 
-router.get('/', function(req, res, next) {
+router.get('/', Auth.verifyToken, function(req, res, next) {
   listService.getList()
     .then(function(list) {
       res.status(200).json(list);
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
     // });
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', Auth.verifyToken, function(req, res, next) {
   var categoryId = req.params.id;
   listService.get(categoryId)
     .then(function(list) {

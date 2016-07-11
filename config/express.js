@@ -44,12 +44,12 @@ module.exports = function (app, config) {
   app.use(compress());
   app.use(express.static(config.root + '/src'));
   app.use(methodOverride());
-  app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    next();
-  });
+  // app.use(function(req, res, next) {
+  //   res.setHeader('Access-Control-Allow-Origin', '*');
+  //   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  //   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+  //   next();
+  // });
 
 
 
