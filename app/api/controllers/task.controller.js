@@ -16,7 +16,7 @@ TaskHandler.getTasklist = function (req, res, next) {
   var query = req.query;
   var user = req.user;
 
-  query.user_id = user._id;
+  query.user_id = user.id;
 
   TaskService.getList(query, {
     content: 0
@@ -40,7 +40,7 @@ TaskHandler.getTasklist = function (req, res, next) {
 TaskHandler.createTask = function (req, res, next) {
   var param = req.body;
   var user = req.user;
-  param.user_id = user._id;
+  param.user_id = user.id;
   if (!param.title && !param.content) {
     return res.status(400).jsonp({
       code: 'NO_TITLE_OR_CONTENT'

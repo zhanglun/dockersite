@@ -11,12 +11,20 @@ task.getList = function(query, field, options) {
   // } : {
   //   create_time: -1
   // };
+  var _sort = {};
+  var param = Object.assign({}, query);
+  if (query.sort) {
+    if (query.sort.indexOf('-') == 0) {
+      _sort[query.sort.slice(1)] = -1;
+    } else {
+      _sort[query.sort] = 1;
+    }
+    delete param.sort;
+  }
   console.log(_sort);
-  var _sort = {
-    create_time: -1
-  };
+  console.log(param);
   return db.Task
-    .find(query, field)
+    .find(param, field)
     .sort(_sort)
     .execAsync()
     .then(function(res) {
