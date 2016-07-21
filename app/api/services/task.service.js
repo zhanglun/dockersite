@@ -53,6 +53,7 @@ task.get = function(query) {
 
 task.create = function(param) {
   var task = new db.Task(param);
+  task.deadline = new Date(new Date().setHours(24,0,0,0));
   return task.saveAsync()
     .then(function(task) {
       task = UtilTool.convertObjectIdToId(task);
