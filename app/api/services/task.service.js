@@ -69,6 +69,14 @@ task.create = function(param) {
 };
 
 task.update = function(id, param) {
+/*  if(param.description) {
+    console.log(param.description);
+    param.description = UtilTool.htmlDecode(param.description);
+    console.log(param.description);
+  }
+  if(param.title) {
+    param.title = UtilTool.htmlDecode(param.title);
+  }*/
   return new Promise(function(resolve, reject) {
     db.Task.findOneAndUpdate({
       _id: id

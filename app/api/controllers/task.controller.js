@@ -78,10 +78,6 @@ TaskHandler.updateTask = function (req, res, next) {
 
 /**
  * 删除task
- * @param  {[type]}   req  [description]
- * @param  {[type]}   res  [description]
- * @param  {Function} next [description]
- * @return {[type]}        [description]
  */
 TaskHandler.deleteTask = function(req, res, next) {
   var id = req.params.id;
@@ -96,10 +92,6 @@ TaskHandler.deleteTask = function(req, res, next) {
 
 /**
  * 通过id获取task
- * @param  {[type]}   req  [description]
- * @param  {[type]}   res  [description]
- * @param  {Function} next [description]
- * @return {[type]}        [description]
  */
 TaskHandler.getTaskById = function(req, res, next) {
   var id = req.params.id;
