@@ -64,12 +64,6 @@ router.post('/login', function(req, res) {
     });
     var result = UtilTool.convertObjectIdToId(user);
     result.token = token;
-
-    req.session.logined = true;
-    req.session.user = {
-      id: user._id,
-      token: token
-    };
     req.cookies.token = token;
     res.status(200).json(result);
 
