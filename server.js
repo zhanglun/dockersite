@@ -14,7 +14,6 @@ var PORT;
 var db;
 var env;
 
-var redisClient = redis.createClient(config.redis.port, config.redis.host);
 
 if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   PORT = 80;
@@ -29,6 +28,7 @@ if (process.env.MONGODB_PORT_27017_TCP_PORT) {
   mongoose.connect('mongodb://' + username + ':' + password + '@' + addr + ':' + port + '/' + instance);
   db = mongoose.connection;
 
+  var redisClient = redis.createClient(config.redis.port, config.redis.host);
   redisClient.auth(config.redis.password, function () {
   });
 
@@ -41,16 +41,14 @@ if (process.env.MONGODB_PORT_27017_TCP_PORT) {
 
 }
 
+// redisClient.on('connect', function () {
+//   console.log('redis connected!');
+// });
 
-
-redisClient.on('connect', function () {
-  console.log('redis connected!');
-});
-
-redisClient.on('error', function () {
-  console.log('redis connect error!!');
-  console.log(arguments);
-});
+// redisClient.on('error', function () {
+//   console.log('redis connect error!!');
+//   console.log(arguments);
+// });
 
 db.on('error', function (err) {
   console.log('database connection failed!: ' + err);
