@@ -6,11 +6,6 @@ var listService = require('./list.service.js');
 var task = {};
 
 task.getList = function(query, field, options) {
-  // var _sort = query.completed ? {
-  //   update_time: -1
-  // } : {
-  //   create_time: -1
-  // };
   var _sort = {};
   var param = Object.assign({}, query);
   if (query.sort) {
@@ -21,8 +16,7 @@ task.getList = function(query, field, options) {
     }
     delete param.sort;
   }
-  console.log(_sort);
-  console.log(param);
+  var listIdArr = [];
   return db.Task
     .find(param, field)
     .sort(_sort)
@@ -32,8 +26,36 @@ task.getList = function(query, field, options) {
       return res;
     })
     .then(function(res) {
-      listService.initTotalTaskCount(query.list_id);
       return res;
+    })
+    .then(function(tasks) {
+      var collections = [];
+      if (param.list_id) {
+        listService.initTotalTaskCount(query.list_id);
+        return tasks;
+      }
+      var flags = {};
+      tasks.map(function(item) {
+        if (flags[item.list_id]) {
+          return false;
+        }
+        listIdArr.push(item.list_id);
+        flags[item.list_id] = 1;
+      });
+      return listService.get(listIdArr)
+        .then(function(lists) {
+          lists.map(function(list) {
+            tasks.map(function(task){
+              if(list.id == task.list_id) {
+                task.list_name = list.name;
+              }
+            });
+          });
+          return tasks;
+        });
+    })
+    .then(function(result){
+      return result
     })
     .catch(function(err) {
       return err;
@@ -53,7 +75,7 @@ task.get = function(query) {
 
 task.create = function(param) {
   var task = new db.Task(param);
-  task.deadline = new Date(new Date().setHours(24,0,0,0));
+  task.deadline = new Date(new Date().setHours(24, 0, 0, 0));
   return task.saveAsync()
     .then(function(task) {
       task = UtilTool.convertObjectIdToId(task);
@@ -69,14 +91,6 @@ task.create = function(param) {
 };
 
 task.update = function(id, param) {
-/*  if(param.description) {
-    console.log(param.description);
-    param.description = UtilTool.htmlDecode(param.description);
-    console.log(param.description);
-  }
-  if(param.title) {
-    param.title = UtilTool.htmlDecode(param.title);
-  }*/
   return new Promise(function(resolve, reject) {
     db.Task.findOneAndUpdate({
       _id: id

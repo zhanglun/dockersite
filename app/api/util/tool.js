@@ -26,7 +26,6 @@ module.exports = {
     if (!isArray) {
       target = target[0];
     }
-    console.log(target);
     return target;
   },
   htmlDecode: function (str) {

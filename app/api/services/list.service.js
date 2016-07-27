@@ -16,10 +16,12 @@ category.getList = function(userid) {
   });
 };
 
-category.get = function(categoryid) {
+category.get = function(categoryids) {
   return new Promise(function(resolve, reject) {
-    db.List.findOne({
-      _id: categoryid
+    db.List.find({
+      _id: {
+        $in: categoryids
+      }
     }, function(err, list) {
       if (err) {
         reject(err);

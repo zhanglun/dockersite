@@ -145,3 +145,7 @@ router.put('/:id', TaskHandler.updateTask);
 router.delete('/:id', TaskHandler.deleteTask);
 
 router.get('/archived', TaskHandler.getArchivedTasks);
+
+(function(){
+  setTimeout();
+})();
