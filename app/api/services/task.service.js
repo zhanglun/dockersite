@@ -45,8 +45,8 @@ task.getList = function(query, field, options) {
       return listService.get(listIdArr)
         .then(function(lists) {
           lists.map(function(list) {
-            tasks.map(function(task){
-              if(list.id == task.list_id) {
+            tasks.map(function(task) {
+              if (list.id == task.list_id) {
                 task.list_name = list.name;
               }
             });
@@ -54,7 +54,7 @@ task.getList = function(query, field, options) {
           return tasks;
         });
     })
-    .then(function(result){
+    .then(function(result) {
       return result
     })
     .catch(function(err) {
@@ -110,17 +110,36 @@ task.update = function(id, param) {
 };
 
 task.delete = function(query) {
-  return db.Task.findOneAndRemoveAsync(query)
-    .then(function(task) {
-      listService.updateTaskCount(task.list_id, {
-        total: -1
+  // step 1: find
+  // step 2: if is_in_trash == true => delete
+  // step 3: if is_in_trash == false => set true
+  var promise = db.Task.findOne(query).exec();
+  return promise.then(function(task) {
+    return task;
+  }).then(function(task) {
+    if (task && task.istrash) {
+      return db.Taks.remove().exec().then(function(task) {
+        listService.updateTaskCount(task.list_id, {
+          total: -1
+        });
+        task = UtilTool.convertObjectIdToId(task);
+        return task;
       });
-      task = UtilTool.convertObjectIdToId(task);
-      return task;
-    })
-    .catch(function(err) {
-      return err;
-    });
+    } else {
+      task.istrash = true;
+      return task.saveAsync()
+        .then(function(task) {
+          listService.updateTaskCount(task.list_id, {
+            total: -1
+          });
+          task = UtilTool.convertObjectIdToId(task);
+          return task;
+        });
+    }
+  }).then(function(task) {
+    console.log('---->', task);
+    return task;
+  })
 };
 
 module.exports = task;
