@@ -12,6 +12,8 @@ var ejs = require('ejs');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 
+
+
 module.exports = function (app, config) {
 
   var env = process.env.NODE_ENV || 'development';

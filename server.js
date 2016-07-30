@@ -1,3 +1,6 @@
+var schedule = require('node-schedule');
+var request = require('request');
+
 var express = require('express');
 var config = require('./config/config');
 var glob = require('glob');
@@ -64,4 +67,14 @@ console.log('----app config----: env ' + env);
 var http = require('http').Server(app);
 http.listen(PORT, function () {
   console.log('The server is listening on: ' + PORT);
+});
+
+
+// 定时访问daocloud 避免免费版睡眠
+var rule = new schedule.RecurrenceRule();
+var times = [0, 30, 60];
+rule.minute = times;
+var j = schedule.scheduleJob(rule, function () {
+  console.log('The answer to life, the universe, and everything!, %s', new Date());
+  request.get('http://zhanglun.daoapp.io/');
 });
