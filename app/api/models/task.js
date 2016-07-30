@@ -19,6 +19,7 @@ var TaskSchema = new Schema({
   lables: [],
   attachments: [],
   description: String,
+  istrash: {type: Boolean, default: false},
 });
 
 module.exports = TaskSchema;

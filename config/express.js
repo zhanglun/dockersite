@@ -12,6 +12,8 @@ var ejs = require('ejs');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 
+
+
 module.exports = function (app, config) {
 
   var env = process.env.NODE_ENV || 'development';
@@ -47,7 +49,7 @@ module.exports = function (app, config) {
   app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization, x-access-token');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization, x-access-token');
     next();
   });
 

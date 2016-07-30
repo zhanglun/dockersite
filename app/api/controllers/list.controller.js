@@ -41,10 +41,7 @@ router.post('/', function(req, res, next) {
   listService.create(param)
     .then(function(list) {
       res.status(200).json(list);
-    })
-    // .catch(function(err){
-    //   res.status(err.status).send({});
-    // });
+    });
 });
 
 router.put('/:id', function(req, res, next){
