@@ -6,7 +6,7 @@ services:
 env:
     - MONGODB_INSTANCE_NAME = "test"
     - REDIS_PASSWORD = "zQoRgFASQ2vuhRF"
-    -
+    - NODE_ENV = "production"
 
 install:
     - npm install -g mocha
