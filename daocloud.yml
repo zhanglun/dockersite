@@ -1,16 +1,20 @@
-image: node:6.3.1
-services:
-    - mongodb
-    - redis
-
-env:
-    - MONGODB_INSTANCE_NAME = "test"
-    - REDIS_PASSWORD = "zQoRgFASQ2vuhRF"
-    - NODE_ENV = "production"
-
-install:
-    - npm install -g mocha
-
-script:
-    - npm install
-    - mocha
+version: "2.0"
+test:
+  image: daocloud/ci-node:0.12
+  services:
+  - mongodb
+  - redis
+  env:
+  - MONGODB_INSTANCE_NAME = "test"
+  - REDIS_PASSWORD = "zQoRgFASQ2vuhRF"
+  - NODE_ENV = "production"
+  install:
+  - npm install -g mocha
+  script:
+  - npm install
+  - mocha
+build:
+  image:
+    dockerfile_path: /Dockerfile
+    build_dir: /
+    cache: true
