@@ -26,7 +26,7 @@ var config = {
       host: 'http://7xnrrd.com1.z0.glb.clouddn.com/',
       bucket: 'blog'
     },
-    secert: 'zhanglun1410@gmail.com'
+    secert: 'development-zhanglun1410@gmail.com'
   },
 
   test: {
@@ -72,7 +72,7 @@ var config = {
       host: 'http://7xnrrd.com1.z0.glb.clouddn.com/',
       bucket: 'blog'
     },
-    secert: 'zhanglun1410@gmail.com'
+    secert: 'production-zhanglun1410@gmail.com'
   }
 
 };
