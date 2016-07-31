@@ -1,3 +1,3 @@
-FROM node:4.2.2
+FROM node:6.3.0
 
 EXPOSE 80
