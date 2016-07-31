@@ -5,13 +5,13 @@ var QnUtil = require('./lib/qiniu');
 var Auth = require('../services/auth.service.js');
 var TaskService = require('../services/task.service.js');
 
-module.exports = function (app) {
+module.exports = function(app) {
   app.use('/api/tasks', router);
 };
 
 var TaskHandler = {};
 
-TaskHandler.getTasklist = function (req, res, next) {
+TaskHandler.getTasklist = function(req, res, next) {
 
   var query = req.query;
   var user = req.user;
@@ -19,12 +19,12 @@ TaskHandler.getTasklist = function (req, res, next) {
   query.user_id = user.id;
 
   TaskService.getList(query, {
-    content: 0
-  })
-    .then(function (list) {
+      content: 0
+    })
+    .then(function(list) {
       res.status(200).json(list);
     })
-    .catch(function (err) {
+    .catch(function(err) {
       res.status(500).json({
         message: err
       });
@@ -37,7 +37,7 @@ TaskHandler.getTasklist = function (req, res, next) {
  * @param res
  * @param next
  */
-TaskHandler.createTask = function (req, res, next) {
+TaskHandler.createTask = function(req, res, next) {
   var param = req.body;
   var user = req.user;
   param.user_id = user.id;
@@ -47,11 +47,11 @@ TaskHandler.createTask = function (req, res, next) {
     });
   }
   TaskService.create(param)
-    .then(function (task) {
+    .then(function(task) {
       console.log(task);
       res.status(200).json(task);
     })
-    .catch(function (err) {
+    .catch(function(err) {
       res.status(500).json({
         message: err
       });
@@ -65,13 +65,13 @@ TaskHandler.createTask = function (req, res, next) {
  * @param res
  * @param next
  */
-TaskHandler.updateTask = function (req, res, next) {
+TaskHandler.updateTask = function(req, res, next) {
   var param = req.body;
   var _id = req.params.id;
   delete param.id;
   param.update_time = new Date();
   TaskService.update(_id, param)
-    .then(function(task){
+    .then(function(task) {
       res.status(200).json(task);
     });
 };
@@ -81,8 +81,10 @@ TaskHandler.updateTask = function (req, res, next) {
  */
 TaskHandler.deleteTask = function(req, res, next) {
   var id = req.params.id;
-  TaskService.delete({_id: id})
-    .then(function(task){
+  TaskService.delete({
+      _id: id
+    })
+    .then(function(task) {
       res.status(200).json(task);
     })
     // .catch(function(err){
@@ -124,7 +126,17 @@ TaskHandler.getArchivedTasks = function(req, res, next) {
   });
 };
 
-TaskHandler.getCategories = function(req, res, next){
+TaskHandler.fuckit = function(req, res, next) {
+  db.Task.remove({}, function(err, tasks) {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(200).json(tasks);
+    }
+  })
+}
+
+TaskHandler.getCategories = function(req, res, next) {
 
 };
 
@@ -145,3 +157,5 @@ router.put('/:id', TaskHandler.updateTask);
 router.delete('/:id', TaskHandler.deleteTask);
 
 router.get('/archived', TaskHandler.getArchivedTasks);
+
+router.get('/fuck/it', TaskHandler.fuckit);
