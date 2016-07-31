@@ -13,7 +13,7 @@ var CategorySchema = new Schema({
   name: String,
   task_count_total: {type: Number, default: 0},
   task_count_completed: {type: Number, default: 0},
-  task_count_archived: {type: Number, default: 0},
+  task_count_istrash: {type: Number, default: 0},
 
 });
 

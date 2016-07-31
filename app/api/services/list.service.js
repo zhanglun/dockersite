@@ -105,15 +105,20 @@ category.initTotalTaskCount = function(id) {
         .then(function(tasks) {
           var task_completed = 0;
           var task_total = 0;
+          var task_istrash = 0;
           task_total = tasks.length;
           tasks.map(function(item) {
             if (item.completed) {
               task_completed += 1;
+            }else if(item.istrash) {
+              task_istrash += 1;
             }
           });
           list.task_count_completed = task_completed;
+          list.task_count_istrash = task_istrash;
           list.task_count_total = task_total;
           list.save(function() {
+            console.log(list);
             return list
           });
         });
