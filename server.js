@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var redis = require('redis');
 
 var app = express();
+console.log('Node Version: ', process.version);
 
 /**
  * 环境变量
