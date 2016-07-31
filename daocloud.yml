@@ -1,4 +1,4 @@
-image: node:6.3.1-onbuild
+image: _/node:6.3.1-onbuild
 services:
     - mongodb
     - redis
