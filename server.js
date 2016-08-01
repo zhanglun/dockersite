@@ -73,8 +73,8 @@ http.listen(PORT, function () {
 
 // 定时访问daocloud 避免免费版睡眠
 var rule = new schedule.RecurrenceRule();
-var times = [0, 30, 60];
-rule.minute = times;
+var times = [0, 12, 23];
+rule.hour = times;
 var j = schedule.scheduleJob(rule, function () {
   console.log('The answer to life, the universe, and everything!, %s', new Date());
   request.get('http://zhanglun.daoapp.io/');

@@ -103,18 +103,18 @@ category.initTotalTaskCount = function(id) {
           list_id: id
         }).exec()
         .then(function(tasks) {
-          var task_completed = 0;
+          var task_archived = 0;
           var task_total = 0;
           var task_istrash = 0;
           task_total = tasks.length;
           tasks.map(function(item) {
-            if (item.completed) {
-              task_completed += 1;
+            if (item.archived) {
+              task_istrash += 1;
             }else if(item.istrash) {
               task_istrash += 1;
             }
           });
-          list.task_count_completed = task_completed;
+          list.task_count_archived = task_archived;
           list.task_count_istrash = task_istrash;
           list.task_count_total = task_total;
           list.save(function() {
@@ -136,7 +136,6 @@ category.updateTaskCount = function(id, param) {
 
   promise.then(function(list) {
     list.task_count_total += (param.total || 0);
-    list.task_count_completed += (param.completed || 0);
     list.task_count_archived += (param.archived || 0);
     list.save();
   });
