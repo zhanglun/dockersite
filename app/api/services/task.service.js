@@ -113,12 +113,10 @@ task.delete = function(query) {
   // step 1: find
   // step 2: if is_in_trash == true => delete
   // step 3: if is_in_trash == false => set true
-  var promise = db.Task.findOne(query).exec();
-  return promise.then(function(task) {
-    return task;
-  }).then(function(task) {
+  var q = db.Task.findOne(query);
+  return q.exec().then(function(task) {
     if (task && task.istrash) {
-      return db.Taks.remove().exec().then(function(task) {
+      return db.Task.remove(query).exec().then(function(task) {
         listService.updateTaskCount(task.list_id, {
           total: -1
         });
@@ -136,10 +134,7 @@ task.delete = function(query) {
           return task;
         });
     }
-  }).then(function(task) {
-    console.log('---->', task);
-    return task;
-  })
+  });
 };
 
 module.exports = task;

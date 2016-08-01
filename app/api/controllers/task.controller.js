@@ -87,9 +87,6 @@ TaskHandler.deleteTask = function(req, res, next) {
     .then(function(task) {
       res.status(200).json(task);
     })
-    // .catch(function(err){
-    //   res.status(500).json(err);
-    // });
 };
 
 /**
