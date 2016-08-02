@@ -109,7 +109,7 @@ category.initTotalTaskCount = function(id) {
           task_total = tasks.length;
           tasks.map(function(item) {
             if (item.archived) {
-              task_istrash += 1;
+              task_archived += 1;
             }else if(item.istrash) {
               task_istrash += 1;
             }
@@ -133,14 +133,12 @@ category.initTotalTaskCount = function(id) {
  */
 category.updateTaskCount = function(id, param) {
   var promise = db.List.findById(id);
-  console.log(param);
   promise.then(function(list) {
     list.task_count_total += (param.total || 0);
     list.task_count_archived += (param.archived || 0);
     list.task_count_istrash += (param.istrash || 0);
-    list.save();
-    
     console.log(list);
+    list.save();
   });
   return promise;
 }

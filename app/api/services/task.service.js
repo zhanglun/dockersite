@@ -91,6 +91,7 @@ task.create = function (param) {
 };
 
 task.update = function (id, param) {
+  console.log(param);
   return new Promise(function (resolve, reject) {
     db.Task.findOneAndUpdate({
       _id: id
@@ -142,7 +143,8 @@ task.delete = function (query) {
     if (task && task.istrash) {
       return db.Task.findByIdAndRemove(query._id).exec().then(function (task) {
         listService.updateTaskCount(task.list_id, {
-          total: -1
+          total: -1,
+          istrash: -1,
         });
         task = UtilTool.convertObjectIdToId(task);
         return task;
@@ -152,7 +154,7 @@ task.delete = function (query) {
       return task.saveAsync()
         .then(function (task) {
           listService.updateTaskCount(task.list_id, {
-            total: -1
+            istrash: 1,
           });
           task = UtilTool.convertObjectIdToId(task);
           return task;
