@@ -107,22 +107,6 @@ TaskHandler.getTaskById = function(req, res, next) {
     });
 };
 
-
-TaskHandler.getArchivedTasks = function(req, res, next) {
-  db.Task.find({
-    category: 'archive'
-  }, function(err, tasks) {
-    console.log(tasks);
-    if (err) {
-      res.status(400).jsonp({
-        message: err.message,
-        code: err
-      });
-    }
-    res.status(200).jsonp(tasks);
-  });
-};
-
 TaskHandler.fuckit = function(req, res, next) {
   db.Task.remove({}, function(err, tasks) {
     if (err) {
@@ -133,9 +117,6 @@ TaskHandler.fuckit = function(req, res, next) {
   })
 }
 
-TaskHandler.getCategories = function(req, res, next) {
-
-};
 
 // =======================================================================//
 // Routers                                                                //
@@ -152,7 +133,5 @@ router.get('/:id', TaskHandler.getTaskById);
 router.put('/:id', TaskHandler.updateTask);
 // 删除 task
 router.delete('/:id', TaskHandler.deleteTask);
-
-router.get('/archived', TaskHandler.getArchivedTasks);
 
 router.get('/fuck/it', TaskHandler.fuckit);

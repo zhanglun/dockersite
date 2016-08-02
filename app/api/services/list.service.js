@@ -1,5 +1,5 @@
 var db = require('../models');
-var UtilTool = require('../util/tool');
+var UtilTool = require('../../util/tool');
 
 var category = {};
 

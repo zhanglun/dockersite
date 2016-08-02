@@ -1,6 +1,6 @@
 var db = require('../models');
 var Moment = require('moment');
-var UtilTool = require('../util/tool');
+var UtilTool = require('../../util/tool');
 var listService = require('./list.service.js');
 
 var task = {};

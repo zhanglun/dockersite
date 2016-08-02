@@ -6,7 +6,7 @@ var gravatar = require('gravatar');
 var router = express.Router();
 var db = require('../models');
 var Auth = require('../services/auth.service.js');
-var UtilTool = require('../util/tool');
+var UtilTool = require('../../util/tool');
 
 module.exports = function(app) {
   app.use('/api/users', router);
