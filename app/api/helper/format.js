@@ -1,9 +1,9 @@
 exports.formatTasksQuery = function (query) {
   var param = {};
   param.find = {};
-  if (query.list_id) {
-    param.find.list_id = query.list_id;
-  }
+  param.find = Object.assign(query);
+  delete param.find.sort;
+  delete param.find.order;
   if (query.order) {
     param.sort = {};
     if (query.sort && query.sort === 'asc') {
