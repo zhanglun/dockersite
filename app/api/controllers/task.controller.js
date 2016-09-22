@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models');
-var QnUtil = require('./lib/qiniu');
 var Auth = require('../services/auth.service.js');
 var TaskService = require('../services/task.service.js');
 
@@ -115,7 +114,7 @@ TaskHandler.fuckit = function(req, res, next) {
       res.status(200).json(tasks);
     }
   })
-}
+};
 
 
 // =======================================================================//

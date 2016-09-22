@@ -17,7 +17,6 @@ module.exports = function(app) {
  */
 router.get('/:id', Auth.verifyToken, function(req, res) {
   var param = req.params;
-  console.log(param);
   db.User.findOne({ _id: param.id }, { _id: 1, email: 1, username: 1, avatar: 1 }, function(err, user) {
     if (!user) {
       res.status(200).json({

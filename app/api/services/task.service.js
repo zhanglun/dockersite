@@ -2,34 +2,22 @@ var db = require('../models');
 var Moment = require('moment');
 var UtilTool = require('../../util/tool');
 var listService = require('./list.service.js');
+var formatHelper = require('../helper/format');
 
 var task = {};
 
 task.getList = function (query, field, options) {
-  var _sort = {};
-  var param = Object.assign({}, query);
-  if (query.sort) {
-    if (query.sort.indexOf('-') == 0) {
-      _sort[query.sort.slice(1)] = -1;
-    } else {
-      _sort[query.sort] = 1;
-    }
-    delete param.sort;
-  }
+  var param = formatHelper.formatTasksQuery(query);
   var listIdArr = [];
   return db.Task
-    .find(param, field)
-    .sort(_sort)
+    .find(param.find, field)
+    .sort(param.sort)
     .execAsync()
     .then(function (res) {
       res = UtilTool.convertObjectIdToId(res);
       return res;
     })
-    .then(function (res) {
-      return res;
-    })
     .then(function (tasks) {
-      var collections = [];
       if (param.list_id) {
         listService.initTotalTaskCount(query.list_id);
         return tasks;

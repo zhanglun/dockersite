@@ -48,9 +48,14 @@ module.exports = function (app, config) {
   app.use(methodOverride());
   app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization, x-access-token');
-    next();
+    res.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.setHeader("Content-Type", "application/json;charset=utf-8");
+    if(req.method === 'OPTIONS') {
+      res.status(200).json({});
+    }else {
+      next();
+    }
   });
 
 
