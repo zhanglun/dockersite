@@ -3,6 +3,7 @@ var router = express.Router();
 
 var Auth = require('../services/auth.service.js');
 var listService = require('../services/list.service.js');
+var db = require('../models');
 
 module.exports = function (app) {
   app.use('/api/lists', router);
@@ -54,4 +55,19 @@ router.delete('/:id', Auth.verifyToken, function (req, res, next) {
     .then(function (list) {
       res.status(200).json(list);
     });
+});
+
+router.get('/fuckit', function () {
+  var id = '5714f9ed2e96861000b5e58d';
+  db.List.update({ user_id: { $exists: false } }, {
+    $set: {
+      user_id: id,
+    }
+  }, { multi: true }, function (err) {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(200).json({ ok: 1 });
+    }
+  })
 });
