@@ -5,7 +5,7 @@ var category = {};
 
 category.getList = function(userid) {
   return new Promise(function(resolve, reject) {
-    db.List.find({}, function(err, lists) {
+    db.List.find({user_id: userid}, function(err, lists) {
       if (err) {
         reject(err);
       } else {

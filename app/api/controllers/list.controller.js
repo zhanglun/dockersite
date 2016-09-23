@@ -10,7 +10,8 @@ module.exports = function (app) {
 
 
 router.get('/', Auth.verifyToken, function (req, res, next) {
-  listService.getList()
+  var user_id = req.user.id;
+  listService.getList(user_id)
     .then(function (list) {
       res.status(200).json(list);
     });
@@ -26,6 +27,7 @@ router.get('/:id', Auth.verifyToken, function (req, res, next) {
 
 router.post('/', Auth.verifyToken, function (req, res, next) {
   var param = req.body;
+  param.user_id = req.user.id;
   if (!param.name) {
     res.status(400).send({
       message: 'no name'
