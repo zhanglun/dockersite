@@ -57,7 +57,7 @@ router.delete('/:id', Auth.verifyToken, function (req, res, next) {
     });
 });
 
-router.get('/fuckit', function () {
+router.get('/fuck/it', function () {
   var id = '5714f9ed2e96861000b5e58d';
   db.List.update({ user_id: { $exists: false } }, {
     $set: {
