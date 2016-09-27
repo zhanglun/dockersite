@@ -51,10 +51,18 @@ task.getList = function (query, field, options) {
 };
 
 task.get = function (query) {
-  return db.Task.findOneAsync(query)
+  return db.Task.findOne(query)
+    .execAsync()
     .then(function (task) {
       task = UtilTool.convertObjectIdToId(task);
       return task;
+    })
+    .then(function (task) {
+      return listService.get([task.list_id])
+        .then(function (list) {
+          task.parent = list;
+          return task;
+        });
     })
     .catch(function (err) {
       return err;
@@ -84,41 +92,41 @@ task.update = function (id, param) {
     db.Task.findOneAndUpdate({
       _id: id
     }, {
-        $set: param
-      }, {
-        new: true
-      }, function (err, task) {
-        if (err) {
-          reject(err);
-        } else {
-          task = UtilTool.convertObjectIdToId(task);
-          var listupdate = {};
-          if (param.hasOwnProperty('istrash')) {
-            if (param.istrash) {
-              listupdate = {
-                istrash: 1
-              };
-            } else {
-              listupdate = {
-                istrash: -1
-              };
-            }
+      $set: param
+    }, {
+      new: true
+    }, function (err, task) {
+      if (err) {
+        reject(err);
+      } else {
+        task = UtilTool.convertObjectIdToId(task);
+        var listupdate = {};
+        if (param.hasOwnProperty('istrash')) {
+          if (param.istrash) {
+            listupdate = {
+              istrash: 1
+            };
+          } else {
+            listupdate = {
+              istrash: -1
+            };
           }
-          if (param.hasOwnProperty('archived')) {
-            if (param.archived) {
-              listupdate = {
-                archived: 1
-              };
-            } else {
-              listupdate = {
-                archived: -1
-              };
-            }
-          }
-          listService.updateTaskCount(task.list_id, listupdate);
-          resolve(task);
         }
-      });
+        if (param.hasOwnProperty('archived')) {
+          if (param.archived) {
+            listupdate = {
+              archived: 1
+            };
+          } else {
+            listupdate = {
+              archived: -1
+            };
+          }
+        }
+        listService.updateTaskCount(task.list_id, listupdate);
+        resolve(task);
+      }
+    });
   });
 };
 
