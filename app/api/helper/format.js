@@ -1,7 +1,7 @@
 exports.formatTasksQuery = function (query) {
   var param = {};
   param.find = {};
-  param.find = Object.assign(query);
+  param.find = Object.assign({}, query);
   delete param.find.sort;
   delete param.find.order;
   if (query.order) {
