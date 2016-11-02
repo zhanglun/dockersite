@@ -94,7 +94,6 @@ router.post('/signup', function(req, res) {
           username: email,
           avatar: gravatar.url(email, { protocol: 'http', s: '100' }),
         };
-
         var newUser = new db.User(_user);
         newUser.makePasswordSalt(password);
 
@@ -106,6 +105,7 @@ router.post('/signup', function(req, res) {
             user: {
               email: user.email,
               name: user.username,
+              avatar: user.avatar,
             },
             token: token
           });

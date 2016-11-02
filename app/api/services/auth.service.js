@@ -1,6 +1,5 @@
 var db = require('../models');
 var jwt  = require('jsonwebtoken');
-var gravatar = require('gravatar');
 var config = require('../../../config/config.js');
 var gravatar = require('gravatar');
 
