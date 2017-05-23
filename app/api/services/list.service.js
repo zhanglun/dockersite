@@ -4,8 +4,10 @@ var UtilTool = require('../../util/tool');
 var category = {};
 
 category.getList = function(userid) {
+  var params = {};
+  userid ? params = {user_id: userid} : null;
   return new Promise(function(resolve, reject) {
-    db.List.find({user_id: userid}, function(err, lists) {
+    db.List.find(params, function(err, lists) {
       if (err) {
         reject(err);
       } else {

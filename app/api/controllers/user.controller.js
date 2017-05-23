@@ -37,6 +37,7 @@ router.get('/:id', Auth.verifyToken, function(req, res) {
  * 登录
  */
 router.post('/login', function(req, res) {
+  console.log(req.body);
   var body = req.body;
   var query = {};
   if (body.email) {
@@ -45,6 +46,7 @@ router.post('/login', function(req, res) {
   if (body.username) {
     query.username = body.username;
   }
+
   db.User.findOne(query, function(err, user) {
     if (err) {
       res.status(500).json(err);

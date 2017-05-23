@@ -18,6 +18,13 @@ router.get('/', Auth.verifyToken, function (req, res, next) {
     });
 });
 
+router.get('/all', function (req, res, next) {
+  listService.getList()
+    .then(function (list) {
+      res.status(200).json(list);
+    });
+});
+
 router.get('/:id', Auth.verifyToken, function (req, res, next) {
   var categoryId = req.params.id;
   listService.get(categoryId)
