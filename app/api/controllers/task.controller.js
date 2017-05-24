@@ -15,7 +15,7 @@ TaskHandler.getTasklist = function(req, res, next) {
   var query = req.query;
   var user = req.user;
 
-  query.user_id = user.id;
+  // query.user_id = user.id;
 
   TaskService.getList(query, {
       content: 0
@@ -122,10 +122,10 @@ TaskHandler.fuckit = function(req, res, next) {
 // =======================================================================//
 
 // task list
-router.get('/', Auth.verifyToken, TaskHandler.getTasklist);
+router.get('/',TaskHandler.getTasklist);
 
 // 创建 task
-router.post('/', Auth.verifyToken, TaskHandler.createTask);
+router.post('/', TaskHandler.createTask);
 // 获得单个 task
 router.get('/:id', TaskHandler.getTaskById);
 // 更新 task

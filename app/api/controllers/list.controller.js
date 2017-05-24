@@ -10,9 +10,9 @@ module.exports = function (app) {
 };
 
 
-router.get('/', Auth.verifyToken, function (req, res, next) {
-  var user_id = req.user.id;
-  listService.getList(user_id)
+router.get('/',  function (req, res, next) {
+  // var user_id = req.user.id;
+  listService.getList()
     .then(function (list) {
       res.status(200).json(list);
     });
@@ -25,7 +25,7 @@ router.get('/all', function (req, res, next) {
     });
 });
 
-router.get('/:id', Auth.verifyToken, function (req, res, next) {
+router.get('/:id', function (req, res, next) {
   var categoryId = req.params.id;
   listService.get(categoryId)
     .then(function (list) {
@@ -33,7 +33,7 @@ router.get('/:id', Auth.verifyToken, function (req, res, next) {
     });
 });
 
-router.post('/', Auth.verifyToken, function (req, res, next) {
+router.post('/', function (req, res, next) {
   var param = req.body;
   param.user_id = req.user.id;
   if (!param.name) {
@@ -47,7 +47,7 @@ router.post('/', Auth.verifyToken, function (req, res, next) {
     });
 });
 
-router.put('/:id', Auth.verifyToken, function (req, res, next) {
+router.put('/:id', function (req, res, next) {
   var categoryId = req.params.id;
   var param = req.body;
   listService.update(categoryId, param)
@@ -56,7 +56,7 @@ router.put('/:id', Auth.verifyToken, function (req, res, next) {
     });
 });
 
-router.delete('/:id', Auth.verifyToken, function (req, res, next) {
+router.delete('/:id', function (req, res, next) {
   var categoryId = req.params.id;
   listService.remove(categoryId)
     .then(function (list) {
